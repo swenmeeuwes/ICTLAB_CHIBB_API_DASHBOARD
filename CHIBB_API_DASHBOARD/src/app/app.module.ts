@@ -15,6 +15,8 @@ import { OverviewComponent } from './overview/overview.component';
 // Authentication
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { AuthenticationService } from './authentication/authentication.service';
+// Authentication -> Login
+import { AuthenticationLoginComponent } from './authentication/login/authentication-login.component';
 
 @NgModule({
     imports: [
@@ -34,10 +36,14 @@ import { AuthenticationService } from './authentication/authentication.service';
             {
                 path: 'authenticate',
                 component: AuthenticationComponent
+            },
+            {
+                path: 'authenticate/login',
+                component: AuthenticationLoginComponent
             }
         ])
     ],
-    declarations: [AppComponent, AuthenticationComponent, OverviewComponent],
+    declarations: [AppComponent, OverviewComponent, AuthenticationComponent, AuthenticationLoginComponent],
     bootstrap: [AppComponent],
     providers: [AuthenticationService]
 })

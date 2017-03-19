@@ -96,6 +96,7 @@
     <Content Include="package.json" />
     <Content Include="src\app\app.component.css" />
     <Content Include="src\app\authentication\authentication.component.html" />
+    <Content Include="src\app\authentication\login\authentication-login.component.html" />
     <Content Include="src\app\overview\overview.component.css" />
     <Content Include="src\app\overview\overview.component.html" />
     <Content Include="src\tsconfig.json" />
@@ -125,12 +126,14 @@
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\authentication\authentication.component.ts" />
     <TypeScriptCompile Include="src\app\authentication\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\authentication\login\authentication-login.component.ts" />
     <TypeScriptCompile Include="src\app\overview\overview.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
