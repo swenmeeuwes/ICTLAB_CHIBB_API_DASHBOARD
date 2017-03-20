@@ -20,7 +20,7 @@ export class AuthenticationRegisterComponent implements OnInit {
     constructor(private _authenticationService: AuthenticationService, private _router: Router, private _formBuilder: FormBuilder) { };
 
     ngOnInit() {
-        if (this._authenticationService.isAutenticated()) {
+        if (this._authenticationService.isAuthenticated()) {
             // User is already authenticated, redirect him back
             this._router.navigate(['./authenticate']);
         }

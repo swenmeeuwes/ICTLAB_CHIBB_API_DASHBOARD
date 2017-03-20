@@ -13,7 +13,7 @@ export class AuthenticationComponent implements OnInit {
     constructor(private _authenticationService: AuthenticationService, private _router: Router) { };
 
     ngOnInit() {
-        var isAuthenticated = this._authenticationService.isAutenticated();
+        var isAuthenticated = this._authenticationService.isAuthenticated();
 
         if (!isAuthenticated) {
             //this._authenticationService.login("thatGuy", "somePassword")

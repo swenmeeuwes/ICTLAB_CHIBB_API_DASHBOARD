@@ -16,12 +16,12 @@ export class AuthenticationService {
         return sessionStorage.getItem("username");
     }
 
-    isAutenticated(): boolean {
+    isAuthenticated(): boolean {
         return sessionStorage.getItem("token") !== null;
     }
 
     logout(): boolean {
-        if (!this.isAutenticated())
+        if (!this.isAuthenticated())
             return false;
 
         sessionStorage.removeItem("username");
