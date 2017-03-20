@@ -16,7 +16,7 @@ export class AuthenticationLoginComponent implements OnInit {
     ngOnInit() {
         if (this._authenticationService.isAutenticated()) {
             // User is already authenticated, redirect him back
-            this._router.navigate(['./authentication']);
+            this._router.navigate(['./authenticate']);
         }
 
         // Bind form
@@ -45,7 +45,7 @@ export class AuthenticationLoginComponent implements OnInit {
             .subscribe(
             data => {
                 console.log(data["result"]["token"]);
-                this._router.navigate(['./authentication']);
+                this._router.navigate(['./authenticate']);
             },
             error => {
                 // To-do: Show feedback
