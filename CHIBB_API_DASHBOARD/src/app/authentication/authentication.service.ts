@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/toPromise';
@@ -16,22 +16,24 @@ export class AuthenticationService {
         return sessionStorage.getItem("token") !== null;
     }
 
-    login(username: string, password: string): Observable<JSON> {
+    login(username: string, password: string): Observable<Response> {
         const url = `${this._apiUrl}/login/`;
         var resultObservable = this._http.post(url, JSON.stringify({ username: username, password: password }), { headers: this._headers })
             .map((response) => response.json());
+
+        //
         resultObservable.subscribe(
             data => sessionStorage.setItem("token", data["result"]["token"]),
             error => { },
             () => { }
         );
+
         return resultObservable;
     }
 
-    register(username: string, email: string, password: string): Observable<JSON> {
+    register(username: string, email: string, password: string): Observable<Response> {
         const url = `${this._apiUrl}/register/`;
-        return this._http.post(url, JSON.stringify({ username: username, email: email, password: password }), { headers: this._headers })
-            .map((response) => response.json());
+        return this._http.post(url, JSON.stringify({ username: username, email: email, password: password }), { headers: this._headers });
     }
 
     private handleError(error: any): Promise<any> {

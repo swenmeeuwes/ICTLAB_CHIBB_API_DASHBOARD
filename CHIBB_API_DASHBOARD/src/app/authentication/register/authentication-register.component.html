@@ -1,0 +1,33 @@
+﻿<div *ngIf="!hasRegistered">
+  <h2>Register</h2>
+  <form class="form-horizontal" [formGroup]="registrationForm" (ngSubmit)="attemptRegister($event)">
+    <div class="form-group" [ngClass]="{'has-error has-feedback': registrationForm.controls['email'].invalid && registrationForm.controls['email'].dirty }">
+      <label class="control-label col-sm-2">E-mail:</label>
+      <div class="col-sm-6">
+        <input class="form-control" formControlName="email" type="email" placeholder="Your e-mail">
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error has-feedback': registrationForm.controls['username'].invalid && registrationForm.controls['username'].dirty }">
+      <label class="control-label col-sm-2">Username:</label>
+      <div class="col-sm-6">
+        <input class="form-control" formControlName="username" type="text" placeholder="Your username">
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error has-feedback': registrationForm.controls['password'].invalid && registrationForm.controls['password'].dirty }">
+      <label class="control-label col-sm-2">Password:</label>
+      <div class="col-sm-6">
+        <input class="form-control" formControlName="password" type="password" placeholder="Your password">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-default" type="submit">Log in</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!--Will be shown when the user did register-->
+<div *ngIf="hasRegistered">
+  Registration succesful, you can now <a routerLink="../login">login</a>!
+</div>
