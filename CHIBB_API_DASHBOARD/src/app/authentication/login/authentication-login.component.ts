@@ -11,6 +11,9 @@ import { AuthenticationService } from '../authentication.service';
 export class AuthenticationLoginComponent implements OnInit {
     public loginForm: FormGroup;
 
+    public errorMessage: string;
+    public hasAttempted: boolean;
+
     constructor(private _authenticationService: AuthenticationService, private _router: Router, private _formBuilder: FormBuilder) { };
 
     ngOnInit() {
@@ -18,6 +21,8 @@ export class AuthenticationLoginComponent implements OnInit {
             // User is already authenticated, redirect him back
             this._router.navigate(['./authenticate']);
         }
+
+        this.hasAttempted = false;
 
         // Bind form
         this.loginForm = this._formBuilder.group({
@@ -27,29 +32,20 @@ export class AuthenticationLoginComponent implements OnInit {
     }
 
     attemptLogin(event: any) {
-        if (this.loginForm.invalid) {
-            // Form is invalid
-            console.warn("Invalid form!");
-            for (var formControl in this.loginForm.controls) {
-                if (this.loginForm.controls[formControl].invalid) {
-                    // To-do: Show feedback ...
-                    console.warn(`Please fill in the ${formControl} field`);
-                }
-            }
+        this.hasAttempted = true;
+
+        if (this.loginForm.invalid)
             return;
-        }
 
         var formValues = this.loginForm.value;
 
         this._authenticationService.login(formValues.username, formValues.password) // Wish: Would maybe be nice to pass in a whole 'UserModel'
             .subscribe(
             data => {
-                console.log(data["result"]["token"]);
-                this._router.navigate(['./authenticate']);
+                this._router.navigate(['overview']);
             },
             error => {
-                // To-do: Show feedback
-                console.error(error.json()["result"]["message"])
+                this.errorMessage = error.json()["result"]["message"];
             },
             () => { }
             );

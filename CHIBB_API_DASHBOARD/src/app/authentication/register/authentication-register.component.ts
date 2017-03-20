@@ -3,6 +3,7 @@ import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'authentication-register',
@@ -10,7 +11,11 @@ import { AuthenticationService } from '../authentication.service';
 })
 export class AuthenticationRegisterComponent implements OnInit {
     public registrationForm: FormGroup;
+
     public hasRegistered: boolean;
+    public hasAttempted: boolean;
+
+    private _subscription: Subscription = null;
 
     constructor(private _authenticationService: AuthenticationService, private _router: Router, private _formBuilder: FormBuilder) { };
 
@@ -21,6 +26,7 @@ export class AuthenticationRegisterComponent implements OnInit {
         }
 
         this.hasRegistered = false;
+        this.hasAttempted = false;
 
         // Bind form
         this.registrationForm = this._formBuilder.group({
@@ -31,12 +37,15 @@ export class AuthenticationRegisterComponent implements OnInit {
     }
 
     attemptRegister(event: any) {
-        if (this.registrationForm.invalid)
+        this.hasAttempted = true;
+
+        if (this.registrationForm.invalid || this._subscription !== null)
             return;
 
+        console.log(" y");
         var formValues = this.registrationForm.value;
 
-        this._authenticationService.register(formValues.username, formValues.email, formValues.password) // Wish: Would maybe be nice to pass in a whole 'UserModel'
+        this._subscription = this._authenticationService.register(formValues.username, formValues.email, formValues.password) // Wish: Would maybe be nice to pass in a whole 'UserModel'
             .subscribe(
             data => {
                 console.log(data.status);
