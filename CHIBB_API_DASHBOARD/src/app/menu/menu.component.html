@@ -11,20 +11,20 @@
       </div>
       <div class="collapse navbar-collapse" id="chibbNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li *ngIf="authenticationService.isAutenticated()"><a href="#">Houses</a></li>
-          <li *ngIf="authenticationService.isAutenticated()"><a href="#">Sensors</a></li>
-          <li *ngIf="authenticationService.isAutenticated()"><a href="#">Permissions</a></li>
+          <li [ngClass]="{'active': router.url === '/overview' }"><a routerLink="overview">Home</a></li>
+          <li [ngClass]="{'active': router.url === '/houses' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Houses</a></li>
+          <li [ngClass]="{'active': router.url === '/sensors' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Sensors</a></li>
+          <li [ngClass]="{'active': router.url === '/permissions' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Permissions</a></li>
         </ul>
-        <ul class="nav navbar-nav navbar-right" *ngIf="!authenticationService.isAutenticated()">
-          <li><a routerLink="authenticate/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a routerLink="authenticate/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <ul class="nav navbar-nav navbar-right" *ngIf="!authenticationService.isAuthenticated()">
+          <li [ngClass]="{'active': router.url === '/authenticate/register' }"><a routerLink="authenticate/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li [ngClass]="{'active': router.url === '/authenticate/login' }"><a routerLink="authenticate/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right" *ngIf="authenticationService.isAutenticated()">
+        <ul class="nav navbar-nav navbar-right" *ngIf="authenticationService.isAuthenticated()">
           <li><a (click)="authenticationService.logout()" style="cursor: pointer;"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
         </ul>
-        <p *ngIf="authenticationService.isAutenticated()" class="navbar-text navbar-right">Hello, {{ authenticationService.getUsername() }}!</p>        
+        <p *ngIf="authenticationService.isAuthenticated()" class="navbar-text navbar-right">Hello, {{ authenticationService.getUsername() }}!</p>        
       </div>
     </div>
   </nav>

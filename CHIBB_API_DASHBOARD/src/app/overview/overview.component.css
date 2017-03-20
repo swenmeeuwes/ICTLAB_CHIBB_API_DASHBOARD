@@ -1,2 +1,64 @@
-﻿body {
+﻿.greeter {
+  text-align: center;
+  padding-bottom: 24px;
+}
+
+.greeter h1 {
+  
+}
+
+.greeter p {
+  font-size: 16px;
+}
+
+.center-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 24px;
+}
+
+.horitonzal-center-block {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 24px;
+}
+
+.tile-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translateY(-50%);
+
+  margin: 24px;
+}
+
+.tile {
+  background-color: #008aff;
+  color: white;
+  border: 3px solid #008aff;
+
+  padding: 12px;
+  margin-bottom: 24px;
+
+  display: block;
+  cursor: pointer;
+
+  transition: all 0.3s ease 0s;
+}
+
+.tile:hover {
+  background-color: white;
+  color: #008aff;
+  border: 3px solid #008aff;
+}
+
+.tile h2 {
+  margin-top: 0px;
+}
+
+.tile p {
+  margin-bottom: 0px;
 }

@@ -98,6 +98,7 @@
     <Content Include="src\app\authentication\authentication.component.html" />
     <Content Include="src\app\authentication\login\authentication-login.component.html" />
     <Content Include="src\app\authentication\register\authentication-register.component.html" />
+    <Content Include="src\app\menu\menu.component.css" />
     <Content Include="src\app\menu\menu.component.html" />
     <Content Include="src\app\overview\overview.component.css" />
     <Content Include="src\app\overview\overview.component.html" />
