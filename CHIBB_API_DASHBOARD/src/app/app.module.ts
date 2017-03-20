@@ -9,6 +9,9 @@ import { RouterModule } from '@angular/router';
 // Root component
 import { AppComponent } from './app.component';
 
+// Menu
+import { MenuComponent } from './menu/menu.component';
+
 // Overview
 import { OverviewComponent } from './overview/overview.component';
 
@@ -51,6 +54,7 @@ import { AuthenticationRegisterComponent } from './authentication/register/authe
     ],
     declarations: [
         AppComponent,
+        MenuComponent,
         OverviewComponent,
         AuthenticationComponent,
         AuthenticationLoginComponent,

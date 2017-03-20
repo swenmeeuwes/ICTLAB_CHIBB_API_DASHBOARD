@@ -12,8 +12,21 @@ export class AuthenticationService {
 
     constructor(private _http: Http) { };
 
+    getUsername(): string {
+        return sessionStorage.getItem("username");
+    }
+
     isAutenticated(): boolean {
         return sessionStorage.getItem("token") !== null;
+    }
+
+    logout(): boolean {
+        if (!this.isAutenticated())
+            return false;
+
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("token");
+        return true;
     }
 
     login(username: string, password: string): Observable<Response> {
@@ -23,7 +36,10 @@ export class AuthenticationService {
 
         //
         resultObservable.subscribe(
-            data => sessionStorage.setItem("token", data["result"]["token"]),
+            data => {
+                sessionStorage.setItem("username", username);
+                sessionStorage.setItem("token", data["result"]["token"]);
+            },
             error => { },
             () => { }
         );
