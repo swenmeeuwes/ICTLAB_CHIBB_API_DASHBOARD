@@ -138,6 +138,7 @@
     <TypeScriptCompile Include="src\app\sensor\sensor-list.component.ts" />
     <TypeScriptCompile Include="src\app\sensor\sensor.component.ts" />
     <TypeScriptCompile Include="src\app\sensor\sensor.service.ts" />
+    <TypeScriptCompile Include="src\app\sensor\Sensor.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <ItemGroup>
