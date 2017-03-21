@@ -6,6 +6,9 @@
     <div class="alert alert-danger " role="alert" *ngIf="hasAttempted && registrationForm.invalid">
       <strong>Uh-oh!</strong> One or more fields are not valid
     </div>
+    <div class="alert alert-danger" role="alert" *ngIf="hasAttempted && errorMessage">
+      <strong>Uh-oh!</strong> {{ errorMessage }}
+    </div>
     <!--End of alerts-->
     <div *ngIf="!hasRegistered">
       <form class="form-horizontal" [formGroup]="registrationForm" (ngSubmit)="attemptRegister($event)">

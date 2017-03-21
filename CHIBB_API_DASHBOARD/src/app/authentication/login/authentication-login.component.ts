@@ -40,14 +40,7 @@ export class AuthenticationLoginComponent implements OnInit {
         var formValues = this.loginForm.value;
 
         this._authenticationService.login(formValues.username, formValues.password) // Wish: Would maybe be nice to pass in a whole 'UserModel'
-            .subscribe(
-            data => {
-                this._router.navigate(['overview']);
-            },
-            error => {
-                this.errorMessage = error.json()["result"]["message"];
-            },
-            () => { }
-            );
+            .then(() => this._router.navigate(['overview']))
+            .catch((error) => this.errorMessage = error.errorMessage);            
     }
 }

@@ -15,6 +15,8 @@ export class AuthenticationRegisterComponent implements OnInit {
     public hasRegistered: boolean;
     public hasAttempted: boolean;
 
+    public errorMessage: string;
+
     private _subscription: Subscription = null;
 
     constructor(private _authenticationService: AuthenticationService, private _router: Router, private _formBuilder: FormBuilder) { };
@@ -46,17 +48,7 @@ export class AuthenticationRegisterComponent implements OnInit {
         var formValues = this.registrationForm.value;
 
         this._subscription = this._authenticationService.register(formValues.username, formValues.email, formValues.password) // Wish: Would maybe be nice to pass in a whole 'UserModel'
-            .subscribe(
-            data => {
-                console.log(data.status);
-                //this._router.navigate(['./authenticate/login']);
-                this.hasRegistered = true;
-            },
-            error => {
-                // To-do: Show feedback
-                console.error(error.json()["result"]["message"])
-            },
-            () => { }
-            );
+            .then(() => this.hasRegistered = true)
+            .catch((error) => this.errorMessage = error.errorMessage);       
     }
 }

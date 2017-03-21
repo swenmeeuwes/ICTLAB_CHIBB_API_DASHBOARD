@@ -29,30 +29,49 @@ export class AuthenticationService {
         return true;
     }
 
-    login(username: string, password: string): Observable<Response> {
-        const url = `${this._apiUrl}/login/`;
-        var resultObservable = this._http.post(url, JSON.stringify({ username: username, password: password }), { headers: this._headers })
-            .map((response) => response.json());
+    login(username: string, password: string): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            const url = `${this._apiUrl}/login/`;
+            var resultObservable = this._http.post(url, JSON.stringify({ username: username, password: password }), { headers: this._headers })
+                .map((response) => response.json());
 
-        //
-        resultObservable.subscribe(
-            data => {
-                sessionStorage.setItem("username", username);
-                sessionStorage.setItem("token", data["result"]["token"]);
-            },
-            error => { },
-            () => { }
-        );
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
 
-        return resultObservable;
+            resultObservable.subscribe(
+                data => {
+                    sessionStorage.setItem("username", username);
+                    sessionStorage.setItem("token", data["result"]["token"]);
+                    resolve();
+                },
+                error => { reject({ errorMessage: error.json()["result"]["message"] }) },
+                () => { clearTimeout(timeout); }
+            );
+
+
+        });
+
+        return promise;
     }
 
-    register(username: string, email: string, password: string): Observable<Response> {
-        const url = `${this._apiUrl}/register/`;
-        return this._http.post(url, JSON.stringify({ username: username, email: email, password: password }), { headers: this._headers });
-    }
+    register(username: string, email: string, password: string): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            const url = `${this._apiUrl}/register/`;
+            var resultObservable = this._http.post(url, JSON.stringify({ username: username, email: email, password: password }), { headers: this._headers })
+                .map((response) => response.json());
 
-    private handleError(error: any): Promise<any> {
-        return Promise.reject(error.message || error);
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+
+            resultObservable.subscribe(
+                data => {
+                    resolve();
+                },
+                error => { reject({ errorMessage: error.json()["result"]["message"] }) },
+                () => { clearTimeout(timeout); }
+            );
+        });
+
+        return promise;
     }
 }
