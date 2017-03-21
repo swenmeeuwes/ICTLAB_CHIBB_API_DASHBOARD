@@ -102,6 +102,8 @@
     <Content Include="src\app\menu\menu.component.html" />
     <Content Include="src\app\overview\overview.component.css" />
     <Content Include="src\app\overview\overview.component.html" />
+    <Content Include="src\app\sensor\sensor-list.component.html" />
+    <Content Include="src\app\sensor\sensor.component.html" />
     <Content Include="src\tsconfig.json" />
     <Content Include="tslint.json" />
     <Content Include="src\app\app.component.html" />
@@ -133,6 +135,9 @@
     <TypeScriptCompile Include="src\app\authentication\register\authentication-register.component.ts" />
     <TypeScriptCompile Include="src\app\menu\menu.component.ts" />
     <TypeScriptCompile Include="src\app\overview\overview.component.ts" />
+    <TypeScriptCompile Include="src\app\sensor\sensor-list.component.ts" />
+    <TypeScriptCompile Include="src\app\sensor\sensor.component.ts" />
+    <TypeScriptCompile Include="src\app\sensor\sensor.service.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <ItemGroup>

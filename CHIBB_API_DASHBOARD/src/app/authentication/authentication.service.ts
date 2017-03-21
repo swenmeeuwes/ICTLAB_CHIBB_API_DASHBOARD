@@ -16,6 +16,10 @@ export class AuthenticationService {
         return sessionStorage.getItem("username");
     }
 
+    getToken(): string {
+        return sessionStorage.getItem("token");
+    }
+
     isAuthenticated(): boolean {
         return sessionStorage.getItem("token") !== null;
     }
@@ -35,9 +39,6 @@ export class AuthenticationService {
             var resultObservable = this._http.post(url, JSON.stringify({ username: username, password: password }), { headers: this._headers })
                 .map((response) => response.json());
 
-            // Timeout after 15 seconds
-            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
-
             resultObservable.subscribe(
                 data => {
                     sessionStorage.setItem("username", username);
@@ -48,7 +49,8 @@ export class AuthenticationService {
                 () => { clearTimeout(timeout); }
             );
 
-
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
         });
 
         return promise;
@@ -60,9 +62,6 @@ export class AuthenticationService {
             var resultObservable = this._http.post(url, JSON.stringify({ username: username, email: email, password: password }), { headers: this._headers })
                 .map((response) => response.json());
 
-            // Timeout after 15 seconds
-            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
-
             resultObservable.subscribe(
                 data => {
                     resolve();
@@ -70,6 +69,9 @@ export class AuthenticationService {
                 error => { reject({ errorMessage: error.json()["result"]["message"] }) },
                 () => { clearTimeout(timeout); }
             );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
         });
 
         return promise;

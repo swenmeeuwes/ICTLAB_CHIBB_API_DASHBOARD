@@ -23,6 +23,10 @@ import { AuthenticationLoginComponent } from './authentication/login/authenticat
 // Authentication -> Register
 import { AuthenticationRegisterComponent } from './authentication/register/authentication-register.component';
 
+// Sensor
+import { SensorComponent } from './sensor/sensor.component';
+import { SensorService } from './sensor/sensor.service';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -49,6 +53,10 @@ import { AuthenticationRegisterComponent } from './authentication/register/authe
             {
                 path: 'authenticate/register',
                 component: AuthenticationRegisterComponent
+            },
+            {
+                path: 'sensor',
+                component: SensorComponent
             }
         ])
     ],
@@ -58,9 +66,13 @@ import { AuthenticationRegisterComponent } from './authentication/register/authe
         OverviewComponent,
         AuthenticationComponent,
         AuthenticationLoginComponent,
-        AuthenticationRegisterComponent
+        AuthenticationRegisterComponent,
+        SensorComponent
     ],
     bootstrap: [AppComponent],
-    providers: [AuthenticationService]
+    providers: [
+        AuthenticationService,
+        SensorService
+    ]
 })
 export class AppModule { }

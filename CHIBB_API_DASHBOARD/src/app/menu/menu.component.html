@@ -12,9 +12,9 @@
       <div class="collapse navbar-collapse" id="chibbNavbar">
         <ul class="nav navbar-nav">
           <li [ngClass]="{'active': router.url === '/overview' }"><a routerLink="overview">Home</a></li>
-          <li [ngClass]="{'active': router.url === '/houses' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Houses</a></li>
-          <li [ngClass]="{'active': router.url === '/sensors' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Sensors</a></li>
-          <li [ngClass]="{'active': router.url === '/permissions' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Permissions</a></li>
+          <li [ngClass]="{'active': router.url === '/house' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Houses</a></li>
+          <li [ngClass]="{'active': router.url === '/sensor' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="sensor">Sensors</a></li>
+          <li [ngClass]="{'active': router.url === '/permission' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Permissions</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!authenticationService.isAuthenticated()">
           <li [ngClass]="{'active': router.url === '/authenticate/register' }"><a routerLink="authenticate/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
