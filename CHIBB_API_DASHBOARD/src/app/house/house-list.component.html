@@ -1,5 +1,18 @@
-﻿<div class="alert alert-danger " role="alert" *ngIf="errorStatusCode">
+﻿<h1 style="margin-top: 0px;">Houses</h1>
+<hr />
+
+<div class="alert alert-danger " role="alert" *ngIf="errorStatusCode">
   <strong>Error {{ errorStatusCode }}:</strong> {{ errorMessage }}
+</div>
+
+<!--To-do: Navigate bar
+<div>
+
+</div>-->
+
+<div class="container-fluid" style="padding: 0px;">
+  <h2 style="float: left; margin-top: 0px">Overview</h2>
+  <span class="btn btn-default" style="float: right;"><span class="glyphicon glyphicon-plus"></span> Create house</span>
 </div>
 
 <!--Would be nice to make this a sortable NG-TABLE-->
