@@ -1,0 +1,21 @@
+﻿<div class="alert alert-danger " role="alert" *ngIf="errorStatusCode">
+  <strong>Error {{ errorStatusCode }}:</strong> {{ errorMessage }}
+</div>
+
+<!--Would be nice to make this a sortable NG-TABLE-->
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>UID</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let house of houses;">
+        <td>{{ house.uid }}</td>
+        <td>{{ house.address }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

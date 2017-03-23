@@ -23,6 +23,11 @@ import { AuthenticationLoginComponent } from './authentication/login/authenticat
 // Authentication -> Register
 import { AuthenticationRegisterComponent } from './authentication/register/authentication-register.component';
 
+// House
+import { HouseComponent } from './house/house.component';
+import { HouseListComponent } from './house/house-list.component';
+import { HouseService } from './house/house.service';
+
 // Sensor
 import { SensorComponent } from './sensor/sensor.component';
 import { SensorService } from './sensor/sensor.service';
@@ -55,6 +60,10 @@ import { SensorService } from './sensor/sensor.service';
                 component: AuthenticationRegisterComponent
             },
             {
+                path: 'house',
+                component: HouseListComponent
+            },
+            {
                 path: 'sensor',
                 component: SensorComponent
             }
@@ -67,11 +76,14 @@ import { SensorService } from './sensor/sensor.service';
         AuthenticationComponent,
         AuthenticationLoginComponent,
         AuthenticationRegisterComponent,
+        HouseComponent,
+        HouseListComponent,
         SensorComponent
     ],
     bootstrap: [AppComponent],
     providers: [
         AuthenticationService,
+        HouseService,
         SensorService
     ]
 })
