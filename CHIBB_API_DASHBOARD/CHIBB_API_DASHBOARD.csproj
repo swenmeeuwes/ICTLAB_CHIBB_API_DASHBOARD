@@ -98,6 +98,7 @@
     <Content Include="src\app\authentication\authentication.component.html" />
     <Content Include="src\app\authentication\login\authentication-login.component.html" />
     <Content Include="src\app\authentication\register\authentication-register.component.html" />
+    <Content Include="src\app\house\house.component.html" />
     <Content Include="src\app\menu\menu.component.css" />
     <Content Include="src\app\menu\menu.component.html" />
     <Content Include="src\app\overview\overview.component.css" />
@@ -133,6 +134,8 @@
     <TypeScriptCompile Include="src\app\authentication\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\authentication\login\authentication-login.component.ts" />
     <TypeScriptCompile Include="src\app\authentication\register\authentication-register.component.ts" />
+    <TypeScriptCompile Include="src\app\house\house.component.ts" />
+    <TypeScriptCompile Include="src\app\house\house.service.ts" />
     <TypeScriptCompile Include="src\app\menu\menu.component.ts" />
     <TypeScriptCompile Include="src\app\overview\overview.component.ts" />
     <TypeScriptCompile Include="src\app\sensor\sensor-list.component.ts" />
