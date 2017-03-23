@@ -4,7 +4,8 @@ import { House } from './House';
 
 @Component({
     selector: 'house-list',
-    templateUrl: 'app/house/house-list.component.html'
+    templateUrl: 'app/house/house-list.component.html',
+    styleUrls: [ 'app/house/house-list.component.css' ]
 })
 export class HouseListComponent implements OnInit {
     public houses: House[];
