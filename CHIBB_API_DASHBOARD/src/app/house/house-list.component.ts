@@ -11,7 +11,7 @@ import { House } from './House';
 })
 export class HouseListComponent implements OnInit {
     public houses: House[];
-    public selectedHouse: House;
+    public selectedHouse: House = <House>{};
 
     public errorStatusCode: number;
     public errorMessage: string;
@@ -66,5 +66,20 @@ export class HouseListComponent implements OnInit {
 
     view(house: House) {
         this.selectedHouse = house;
+    }
+
+    promptDelete(house: House) {
+        this.selectedHouse = house;
+        document.getElementById("openDeleteModalButton").click();
+    }
+
+    delete(house: House) {
+        this.houseService.deleteHouse(house)
+            .then((data) => {
+
+            })
+            .catch((statusCode) => {
+                this.handleError(parseInt(statusCode));
+            });
     }
 }

@@ -17,6 +17,6 @@ export class HouseComponent implements OnInit, OnChanges {
     };
 
     ngOnChanges(changes: SimpleChanges) {
-        document.getElementById("openModalButton").click();
+        //document.getElementById("openModalButton").click();
     };
 }

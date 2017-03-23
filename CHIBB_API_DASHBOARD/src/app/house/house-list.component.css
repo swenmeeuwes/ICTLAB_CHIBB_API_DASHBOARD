@@ -1,5 +1,15 @@
 ﻿.actionItem {
-  cursor: pointer;
   width: 100px;
-  color: #0086f7;
+}
+
+.tableList tr td {
+  padding: 0 8px;
+}
+
+.tableList tr td:first-child {
+  font-weight: bold;
+}
+
+.tableList {
+  margin-bottom: 12px;
 }

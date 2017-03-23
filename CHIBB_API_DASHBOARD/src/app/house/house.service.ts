@@ -38,4 +38,29 @@ export class HouseService {
         });
         return promise;
     }
+
+    deleteHouse(house: House): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            if (!this._authenticationService.isAuthenticated())
+                reject({ errorMessage: "Not authenticated" });
+
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.delete(`${this._apiUrl}/${house.uid}?token=${token}`, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    console.log(data);
+                    resolve(data["responseCode"]);
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+        });
+        return promise;
+    }
 }
