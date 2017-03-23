@@ -17,7 +17,7 @@ export class AuthenticationRegisterComponent implements OnInit {
 
     public errorMessage: string;
 
-    private _subscription: Subscription = null;
+    private _isBusy: boolean = false;
 
     constructor(private _authenticationService: AuthenticationService, private _router: Router, private _formBuilder: FormBuilder) { };
 
@@ -41,14 +41,18 @@ export class AuthenticationRegisterComponent implements OnInit {
     attemptRegister(event: any) {
         this.hasAttempted = true;
 
-        if (this.registrationForm.invalid || this._subscription !== null)
+        if (this.registrationForm.invalid || this._isBusy)
             return;
 
-        console.log(" y");
+        this._isBusy = true;
+
         var formValues = this.registrationForm.value;
 
-        this._subscription = this._authenticationService.register(formValues.username, formValues.email, formValues.password) // Wish: Would maybe be nice to pass in a whole 'UserModel'
+        this._authenticationService.register(formValues.username, formValues.email, formValues.password) // Wish: Would maybe be nice to pass in a whole 'UserModel'
             .then(() => this.hasRegistered = true)
-            .catch((error) => this.errorMessage = error.errorMessage);       
+            .catch((error) => {
+                this.errorMessage = error.errorMessage;
+                this._isBusy = false
+            });
     }
 }
