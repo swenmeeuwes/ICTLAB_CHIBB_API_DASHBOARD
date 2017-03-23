@@ -1,7 +1,9 @@
 ﻿import { Injectable } from "@angular/core";
 import { Headers, Http, Response } from '@angular/http';
 import { AuthenticationService } from '../authentication/authentication.service';
+import { Sensor } from '../sensor/Sensor';
 import { Observable } from 'rxjs/Observable';
+import { House } from './House';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';

@@ -22,16 +22,23 @@
       <tr>
         <th>UID</th>
         <th>Address</th>
+        <!--<th>Linked sensors</th>-->
+        <!--<th></th>-->
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let house of houses;">
         <td>{{ house.uid }}</td>
         <td>{{ house.address }}</td>
-        <td class="actionItem"><span class="glyphicon glyphicon-file"></span> View</td>
+        <!--<td>{{ house.linkedSensors ? house.linkedSensors : "Gathering ..." }}</td>-->
+        <!--<td class="actionItem" (click)="view(house)"><span class="glyphicon glyphicon-file"></span> View</td>--> <!-- Disabled because the modal is buggy :c -->
         <td class="actionItem"><span class="glyphicon glyphicon-pencil"></span> Edit</td>
         <td class="actionItem"><span class="glyphicon glyphicon-trash"></span> Delete</td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<house [selectedHouse]="selectedHouse"></house>

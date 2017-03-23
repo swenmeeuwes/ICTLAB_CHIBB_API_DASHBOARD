@@ -100,6 +100,7 @@
     <Content Include="src\app\authentication\register\authentication-register.component.html" />
     <Content Include="src\app\house\house-list.component.css" />
     <Content Include="src\app\house\house-list.component.html" />
+    <Content Include="src\app\house\house.component.css" />
     <Content Include="src\app\house\house.component.html" />
     <Content Include="src\app\menu\menu.component.css" />
     <Content Include="src\app\menu\menu.component.html" />

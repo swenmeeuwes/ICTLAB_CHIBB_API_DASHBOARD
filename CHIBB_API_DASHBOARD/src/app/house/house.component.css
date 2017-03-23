@@ -1,0 +1,7 @@
+﻿table tr td {
+  padding: 0 8px;
+}
+
+table tr td:first-child {
+  font-weight: bold;
+}

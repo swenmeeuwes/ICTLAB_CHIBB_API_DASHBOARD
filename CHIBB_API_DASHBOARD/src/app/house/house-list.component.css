@@ -1,3 +1,5 @@
 ﻿.actionItem {
+  cursor: pointer;
   width: 100px;
+  color: #0086f7;
 }
