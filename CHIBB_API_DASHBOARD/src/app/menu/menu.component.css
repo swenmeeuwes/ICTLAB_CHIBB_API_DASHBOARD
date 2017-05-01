@@ -1,5 +1,4 @@
-﻿
-/*Bootstrap Styles*/
+﻿/*Bootstrap Styles*/
 /*Navbar Style*/
 /* Navbar */
 .navbar-custom {
@@ -8,6 +7,7 @@
   border-color: #E7E7E7;
   padding: 11px 0;
   height: 70px;
+  margin-bottom: 0px;
 }
   /* Title */
   .navbar-custom .navbar-brand {

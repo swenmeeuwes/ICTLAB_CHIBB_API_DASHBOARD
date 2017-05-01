@@ -1,4 +1,9 @@
-﻿.greeter {
+﻿.header {
+  height: calc(100vh - 70px);
+  background-color: aqua;
+}
+
+.greeter {
   text-align: center;
   padding-bottom: 24px;
 }
