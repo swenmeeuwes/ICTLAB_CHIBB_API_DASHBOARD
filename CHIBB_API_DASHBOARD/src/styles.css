@@ -3,3 +3,17 @@ body {
   padding: 16px;
   padding-top: 75px;
 }
+
+.centered-block {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.loading-text {
+  color: #656565;
+  text-align: center;
+}
