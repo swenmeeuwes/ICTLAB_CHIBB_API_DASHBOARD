@@ -19,6 +19,7 @@ export class HouseCreationComponent implements OnInit {
     ngOnInit() {
         // Bind form
         this.houseCreationFrom = this._formBuilder.group({
+            houseIdentifier: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
             address: ["", Validators.compose([Validators.required, Validators.minLength(2)])]
         });
     };
@@ -31,8 +32,8 @@ export class HouseCreationComponent implements OnInit {
 
         var formValues = this.houseCreationFrom.value;
 
-        this._houseService.createHouse(formValues.address) // Wish: Would maybe be nice to pass in a whole 'UserModel'
-            .then(() => this._router.navigate(['overview']))
+        this._houseService.createHouse(<House>{ hid: formValues.houseIdentifier, address: formValues.address }) // Wish: Would maybe be nice to pass in a whole 'UserModel'
+            .then(() => this._router.navigate(['house']))
             .catch((error) => this.errorMessage = error.errorMessage);
     }
 }

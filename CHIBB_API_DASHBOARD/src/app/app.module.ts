@@ -64,6 +64,7 @@ import { AuthenticationGuard } from './authentication/authentication-guard.servi
                 path: 'authenticate',
                 component: AuthenticationComponent
             },
+            // Apply children?
             {
                 path: 'authenticate/login',
                 component: AuthenticationLoginComponent

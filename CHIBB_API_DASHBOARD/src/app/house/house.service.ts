@@ -27,7 +27,7 @@ export class HouseService {
 
             resultObservable.subscribe(
                 data => {
-                    resolve({ result: data.result });                    
+                    resolve({ result: data["result"] });
                 },
                 error => { reject(error.json()["responseCode"]) },
                 () => { clearTimeout(timeout); }
@@ -67,12 +67,11 @@ export class HouseService {
 
             var token = this._authenticationService.getToken();
 
-            var resultObservable = this._http.delete(`${this._apiUrl}/${house.uid}?token=${token}`, { headers: this._headers })
+            var resultObservable = this._http.delete(`${this._apiUrl}/${house.hid}?token=${token}`, { headers: this._headers })
                 .map((response) => response.json());
 
             resultObservable.subscribe(
                 data => {
-                    console.log(data);
                     resolve(data["responseCode"]);
                 },
                 error => { reject(error.json()["responseCode"]) },

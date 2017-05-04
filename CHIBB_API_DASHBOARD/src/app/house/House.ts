@@ -1,4 +1,4 @@
 ﻿export interface House {
-    uid: string
+    hid: string
     address: string
 }

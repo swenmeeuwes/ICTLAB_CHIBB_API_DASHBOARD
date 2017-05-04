@@ -21,30 +21,18 @@ export class HouseListComponent implements OnInit {
     constructor(public houseService: HouseService, private _sensorService: SensorService) { }
 
     ngOnInit() {
-        //var sensorPromise = this._sensorService.getSensors()
-        //    .then((data: Sensor[]) => {
-        //        this.sensors = data;                
-        //    })
-        //    .catch((statusCode) => {
-        //        this.handleError(parseInt(statusCode));
-        //    });
+        this.refreshHouses();
+    };
 
-        var housePromise = this.houseService.getHouses()
+    refreshHouses() {
+        this.houseService.getHouses()
             .then((data) => {
                 this.houses = data.result;
             })
             .catch((statusCode) => {
                 this.handleError(parseInt(statusCode));
             });
-
-        //Promise.all([sensorPromise, housePromise])
-        //    .then(() => {
-        //        this.linkedSensorAmount();
-        //    })
-        //    .catch((error) => {
-        //        console.warn(error);
-        //    });
-    };
+    }
 
     handleError(statusCode: number) {
         this.errorStatusCode = statusCode;
@@ -76,7 +64,7 @@ export class HouseListComponent implements OnInit {
     delete(house: House) {
         this.houseService.deleteHouse(house)
             .then((data) => {
-
+                this.refreshHouses();
             })
             .catch((statusCode) => {
                 this.handleError(parseInt(statusCode));

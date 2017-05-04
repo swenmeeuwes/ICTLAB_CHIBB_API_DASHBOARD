@@ -1,85 +1,87 @@
-﻿<h1 style="margin-top: 0px;">Houses</h1>
-<hr />
+﻿<div class="container component-wrapper">
+  <h1 style="margin-top: 0px;">Houses</h1>
+  <hr />
 
-<div class="alert alert-danger " role="alert" *ngIf="errorStatusCode">
-  <strong>Error {{ errorStatusCode }}:</strong> {{ errorMessage }}
-</div>
+  <div class="alert alert-danger " role="alert" *ngIf="errorStatusCode">
+    <strong>Error {{ errorStatusCode }}:</strong> {{ errorMessage }}
+  </div>
 
-<!--To-do: Navigate bar
-<div>
+  <!--To-do: Navigate bar
+  <div>
 
-</div>-->
+  </div>-->
 
-<div class="container-fluid" style="padding: 0px;">
-  <h2 style="float: left; margin-top: 0px">Overview</h2>
-  <span class="btn btn-default" style="float: right;"><span class="glyphicon glyphicon-plus"></span> Create house</span>
-</div>
+  <div class="container-fluid" style="padding: 0px;">
+    <h2 style="float: left; margin-top: 0px">Overview</h2>
+    <div class="btn btn-default" style="float: right;" routerLink="create"><span class="glyphicon glyphicon-plus"></span> Create house</div>
+  </div>
 
-<!--Would be nice to make this a sortable NG-TABLE-->
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>UID</th>
-        <th>Address</th>
-        <!--<th>Linked sensors</th>-->
-        <!--<th></th>-->
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let house of houses;">
-        <td>{{ house.uid }}</td>
-        <td>{{ house.address }}</td>
-        <!--<td>{{ house.linkedSensors ? house.linkedSensors : "Gathering ..." }}</td>-->
-        <!--<td class="actionItem" (click)="view(house)"><span class="glyphicon glyphicon-file"></span> View</td>--> <!-- Disabled because the modal is buggy :c -->
-        <td class="actionItem"><span class="glyphicon glyphicon-pencil"></span> Edit</td>
-        <td class="actionItem"><div (click)="promptDelete(house)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</div></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <!--Would be nice to make this a sortable NG-TABLE-->
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>UID</th>
+          <th>Address</th>
+          <!--<th>Linked sensors</th>-->
+          <!--<th></th>-->
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let house of houses;">
+          <td>{{ house.hid }}</td>
+          <td>{{ house.address }}</td>
+          <!--<td>{{ house.linkedSensors ? house.linkedSensors : "Gathering ..." }}</td>-->
+          <!--<td class="actionItem" (click)="view(house)"><span class="glyphicon glyphicon-file"></span> View</td>--> <!-- Disabled because the modal is buggy :c -->
+          <td class="actionItem"><span class="glyphicon glyphicon-pencil"></span> Edit</td>
+          <td class="actionItem"><div (click)="promptDelete(house)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<house [selectedHouse]="selectedHouse"></house>
+  <house [selectedHouse]="selectedHouse"></house>
 
-<!-- Hidden modal button (work-around for $(#deleteHouseModal).modal()) -->
-<button id="openDeleteModalButton" [hidden]="true" data-toggle="modal" data-target="#deleteHouseModal">Open Modal</button>
+  <!-- Hidden modal button (work-around for $(#deleteHouseModal).modal()) -->
+  <button id="openDeleteModalButton" [hidden]="true" data-toggle="modal" data-target="#deleteHouseModal">Open Modal</button>
 
-<!-- House modal -->
-<div id="deleteHouseModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <!-- House modal -->
+  <div id="deleteHouseModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Are you sure?</h4>
-      </div>
-      <div class="modal-body">
-        <p>
-          Are you sure you want to delete the following house?
-        </p>
-        <table class="tableList">
-          <tr>
-            <td>UID:</td>
-            <td>{{ selectedHouse.uid }}</td>
-          </tr>
-          <tr>
-            <td>Address:</td>
-            <td>{{ selectedHouse.address }}</td>
-          </tr>
-        </table>
-        <div>
-          <i style="color: #cf0000;">The following action cannot be undone.</i>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Are you sure?</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to delete the following house?
+          </p>
+          <table class="tableList">
+            <tr>
+              <td>HID:</td>
+              <td>{{ selectedHouse.hid }}</td>
+            </tr>
+            <tr>
+              <td>Address:</td>
+              <td>{{ selectedHouse.address }}</td>
+            </tr>
+          </table>
+          <div>
+            <i style="color: #cf0000;">The following action cannot be undone.</i>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button (click)="delete(selectedHouse)" type="button" class="btn btn-danger" data-dismiss="modal">Yes, delete this house</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
-      <div class="modal-footer">
-        <button (click)="delete(selectedHouse)" type="button" class="btn btn-danger" data-dismiss="modal">Yes, delete this house</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-    <!-- End of modal content -->
+      <!-- End of modal content -->
 
+    </div>
   </div>
 </div>

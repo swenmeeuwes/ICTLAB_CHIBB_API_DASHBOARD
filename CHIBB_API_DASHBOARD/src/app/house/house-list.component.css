@@ -1,4 +1,8 @@
-﻿.actionItem {
+﻿.component-wrapper {
+  padding-top: 70px;
+}
+
+.actionItem {
   width: 100px;
 }
 
