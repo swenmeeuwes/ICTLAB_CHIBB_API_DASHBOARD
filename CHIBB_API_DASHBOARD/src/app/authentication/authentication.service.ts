@@ -40,12 +40,12 @@ export class AuthenticationService {
                 .map((response) => response.json());
 
             resultObservable.subscribe(
-                data => {
+                data => {                    
                     sessionStorage.setItem("username", username);
                     sessionStorage.setItem("token", data["result"]["token"]);
                     resolve();
                 },
-                error => { reject({ errorMessage: error.json()["result"]["message"] }) },
+                error => { reject({ errorMessage: error.json()["result"]["errorMessage"] }) },
                 () => { clearTimeout(timeout); }
             );
 
