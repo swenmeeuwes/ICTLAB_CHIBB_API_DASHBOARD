@@ -52,7 +52,7 @@ export class HouseListComponent implements OnInit {
     //    }
     //}
 
-    view(house: House) {
+    viewHouse(house: House) {
         this.selectedHouse = house;
     }
 

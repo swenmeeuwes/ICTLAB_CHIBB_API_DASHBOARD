@@ -35,7 +35,7 @@
           <td>{{ house.address }}</td>
           <!--<td>{{ house.linkedSensors ? house.linkedSensors : "Gathering ..." }}</td>-->
           <!--<td class="actionItem" (click)="view(house)"><span class="glyphicon glyphicon-file"></span> View</td>--> <!-- Disabled because the modal is buggy :c -->
-          <td class="actionItem"><span class="glyphicon glyphicon-pencil"></span> Edit</td>
+          <td class="actionItem"><div routerLink="edit" [queryParams]="{selectedHouse: house}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</div></td>
           <td class="actionItem"><div (click)="promptDelete(house)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</div></td>
         </tr>
       </tbody>

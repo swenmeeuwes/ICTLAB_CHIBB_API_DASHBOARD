@@ -60,6 +60,27 @@ export class HouseService {
         });
     }
 
+    editHouse(house: House): Promise<any> {
+        return new Promise((resolve, reject) => {
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.post(`${this._apiUrl}?token=${token}`, house, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    console.log(data);
+                    resolve(data["responseCode"]);
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+        });
+    }
+
     deleteHouse(house: House): Promise<any> {
         var promise = new Promise((resolve, reject) => {
             if (!this._authenticationService.isAuthenticated())
