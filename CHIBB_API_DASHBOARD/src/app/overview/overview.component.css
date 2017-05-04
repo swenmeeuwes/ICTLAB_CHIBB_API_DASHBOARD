@@ -1,20 +1,43 @@
 ﻿.header {
   height: calc(100vh - 70px);
-  background-color: aqua;
+  /*background-color: #22323f;*/
+  background-image: url('/assets/images/header.jpg');
+  background-position: center;
+  background-size: cover;
 }
 
 .greeter {
+  position: absolute;
+  right: 0px;
+  top: 55%;
+  padding: 24px;
+  padding-left: 48px;
+
+  background-color: rgba(76,137,109, 0.95);
+
+  -webkit-clip-path: polygon(100% 1%, 100% 100%, 0 99%, 8% 7%);
+  clip-path: polygon(100% 1%, 100% 100%, 0 99%, 8% 7%);
+
+  color: #22323f;
   text-align: center;
-  padding-bottom: 24px;
 }
 
-.greeter h1 {
-  
-}
+  .greeter h1 {
+    
+  }
 
-.greeter p {
-  font-size: 16px;
-}
+  .greeter p {
+    font-size: 16px;
+    color: white;
+  }
+
+  .greeter a {
+    color: #e08d53;
+  }
+
+  .undecorated-list {
+    list-style: none;
+  }
 
 .center-block {
   position: absolute;
@@ -36,7 +59,6 @@
   top: 50%;
   left: 0px;
   transform: translateY(-50%);
-
   margin: 24px;
 }
 
@@ -44,26 +66,23 @@
   background-color: #008aff;
   color: white;
   border: 3px solid #008aff;
-
   padding: 12px;
   margin-bottom: 24px;
-
   display: block;
   cursor: pointer;
-
   transition: all 0.3s ease 0s;
 }
 
-.tile:hover {
-  background-color: white;
-  color: #008aff;
-  border: 3px solid #008aff;
-}
+  .tile:hover {
+    background-color: white;
+    color: #008aff;
+    border: 3px solid #008aff;
+  }
 
-.tile h2 {
-  margin-top: 0px;
-}
+  .tile h2 {
+    margin-top: 0px;
+  }
 
-.tile p {
-  margin-bottom: 0px;
-}
+  .tile p {
+    margin-bottom: 0px;
+  }

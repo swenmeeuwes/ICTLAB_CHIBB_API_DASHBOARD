@@ -1,15 +1,10 @@
 ﻿<div class="container-fluid header">
-  <div *ngIf="!authenticationService.isAuthenticated()" class="center-block">
-    <div>
-      <h1>Hello and welcome to the CHIBB dashboard!</h1>
-      <div>
-        With this dashboard you can ...
-        <ul>
-          <li>Feature 1</li>
-          <li>Feature 2</li>
-          <li>Feature 3</li>
-        </ul>
-      </div>
+  <div *ngIf="!authenticationService.isAuthenticated()">
+    <div class="col-xs-12 col-sm-8 col-lg-4 pull-right greeter">
+      <h1>Welcome to the CHIBB dashboard!</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nisi nulla, auctor at turpis et, convallis blandit sem. Morbi dignissim tellus in rhoncus interdum. Aenean volutpat, felis at luctus fringilla, elit neque elementum eros, vitae varius metus diam non velit. Donec ac massa nec orci bibendum commodo. Pellentesque ut tortor ut ipsum volutpat venenatis sit amet a justo.
+      </p>
       <p>
         To begin please <a routerLink="../authenticate/register">register</a> first.
       </p>
