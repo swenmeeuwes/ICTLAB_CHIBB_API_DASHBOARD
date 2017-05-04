@@ -15,6 +15,9 @@ import { MenuComponent } from './menu/menu.component';
 // Overview
 import { OverviewComponent } from './overview/overview.component';
 
+// Dashboard
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 // Authentication
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { AuthenticationService } from './authentication/authentication.service';
@@ -49,6 +52,10 @@ import { SensorService } from './sensor/sensor.service';
                 component: OverviewComponent
             },
             {
+                path: 'dashboard',
+                component: DashboardComponent
+            },
+            {
                 path: 'authenticate',
                 component: AuthenticationComponent
             },
@@ -78,6 +85,7 @@ import { SensorService } from './sensor/sensor.service';
         AppComponent,
         MenuComponent,
         OverviewComponent,
+        DashboardComponent,
         AuthenticationComponent,
         AuthenticationLoginComponent,
         AuthenticationRegisterComponent,
