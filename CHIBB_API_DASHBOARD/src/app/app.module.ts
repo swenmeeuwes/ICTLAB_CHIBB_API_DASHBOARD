@@ -36,6 +36,10 @@ import { HouseService } from './house/house.service';
 import { SensorComponent } from './sensor/sensor.component';
 import { SensorService } from './sensor/sensor.service';
 
+// Guards
+// Authentication guard
+import { AuthenticationGuard } from './authentication/authentication-guard.service';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -53,6 +57,7 @@ import { SensorService } from './sensor/sensor.service';
             },
             {
                 path: 'dashboard',
+                canActivate: [AuthenticationGuard],
                 component: DashboardComponent
             },
             {
@@ -69,14 +74,17 @@ import { SensorService } from './sensor/sensor.service';
             },
             {
                 path: 'house',
+                canActivate: [AuthenticationGuard],
                 component: HouseListComponent
             },
             {
                 path: 'house/create',
+                canActivate: [AuthenticationGuard],
                 component: HouseCreationComponent
             },
             {
                 path: 'sensor',
+                canActivate: [AuthenticationGuard],
                 component: SensorComponent
             }
         ])
@@ -98,7 +106,8 @@ import { SensorService } from './sensor/sensor.service';
     providers: [
         AuthenticationService,
         HouseService,
-        SensorService
+        SensorService,
+        AuthenticationGuard
     ]
 })
 export class AppModule { }
