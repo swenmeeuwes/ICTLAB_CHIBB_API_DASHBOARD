@@ -9,4 +9,10 @@ import { AuthenticationService } from '../authentication/authentication.service'
 })
 export class MenuComponent {
     constructor(public authenticationService: AuthenticationService, public router: Router) { }
+
+    logout() {
+        this.authenticationService.logout();
+
+        this.router.navigate(['overview']);
+    }
 }
