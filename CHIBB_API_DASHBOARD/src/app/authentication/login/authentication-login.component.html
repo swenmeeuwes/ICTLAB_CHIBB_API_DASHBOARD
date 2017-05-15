@@ -25,7 +25,8 @@
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button class="btn btn-default" type="submit">Log in</button> <span>or <a routerLink="../register">register</a></span>
+          <i *ngIf="pending" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          <button *ngIf="!pending" class="btn btn-default" type="submit">Log in</button> <span>or <a routerLink="../register">register</a></span>
         </div>
       </div>
     </form>

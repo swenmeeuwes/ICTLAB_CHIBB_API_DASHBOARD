@@ -45,7 +45,12 @@ export class AuthenticationService {
                     sessionStorage.setItem("token", data["result"]["token"]);
                     resolve();
                 },
-                error => { reject({ errorMessage: error.json()["result"]["errorMessage"] }) },
+                error => {
+                    if (error.ok)
+                        reject({ errorMessage: error.json()["result"]["errorMessage"] });
+                    else
+                        reject({ errorMessage: "Oops, something went wrong!" });
+                },
                 () => { clearTimeout(timeout); }
             );
 
