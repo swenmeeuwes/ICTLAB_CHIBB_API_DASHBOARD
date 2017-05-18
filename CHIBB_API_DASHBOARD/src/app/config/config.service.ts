@@ -3,7 +3,7 @@ import { Headers, Http, Response } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
-export class Config {
+export class ConfigService {
     private _config: Object // Environment specific configuration
     private _environment: Object // Shared configuration
 
