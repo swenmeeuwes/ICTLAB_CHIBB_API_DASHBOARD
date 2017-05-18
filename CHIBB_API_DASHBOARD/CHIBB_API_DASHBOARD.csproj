@@ -98,6 +98,9 @@
     <Content Include="src\app\authentication\authentication.component.html" />
     <Content Include="src\app\authentication\login\authentication-login.component.html" />
     <Content Include="src\app\authentication\register\authentication-register.component.html" />
+    <Content Include="src\app\dashboard\dashboard.component.css" />
+    <Content Include="src\app\dashboard\dashboard.component.html" />
+    <Content Include="src\app\dashboard\dashboard.component.js" />
     <Content Include="src\app\house\house-list.component.css" />
     <Content Include="src\app\house\house-list.component.html" />
     <Content Include="src\app\house\house.component.css" />
@@ -108,9 +111,16 @@
     <Content Include="src\app\overview\overview.component.html" />
     <Content Include="src\app\sensor\sensor-list.component.html" />
     <Content Include="src\app\sensor\sensor.component.html" />
-    <Content Include="src\tsconfig.json" />
+    <Content Include="src\assets\images\DSC8606.JPG" />
+    <Content Include="src\assets\images\header.jpg" />
+    <Content Include="src\assets\images\IMG1268.JPG" />
     <Content Include="tslint.json" />
     <Content Include="src\app\app.component.html" />
+    <Content Include="src\tsconfig.json" />
+    <Content Include="src\app\config\environment.json" />
+    <Content Include="src\app\config\development.json" />
+    <Content Include="src\app\config\production.json" />
+    <Content Include="src\app\dashboard\dashboard.component.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -137,6 +147,9 @@
     <TypeScriptCompile Include="src\app\authentication\authentication.service.ts" />
     <TypeScriptCompile Include="src\app\authentication\login\authentication-login.component.ts" />
     <TypeScriptCompile Include="src\app\authentication\register\authentication-register.component.ts" />
+    <TypeScriptCompile Include="src\app\config\config.service.ts" />
+    <TypeScriptCompile Include="src\app\config\preload-config.ts" />
+    <TypeScriptCompile Include="src\app\dashboard\dashboard.component.ts" />
     <TypeScriptCompile Include="src\app\house\house-list.component.ts" />
     <TypeScriptCompile Include="src\app\house\house.component.ts" />
     <TypeScriptCompile Include="src\app\house\house.service.ts" />
