@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { House } from './House';
 import { HouseService } from './house.service';
 
@@ -8,18 +8,21 @@ import { HouseService } from './house.service';
     selector: 'house-edit',
     templateUrl: 'app/house/house-edit.component.html'
 })
-export class HouseEditComponent implements OnInit {
-    @Input() public selectedHouse: House;
-
+export class HouseEditComponent implements OnInit {    
     public houseEditFrom: FormGroup;
 
     public errorMessage: string;
     public hasAttempted: boolean;
 
-    constructor(private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder) { }
+    public hid: string;
+
+    constructor(private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { }
     
     ngOnInit() {
-        console.log(this.selectedHouse);
+        // subscribe to router event
+        this.activatedRoute.queryParams.subscribe((params: Params) => {
+            this.hid = params['hid'];
+        });
 
         // Bind form
         this.houseEditFrom = this._formBuilder.group({            
@@ -35,7 +38,7 @@ export class HouseEditComponent implements OnInit {
 
         var formValues = this.houseEditFrom.value;
 
-        this._houseService.editHouse(<House>{ hid: formValues.houseIdentifier, address: formValues.address })
+        this._houseService.editHouse(<House>{ hid: this.hid, address: formValues.address })
             .then(() => this._router.navigate(['house']))
             .catch((error) => this.errorMessage = error.errorMessage);
     }

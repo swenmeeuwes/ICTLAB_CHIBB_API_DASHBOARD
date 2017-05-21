@@ -67,7 +67,7 @@ export class HouseService {
         return new Promise((resolve, reject) => {
             var token = this._authenticationService.getToken();
 
-            var resultObservable = this._http.post(`${this._apiUrl}/house?token=${token}`, house, { headers: this._headers })
+            var resultObservable = this._http.put(`${this._apiUrl}/house/${house.hid}?token=${token}`, house, { headers: this._headers })
                 .map((response) => response.json());
 
             resultObservable.subscribe(

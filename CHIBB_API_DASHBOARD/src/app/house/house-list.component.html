@@ -21,7 +21,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th>UID</th>
+          <th>Id</th>
           <th>Address</th>
           <!--<th>Linked sensors</th>-->
           <!--<th></th>-->
@@ -35,7 +35,7 @@
           <td>{{ house.address }}</td>
           <!--<td>{{ house.linkedSensors ? house.linkedSensors : "Gathering ..." }}</td>-->
           <!--<td class="actionItem" (click)="view(house)"><span class="glyphicon glyphicon-file"></span> View</td>--> <!-- Disabled because the modal is buggy :c -->
-          <td class="actionItem"><div routerLink="edit" [queryParams]="{selectedHouse: house}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</div></td>
+          <td class="actionItem"><div (click)="editHouse(house)" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</div></td>
           <td class="actionItem"><div (click)="promptDelete(house)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</div></td>
         </tr>
       </tbody>
@@ -47,7 +47,7 @@
   <!-- Hidden modal button (work-around for $(#deleteHouseModal).modal()) -->
   <button id="openDeleteModalButton" [hidden]="true" data-toggle="modal" data-target="#deleteHouseModal">Open Modal</button>
 
-  <!-- House modal -->
+  <!-- Delete house modal -->
   <div id="deleteHouseModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -84,4 +84,5 @@
 
     </div>
   </div>
+  <!--End of delete house modal-->
 </div>

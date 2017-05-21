@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Sensor } from '../sensor/Sensor';
 import { SensorService } from '../sensor/sensor.service';
 import { HouseService } from './house.service';
@@ -18,7 +19,7 @@ export class HouseListComponent implements OnInit {
 
     private sensors: Sensor[];
 
-    constructor(public houseService: HouseService, private _sensorService: SensorService) { }
+    constructor(public houseService: HouseService, private _sensorService: SensorService, private _router: Router) { }
 
     ngOnInit() {
         this.refreshHouses();
@@ -54,6 +55,10 @@ export class HouseListComponent implements OnInit {
 
     viewHouse(house: House) {
         this.selectedHouse = house;
+    }
+
+    editHouse(house: House) {
+        this._router.navigate(['house/edit'], { queryParams: { hid: house.hid } });
     }
 
     promptDelete(house: House) {
