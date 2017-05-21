@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { HouseService } from '../house/house.service';
 import { House } from '../house/House';
@@ -13,9 +14,9 @@ declare var vis: any;
     styleUrls: ['app/dashboard/dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-    constructor(public authenticationService: AuthenticationService, private _houseService: HouseService, private _sensorService: SensorService) {
-        
-    }
+    private _nodes: Array<any>;
+
+    constructor(public authenticationService: AuthenticationService, private _router: Router, private _houseService: HouseService, private _sensorService: SensorService) { }
 
     ngOnInit() {
         var houseServicePromise = this._houseService.getHouses();
@@ -46,6 +47,8 @@ export class DashboardComponent implements OnInit {
             var allNodes = houseNodes.concat(sensorNodes);
             // Add the user nodes aswell
             allNodes.push(userNode);
+            // Store nodes for lookup when they are clicked
+            this._nodes = allNodes;
 
 
             // DEFINITION OF EDGES
@@ -63,8 +66,6 @@ export class DashboardComponent implements OnInit {
     }
 
     graphInit(containerId: string, nodes: Array<any>, edges: Array<any>) {
-        console.log(nodes, edges);
-
         // Import node models
         var graphNodes = new vis.DataSet(nodes);
         var graphEdges = new vis.DataSet(edges);
@@ -84,7 +85,8 @@ export class DashboardComponent implements OnInit {
             interaction: {
                 dragView: true,
                 dragNodes: true,
-                zoomView: false
+                zoomView: false,
+                navigationButtons: false
             },
             layout: {
                 hierarchical: {
@@ -136,5 +138,23 @@ export class DashboardComponent implements OnInit {
 
         // Initialize the network, which creates a canvas in the early defined container
         var network = new vis.Network(container, data, options);
+
+        network.on("click", function (params: any) {
+            this.handleNodeClick(params.nodes[0]);
+        }.bind(this));
+    }
+
+    handleNodeClick(nodeId: number) {
+        var node = this._nodes.find((node: any) => { return node.id === nodeId });
+        
+        if (!node)
+            return;
+
+        // Execute depending on the group of the node
+        switch (node.group) {
+            case 'house':
+                this._router.navigate(['house/edit'], { queryParams: { hid: node.hid } });
+                break;
+        }
     }
 }
