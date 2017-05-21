@@ -25,10 +25,16 @@ export class DashboardComponent implements OnInit {
             var houses = promiseValues[0].result;
             var sensors = promiseValues[1].result;
 
-            console.log(houses, sensors);
+            // DEFINITION OF NODES
+            // Create 'user' node first as a center point
+            var userNode = {
+                id: 1,
+                label: 'You',
+                group: 'user'
+            }
 
-            // Start nodes at id = 1, id is used to defined edges later
-            var id = 1;
+            // Start nodes at id = 2 (the user=1), id is used to defined edges later
+            var id = 2;
 
             // Map houses to nodes (which vis.js uses)
             var houseNodes = houses.map((house: House) => { return { id: id++, label: house.address, hid: house.hid, group: 'house' } });
@@ -36,12 +42,29 @@ export class DashboardComponent implements OnInit {
             // Map sensors to nodes
             var sensorNodes = sensors.map((sensor: Sensor) => { return { id: id++, label: sensor.type, sid: sensor.uid, group: 'sensor' } })
             
+            // Concatenation of all nodes
+            var allNodes = houseNodes.concat(sensorNodes);
+            // Add the user nodes aswell
+            allNodes.push(userNode);
 
-            this.graphInit('graphContainer', houseNodes, []);
+
+            // DEFINITION OF EDGES
+            // Create edges between the user and their houses
+            var edges = <any>[];
+            for (var i = 0; i < houseNodes.length; i++) {
+                edges.push({
+                    from: 1,
+                    to: houseNodes[i].id
+                });
+            }
+
+            this.graphInit('graphContainer', allNodes, edges);
         });
     }
 
     graphInit(containerId: string, nodes: Array<any>, edges: Array<any>) {
+        console.log(nodes, edges);
+
         // Import node models
         var graphNodes = new vis.DataSet(nodes);
         var graphEdges = new vis.DataSet(edges);
@@ -70,13 +93,22 @@ export class DashboardComponent implements OnInit {
                 }
             },
             groups: {
+                user: {
+                    shape: 'icon',
+                    icon: {
+                        face: 'FontAwesome',
+                        code: '\uf007',
+                        size: 48,
+                        color: '#b3cde3'
+                    }
+                },
                 house: {
                     shape: 'icon',
                     icon: {
                         face: 'FontAwesome',
                         code: '\uf015',
                         size: 48,
-                        color: '#DE9BF9'
+                        color: '#decbe4'
                     }
                 },
                 sensor: {
@@ -85,7 +117,7 @@ export class DashboardComponent implements OnInit {
                         face: 'FontAwesome',
                         code: '\uf1c0',
                         size: 48,
-                        color: '#FB95AF'
+                        color: '#ccebc5'
                     }
                 }
             },
