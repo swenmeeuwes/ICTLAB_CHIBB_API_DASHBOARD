@@ -44,3 +44,7 @@
 .tile p {
   margin-bottom: 0px;
 }
+
+#graphContainer {
+  height: 550px;
+}
