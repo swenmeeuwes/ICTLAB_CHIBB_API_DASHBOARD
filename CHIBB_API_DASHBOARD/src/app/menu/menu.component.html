@@ -11,7 +11,7 @@
       </div>
       <div class="collapse navbar-collapse" id="chibbNavbar">
         <ul class="nav navbar-nav">
-          <li [ngClass]="{'active': router.url === '/dashboard' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="overview">Home</a></li>
+          <li [ngClass]="{'active': router.url === '/dashboard' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="dashboard">Home</a></li>
           <li [ngClass]="{'active': router.url === '/house' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="house">Houses</a></li>
           <li [ngClass]="{'active': router.url === '/sensor' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="sensor">Sensors</a></li>
           <!--<li [ngClass]="{'active': router.url === '/permission' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Permissions</a></li>-->
