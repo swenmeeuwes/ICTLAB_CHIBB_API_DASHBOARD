@@ -39,6 +39,7 @@ import { HouseService } from './house/house.service';
 
 // Sensor
 import { SensorComponent } from './sensor/sensor.component';
+import { SensorCreationComponent } from './sensor/sensor-creation.component';
 import { SensorService } from './sensor/sensor.service';
 
 // Guards
@@ -97,6 +98,11 @@ import { AuthenticationGuard } from './authentication/authentication-guard.servi
                 path: 'sensor',
                 canActivate: [AuthenticationGuard],
                 component: SensorComponent
+            },
+            {
+                path: 'sensor/create',
+                canActivate: [AuthenticationGuard],
+                component: SensorCreationComponent
             }
         ])
     ],
@@ -112,7 +118,8 @@ import { AuthenticationGuard } from './authentication/authentication-guard.servi
         HouseListComponent,
         HouseCreationComponent,
         HouseEditComponent,
-        SensorComponent
+        SensorComponent,
+        SensorCreationComponent
     ],
     bootstrap: [AppComponent],
     providers: [

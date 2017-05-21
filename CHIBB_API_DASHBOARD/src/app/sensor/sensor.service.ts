@@ -3,6 +3,7 @@ import { Headers, Http, Response } from '@angular/http';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
+import { Sensor } from './Sensor';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
@@ -38,5 +39,25 @@ export class SensorService {
             var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
         });
         return promise;
+    }
+
+    createSensor(sensor: Sensor): Promise<any> {
+        return new Promise((resolve, reject) => {
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.post(`${this._apiUrl}/sensor?token=${token}`, sensor, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    resolve(data["responseCode"]);
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+        });
     }
 }

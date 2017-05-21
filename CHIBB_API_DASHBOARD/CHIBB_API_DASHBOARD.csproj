@@ -121,6 +121,7 @@
     <Content Include="src\app\config\environment.json" />
     <Content Include="src\app\config\development.json" />
     <Content Include="src\app\config\production.json" />
+    <Content Include="src\app\sensor\sensor-creation.component.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -157,6 +158,7 @@
     <TypeScriptCompile Include="src\app\house\House.ts" />
     <TypeScriptCompile Include="src\app\menu\menu.component.ts" />
     <TypeScriptCompile Include="src\app\overview\overview.component.ts" />
+    <TypeScriptCompile Include="src\app\sensor\sensor-creation.component.ts" />
     <TypeScriptCompile Include="src\app\sensor\sensor-list.component.ts" />
     <TypeScriptCompile Include="src\app\sensor\sensor.component.ts" />
     <TypeScriptCompile Include="src\app\sensor\sensor.service.ts" />
