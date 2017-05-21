@@ -4,6 +4,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { Observable } from 'rxjs/Observable';
 import { ConfigService } from '../config/config.service';
 import { Sensor } from './Sensor';
+import { House } from '../house/House';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
@@ -25,6 +26,30 @@ export class SensorService {
             var token = this._authenticationService.getToken();
 
             var resultObservable = this._http.get(`${this._apiUrl}/sensor?token=${token}`, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    resolve({ result: data["result"] });
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+        });
+        return promise;
+    }
+
+    getSensorsFromHouse(house: House): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            if (!this._authenticationService.isAuthenticated())
+                reject({ errorMessage: "Not authenticated" });
+
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.get(`${this._apiUrl}/sensor/${house.hid}?token=${token}`, { headers: this._headers })
                 .map((response) => response.json());
 
             resultObservable.subscribe(

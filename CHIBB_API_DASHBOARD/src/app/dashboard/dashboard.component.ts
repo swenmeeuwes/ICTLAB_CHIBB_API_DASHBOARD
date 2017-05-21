@@ -20,11 +20,9 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         var houseServicePromise = this._houseService.getHouses();
-        var sensorServicePromise = this._sensorService.getSensors();
 
-        Promise.all([houseServicePromise, sensorServicePromise]).then(promiseValues => {
-            var houses = promiseValues[0].result;
-            var sensors = promiseValues[1].result;
+        houseServicePromise.then(houses => {
+            var houses = houses.result;
 
             // DEFINITION OF NODES
             // Create 'user' node first as a center point
@@ -38,30 +36,67 @@ export class DashboardComponent implements OnInit {
             var id = 2;
 
             // Map houses to nodes (which vis.js uses)
-            var houseNodes = houses.map((house: House) => { return { id: id++, label: house.address, hid: house.hid, group: 'house' } });
+            var houseNodes = houses.map((house: House) => {
+                return {
+                    id: id++,
+                    label: house.address,
+                    hid: house.hid,
+                    group: 'house'
+                }
+            });
 
-            // Map sensors to nodes
-            var sensorNodes = sensors.map((sensor: Sensor) => { return { id: id++, label: sensor.type, sid: sensor.uid, group: 'sensor' } })
-            
-            // Concatenation of all nodes
-            var allNodes = houseNodes.concat(sensorNodes);
-            // Add the user nodes aswell
-            allNodes.push(userNode);
-            // Store nodes for lookup when they are clicked
-            this._nodes = allNodes;
-
-
-            // DEFINITION OF EDGES
-            // Create edges between the user and their houses
-            var edges = <any>[];
-            for (var i = 0; i < houseNodes.length; i++) {
-                edges.push({
-                    from: 1,
-                    to: houseNodes[i].id
-                });
+            // Request sensors for each house
+            var sensorPromises = [];
+            for (var i = 0; i < houses.length; i++) {
+                sensorPromises.push(this._sensorService.getSensorsFromHouse(houses[i]));
             }
 
-            this.graphInit('graphContainer', allNodes, edges);
+            Promise.all(sensorPromises).then(promiseValues => {
+                var sensors = <any>[];
+                for (var i = 0; i < promiseValues.length; i++) {
+                    sensors = sensors.concat(promiseValues[i].result);                    
+                }
+
+                // Map sensors to nodes
+                var sensorNodes = sensors.map((sensor: Sensor) => {
+                    return {
+                        id: id++,
+                        label:
+                        sensor.type,
+                        hid: sensor.hid,
+                        sid: sensor.sid,
+                        group: 'sensor'
+                    }
+                })
+
+                // Concatenation of all nodes
+                var allNodes = houseNodes.concat(sensorNodes);
+                // Add the user nodes aswell
+                allNodes.push(userNode);
+                // Store nodes for lookup when they are clicked
+                this._nodes = allNodes;
+
+
+                // DEFINITION OF EDGES
+                var edges = <any>[];
+
+                // Create edges between the user and their houses            
+                for (var i = 0; i < houseNodes.length; i++) {
+                    edges.push({
+                        from: 1,
+                        to: houseNodes[i].id
+                    });
+                }
+                // Create edges between houses and their sensors
+                for (var i = 0; i < sensorNodes.length; i++) {                    
+                    edges.push({
+                        from: houseNodes.find((node: any) => { return node.hid === sensorNodes[i].hid }).id,
+                        to: sensorNodes[i].id
+                    });
+                }
+
+                this.graphInit('graphContainer', allNodes, edges);
+            });
         });
     }
 
@@ -146,7 +181,7 @@ export class DashboardComponent implements OnInit {
 
     handleNodeClick(nodeId: number) {
         var node = this._nodes.find((node: any) => { return node.id === nodeId });
-        
+
         if (!node)
             return;
 
