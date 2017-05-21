@@ -61,8 +61,7 @@ export class DashboardComponent implements OnInit {
                 var sensorNodes = sensors.map((sensor: Sensor) => {
                     return {
                         id: id++,
-                        label:
-                        sensor.type,
+                        label: `${sensor.type}\n${sensor.location}`,
                         hid: sensor.hid,
                         sid: sensor.sid,
                         group: 'sensor'

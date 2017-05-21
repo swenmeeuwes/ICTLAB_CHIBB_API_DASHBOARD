@@ -34,7 +34,7 @@ export class SensorCreationComponent implements OnInit {
 
         var formValues = this.sensorCreationFrom.value;
 
-        this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, type: formValues.type, attributes: [] })
+        this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, location: formValues.location, type: formValues.type, attributes: [] })
             .then(() => this._router.navigate(['sensor']))
             .catch((error) => this.errorMessage = error.errorMessage);
     }
