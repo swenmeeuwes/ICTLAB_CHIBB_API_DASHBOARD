@@ -1,4 +1,8 @@
-﻿import { NgModule } from '@angular/core';
+﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { Headers, Http, Response } from '@angular/http';
+
+// Config
+import { ConfigService } from './config/config.service';
 
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -115,7 +119,14 @@ import { AuthenticationGuard } from './authentication/authentication-guard.servi
         AuthenticationService,
         HouseService,
         SensorService,
-        AuthenticationGuard
+        AuthenticationGuard,
+        ConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (configService: ConfigService) => () => configService.load(),
+            deps: [ConfigService, Http],
+            multi: true
+        }
     ]
 })
 export class AppModule { }
