@@ -1,5 +1,6 @@
 ﻿export interface Sensor {
-    uid: string
+    sid: string
+    hid: string
     type: string
     attributes: string[]
 }
