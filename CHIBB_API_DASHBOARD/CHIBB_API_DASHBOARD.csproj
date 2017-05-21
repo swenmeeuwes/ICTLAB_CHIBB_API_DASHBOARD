@@ -148,7 +148,6 @@
     <TypeScriptCompile Include="src\app\authentication\login\authentication-login.component.ts" />
     <TypeScriptCompile Include="src\app\authentication\register\authentication-register.component.ts" />
     <TypeScriptCompile Include="src\app\config\config.service.ts" />
-    <TypeScriptCompile Include="src\app\config\preload-config.ts" />
     <TypeScriptCompile Include="src\app\dashboard\dashboard.component.ts" />
     <TypeScriptCompile Include="src\app\house\house-list.component.ts" />
     <TypeScriptCompile Include="src\app\house\house.component.ts" />

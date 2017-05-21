@@ -1,4 +1,4 @@
 ﻿{
-  "apiUrl": "http://localhost:8001",
+  "apiUrl": "http://localhost:8081",
   "debugging":  true
 }
