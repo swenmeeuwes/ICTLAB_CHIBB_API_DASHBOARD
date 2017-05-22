@@ -115,13 +115,15 @@
     <Content Include="src\assets\images\DSC8606.JPG" />
     <Content Include="src\assets\images\header.jpg" />
     <Content Include="src\assets\images\IMG1268.JPG" />
+    <Content Include="src\tsconfig.json" />
     <Content Include="tslint.json" />
     <Content Include="src\app\app.component.html" />
-    <Content Include="src\tsconfig.json" />
     <Content Include="src\app\config\environment.json" />
     <Content Include="src\app\config\development.json" />
     <Content Include="src\app\config\production.json" />
     <Content Include="src\app\sensor\sensor-creation.component.html" />
+    <Content Include=".angular-cli.json" />
+    <Content Include="src\tsconfig.app.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,6 +166,7 @@
     <TypeScriptCompile Include="src\app\sensor\sensor.service.ts" />
     <TypeScriptCompile Include="src\app\sensor\Sensor.ts" />
     <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\vis.d.ts" />
   </ItemGroup>
   <ItemGroup>

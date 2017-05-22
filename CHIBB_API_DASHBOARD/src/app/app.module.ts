@@ -39,12 +39,15 @@ import { HouseService } from './house/house.service';
 
 // Sensor
 import { SensorComponent } from './sensor/sensor.component';
+import { SensorListComponent } from './sensor/sensor-list.component';
 import { SensorCreationComponent } from './sensor/sensor-creation.component';
 import { SensorService } from './sensor/sensor.service';
 
 // Guards
 // Authentication guard
 import { AuthenticationGuard } from './authentication/authentication-guard.service';
+
+export function loadConfig(configService: ConfigService) { configService.load() };
 
 @NgModule({
     imports: [
@@ -119,6 +122,7 @@ import { AuthenticationGuard } from './authentication/authentication-guard.servi
         HouseCreationComponent,
         HouseEditComponent,
         SensorComponent,
+        SensorListComponent,
         SensorCreationComponent
     ],
     bootstrap: [AppComponent],
@@ -130,7 +134,7 @@ import { AuthenticationGuard } from './authentication/authentication-guard.servi
         ConfigService,
         {
             provide: APP_INITIALIZER,
-            useFactory: (configService: ConfigService) => () => configService.load(),
+            useFactory: loadConfig,
             deps: [ConfigService, Http],
             multi: true
         }
