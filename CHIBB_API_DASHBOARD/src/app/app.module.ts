@@ -47,7 +47,9 @@ import { SensorService } from './sensor/sensor.service';
 // Authentication guard
 import { AuthenticationGuard } from './authentication/authentication-guard.service';
 
-export function loadConfig(configService: ConfigService) { configService.load() };
+export function loadConfig(configService: ConfigService): Function {
+    return () => configService.load();
+}
 
 @NgModule({
     imports: [
