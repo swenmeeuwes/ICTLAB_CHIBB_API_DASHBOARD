@@ -102,13 +102,13 @@ export function loadConfig(configService: ConfigService): Function {
             {
                 path: 'sensor',
                 canActivate: [AuthenticationGuard],
-                component: SensorComponent
-            },
-            {
-                path: 'sensor/list',
-                canActivate: [AuthenticationGuard],
                 component: SensorListComponent
             },
+            {
+                path: 'sensor/view',
+                canActivate: [AuthenticationGuard],
+                component: SensorComponent
+            },            
             {
                 path: 'sensor/create',
                 canActivate: [AuthenticationGuard],

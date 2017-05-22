@@ -21,6 +21,9 @@
   <ItemGroup>
     <Content Include=".angular-cli.json" />
     <Content Include="package.json" />
+    <Content Include="src\app\sensor\sensor.component.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\assets\config\development.json" />
     <Content Include="src\assets\config\environment.json" />
     <Content Include="src\assets\config\production.json" />

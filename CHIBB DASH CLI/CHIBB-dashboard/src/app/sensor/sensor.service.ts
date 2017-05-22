@@ -42,6 +42,31 @@ export class SensorService {
         return promise;
     }
 
+    getSensorById(sid: string): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            // Can be removed since there is an auth guard?
+            if (!this._authenticationService.isAuthenticated())
+                reject({ errorMessage: "Not authenticated" });
+
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.get(`${this._apiUrl}/sensor/id/${sid}?token=${token}`, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    resolve({ result: data["result"] });
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+        });
+        return promise;
+    }
+
     getSensorsFromHouse(house: House): Promise<any> {
         var promise = new Promise((resolve, reject) => {
             if (!this._authenticationService.isAuthenticated())
@@ -49,7 +74,32 @@ export class SensorService {
 
             var token = this._authenticationService.getToken();
 
-            var resultObservable = this._http.get(`${this._apiUrl}/sensor/${house.hid}?token=${token}`, { headers: this._headers })
+            var resultObservable = this._http.get(`${this._apiUrl}/sensor/house/${house.hid}?token=${token}`, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    resolve({ result: data["result"] });
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+        });
+        return promise;
+    }
+
+    getSensorDataById(sid: string): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            // Can be removed since there is an auth guard?
+            if (!this._authenticationService.isAuthenticated())
+                reject({ errorMessage: "Not authenticated" });
+
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.get(`${this._apiUrl}/sensor/data/${sid}?token=${token}`, { headers: this._headers })
                 .map((response) => response.json());
 
             resultObservable.subscribe(

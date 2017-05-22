@@ -1,1 +1,43 @@
-﻿
+﻿<div class="sensor-information custom-background">
+
+  <div *ngIf="sensor">
+    <div class="container row">
+      <div class="col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Sensor #{{ sensor.sid }}</h3>
+          </div>
+          <div class="panel-body">
+            <div><span class="glyphicon glyphicon-home"> </span> {{ sensor.hid }}</div>
+            <div><span class="glyphicon glyphicon-tag"> </span> {{ sensor.type }}</div>
+            <div><span class="glyphicon glyphicon-map-marker"> </span> {{ sensor.location }}</div>
+            <div><span class="glyphicon glyphicon-list"> </span> {{ sensor.attributes }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+
+      </div>
+    </div>
+  </div>
+
+  <!--Loading spinner-->
+  <div *ngIf="!sensor && !errorMessage">
+    <div class="centered-block loading-text custom-text">
+      <div>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+      </div>
+      <br />
+      <div>Loading sensor data ...</div>
+    </div>
+  </div>
+
+  <!--Error message-->
+  <div *ngIf="errorMessage">
+    <div class="centered-block error-text custom-text">
+      {{ errorMessage }}
+    </div>
+  </div>
+
+</div>

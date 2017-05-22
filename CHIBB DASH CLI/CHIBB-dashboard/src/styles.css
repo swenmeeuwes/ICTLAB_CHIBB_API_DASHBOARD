@@ -15,3 +15,12 @@ body {
   color: #656565;
   text-align: center;
 }
+
+/*Carrot media color palette -> http://www.color-hex.com/color-palette/37774 */
+.custom-background {
+  background-color: #22323f;
+}
+
+.custom-text {
+  color: #64b26f;
+}

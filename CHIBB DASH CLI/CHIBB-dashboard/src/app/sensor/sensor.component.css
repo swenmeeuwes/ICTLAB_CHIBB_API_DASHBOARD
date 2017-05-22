@@ -1,0 +1,10 @@
+﻿.sensor-information {
+  min-height: calc(100vh - 70px);
+  padding: 32px;
+}
+
+.error-text {
+  text-align: center;
+
+  font-size: 36px;
+}

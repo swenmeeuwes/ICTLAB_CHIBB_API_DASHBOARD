@@ -16,11 +16,11 @@ export class HouseEditComponent implements OnInit {
 
     public hid: string;
 
-    constructor(private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) { }
+    constructor(private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder, private _activatedRoute: ActivatedRoute) { }
     
     ngOnInit() {
-        // subscribe to router event
-        this.activatedRoute.queryParams.subscribe((params: Params) => {
+        // Subscribe to router query parameters event
+        this._activatedRoute.queryParams.subscribe((params: Params) => {
             this.hid = params['hid'];
         });
 
