@@ -6,8 +6,6 @@ import { House } from '../house/House';
 import { SensorService } from '../sensor/sensor.service';
 import { Sensor } from '../sensor/Sensor';
 
-declare var vis: any;
-
 @Component({
     selector: 'dashboard',
     templateUrl: 'app/dashboard/dashboard.component.html',

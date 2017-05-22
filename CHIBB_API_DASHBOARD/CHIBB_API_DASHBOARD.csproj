@@ -164,6 +164,7 @@
     <TypeScriptCompile Include="src\app\sensor\sensor.service.ts" />
     <TypeScriptCompile Include="src\app\sensor\Sensor.ts" />
     <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\vis.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
