@@ -7,16 +7,8 @@ import { HouseService } from './house.service';
     templateUrl: './house.component.html',
     styleUrls: ['./house.component.css']
 })
-export class HouseComponent implements OnInit, OnChanges {
+export class HouseComponent {
     @Input() selectedHouse: House;
 
     constructor(private _houseService: HouseService) { }
-
-    ngOnInit() {
-
-    };
-
-    ngOnChanges(changes: SimpleChanges) {
-        //document.getElementById("openModalButton").click();
-    };
 }

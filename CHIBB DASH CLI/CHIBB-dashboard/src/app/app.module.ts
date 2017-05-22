@@ -105,6 +105,11 @@ export function loadConfig(configService: ConfigService): Function {
                 component: SensorComponent
             },
             {
+                path: 'sensor/list',
+                canActivate: [AuthenticationGuard],
+                component: SensorListComponent
+            },
+            {
                 path: 'sensor/create',
                 canActivate: [AuthenticationGuard],
                 component: SensorCreationComponent
@@ -137,7 +142,7 @@ export function loadConfig(configService: ConfigService): Function {
         {
             provide: APP_INITIALIZER,
             useFactory: loadConfig,
-            deps: [ConfigService, Http],
+            deps: [ConfigService],
             multi: true
         }
     ]

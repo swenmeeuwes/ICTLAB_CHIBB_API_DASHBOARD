@@ -8,7 +8,7 @@ import { AuthenticationService } from './authentication.service';
     templateUrl: './authentication.component.html'
 })
 export class AuthenticationComponent implements OnInit {
-    private _output: string = null;
+    public _output: string = null;
 
     constructor(private _authenticationService: AuthenticationService, private _router: Router) { };
 

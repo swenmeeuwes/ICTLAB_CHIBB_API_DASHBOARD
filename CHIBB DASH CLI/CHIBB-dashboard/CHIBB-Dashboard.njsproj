@@ -21,6 +21,9 @@
   <ItemGroup>
     <Content Include=".angular-cli.json" />
     <Content Include="package.json" />
+    <Content Include="src\assets\config\development.json" />
+    <Content Include="src\assets\config\environment.json" />
+    <Content Include="src\assets\config\production.json" />
     <Content Include="tsconfig.json" />
     <Content Include="tslint.json" />
     <Content Include="README.md" />
@@ -50,9 +53,6 @@
     <TypeScriptCompile Include="src\app\authentication\authentication-guard.service.ts" />
     <TypeScriptCompile Include="src\app\authentication\authentication.component.ts" />
     <TypeScriptCompile Include="src\app\authentication\authentication.service.ts" />
-    <Content Include="src\app\config\development.json" />
-    <Content Include="src\app\config\environment.json" />
-    <Content Include="src\app\config\production.json" />
     <TypeScriptCompile Include="src\app\config\config.service.ts" />
     <Content Include="src\app\dashboard\dashboard.component.html" />
     <Content Include="src\app\dashboard\dashboard.component.css" />
@@ -92,7 +92,6 @@
     <Content Include="src\assets\images\IMG1268.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CHIBB-Dashboard" />
     <Folder Include="e2e" />
     <Folder Include="src" />
     <Folder Include="src\app" />
@@ -106,6 +105,7 @@
     <Folder Include="src\app\overview" />
     <Folder Include="src\app\sensor" />
     <Folder Include="src\assets" />
+    <Folder Include="src\assets\config\" />
     <Folder Include="src\assets\images" />
     <Folder Include="src\environments" />
   </ItemGroup>
