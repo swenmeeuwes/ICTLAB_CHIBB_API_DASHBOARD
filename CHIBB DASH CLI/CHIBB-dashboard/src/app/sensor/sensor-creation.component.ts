@@ -22,7 +22,8 @@ export class SensorCreationComponent implements OnInit {
             sensorIdentifier: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
             houseIdentifier: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
             type: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
-            location: ["", Validators.compose([Validators.required, Validators.minLength(2)])] // Optional?
+            location: ["", Validators.compose([Validators.required, Validators.minLength(2)])], // Optional?
+            attributes: ["", Validators.compose([Validators.required, Validators.minLength(2)])]
         });
     };
 
@@ -34,7 +35,7 @@ export class SensorCreationComponent implements OnInit {
 
         var formValues = this.sensorCreationFrom.value;
 
-        this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, location: formValues.location, type: formValues.type, attributes: [] })
+        this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, location: formValues.location, type: formValues.type, attributes: formValues.attributes.split(';') })
             .then(() => this._router.navigate(['sensor']))
             .catch((error) => this.errorMessage = error.errorMessage);
     }

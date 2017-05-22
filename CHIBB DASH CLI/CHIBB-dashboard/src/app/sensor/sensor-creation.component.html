@@ -35,6 +35,12 @@
           <input class="form-control" formControlName="location" type="text" placeholder="Location">
         </div>
       </div>
+      <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['attributes'].invalid && hasAttempted }">
+        <label class="control-label col-sm-2">Attributes:</label>
+        <div class="col-sm-6">
+          <input class="form-control" formControlName="attributes" type="text" placeholder="Attribute">
+        </div>
+      </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button class="btn btn-default" type="submit">Create sensor</button>
