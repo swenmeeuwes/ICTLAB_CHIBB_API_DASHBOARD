@@ -1,15 +1,26 @@
-﻿.center-block {
-  display: block;
+﻿.dashboard {
+  background-color: #22323f;
+  min-height: calc(100vh - 70px);
+}
 
+.center-block {
+  display: block;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
 
+.greeter-wrapper {
+  min-height: 320px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #64b26f;
+}
+
 .greeter {
   text-align: center;
-
-  padding-bottom: 24px;
 }
 
 .tile-wrapper {
@@ -37,14 +48,15 @@
     border: 3px solid #4c896d;
   }
 
-.tile h2 {
-  margin-top: 0px;
-}
+  .tile h2 {
+    margin-top: 0px;
+  }
 
-.tile p {
-  margin-bottom: 0px;
-}
+  .tile p {
+    margin-bottom: 0px;
+  }
 
 #graphContainer {
   height: 550px;
+  background-color: #f9f9f9;
 }

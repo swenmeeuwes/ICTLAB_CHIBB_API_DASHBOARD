@@ -37,6 +37,10 @@
     <Content Include="src\favicon.ico" />
     <Content Include="src\tsconfig.app.json" />
     <Content Include="src\tsconfig.spec.json" />
+    <TypeScriptCompile Include="src\app\overview\overview.component.spec.ts">
+      <SubType>Code</SubType>
+      <TestFramework>ExportRunner</TestFramework>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\test.ts" />

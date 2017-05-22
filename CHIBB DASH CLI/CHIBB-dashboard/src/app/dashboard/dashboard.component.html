@@ -1,10 +1,12 @@
-﻿<div class="container-fluid">
-  <div class="greeter">
-    <h1 class="welcome">Hello {{ authenticationService.getUsername() }}!</h1>
-    <p>
-      Hope you are having a nice day.<br />
-      How is your network doing?
-    </p>
+﻿<div class="dashboard">
+  <div class="greeter-wrapper">
+    <div class="greeter">
+      <h1 class="welcome">Hello {{ authenticationService.getUsername() }}!</h1>
+      <p>
+        Hope you are having a nice day.<br />
+        How is your network doing?
+      </p>
+    </div>
   </div>
   <!--<div class="row">
     <div class="col-sm-4">
@@ -85,7 +87,7 @@
   </div>-->
 
   <!--Graph container-->
-  <div class="row">
+  <div class="">
     <div id="graphContainer">
     </div>
   </div>
