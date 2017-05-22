@@ -1,0 +1,19 @@
+﻿.component-wrapper {
+  padding-top: 70px;
+}
+
+.actionItem {
+  width: 100px;
+}
+
+.tableList tr td {
+  padding: 0 8px;
+}
+
+.tableList tr td:first-child {
+  font-weight: bold;
+}
+
+.tableList {
+  margin-bottom: 12px;
+}

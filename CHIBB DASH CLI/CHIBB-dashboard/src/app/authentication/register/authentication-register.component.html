@@ -1,0 +1,46 @@
+﻿<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <h2>Register</h2>
+    <hr />
+    <!--Alerts-->
+    <div class="alert alert-danger " role="alert" *ngIf="hasAttempted && registrationForm.invalid">
+      <strong>Uh-oh!</strong> One or more fields are not valid
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="hasAttempted && errorMessage">
+      <strong>Uh-oh!</strong> {{ errorMessage }}
+    </div>
+    <!--End of alerts-->
+    <div *ngIf="!hasRegistered">
+      <form class="form-horizontal" [formGroup]="registrationForm" (ngSubmit)="attemptRegister($event)">
+        <div class="form-group" [ngClass]="{'has-error has-feedback': registrationForm.controls['email'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">E-mail:</label>
+          <div class="col-sm-6">
+            <input class="form-control" formControlName="email" type="email" placeholder="Your e-mail">
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error has-feedback': registrationForm.controls['username'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">Username:</label>
+          <div class="col-sm-6">
+            <input class="form-control" formControlName="username" type="text" placeholder="Your username">
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error has-feedback': registrationForm.controls['password'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">Password:</label>
+          <div class="col-sm-6">
+            <input class="form-control" formControlName="password" type="password" placeholder="Your password">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-8">
+            <button class="btn btn-default" type="submit" style="float: right;">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!--Will be shown when the user did register-->
+    <div *ngIf="hasRegistered">
+      Registration succesful, you can now <a routerLink="../login">login</a>!
+    </div>
+  </div>
+</div>
