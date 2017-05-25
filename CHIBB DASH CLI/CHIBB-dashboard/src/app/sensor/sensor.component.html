@@ -33,7 +33,10 @@
             <h3 class="panel-title">Status</h3>
           </div>
           <div class="panel-body">
-            <div class="detail-list">
+            <div *ngIf="!valueGraphReady" class="text-center">
+              <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            </div>
+            <div *ngIf="valueGraphReady" class="detail-list">
               <div><span class="fa fa-heartbeat" aria-hidden="true"> </span> <span [ngClass]="{'status-danger-text': sensorStatus.status === 'Danger', 'status-stable-text': sensorStatus.status === 'Stable'}">{{ sensorStatus.text }}</span></div>
               <div><span class="fa" aria-hidden="true" [ngClass]="{
                            'fa-battery-empty': currentBatteryLevel > 0 && currentBatteryLevel < 11,
