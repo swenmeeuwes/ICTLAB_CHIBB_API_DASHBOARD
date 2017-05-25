@@ -8,3 +8,36 @@
 
   font-size: 36px;
 }
+
+.panel-custom-info {
+  border-radius: 0px;
+  border-color: #22323f;
+}
+
+.panel-heading-custom {
+  background-color: #22323f;
+  color: #64b26f;
+  border-color: #4c896d;
+  border-radius: 0px;
+
+  padding: 12px;
+}
+
+.panel-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.detail-list div:not(:last-child) {
+  font-size: 18px;
+}
+
+.detail-list div:not(:last-child) {
+  padding-bottom: 8px;
+}
+  
+  
+  .detail-list div span.glyphicon {
+    font-size: 20px;
+    padding-right: 8px;
+  }
