@@ -28,6 +28,10 @@
   font-weight: bold;
 }
 
+.detail-list  {
+  padding-left: 12px;
+}
+
 .detail-list div:not(:last-child) {
   font-size: 18px;
 }
