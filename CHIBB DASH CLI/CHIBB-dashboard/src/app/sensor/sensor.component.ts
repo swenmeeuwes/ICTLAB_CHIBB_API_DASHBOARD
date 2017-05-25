@@ -34,8 +34,16 @@ export class SensorComponent implements OnInit {
                 var dataResult = promises[1]['result'];
                 var latestResult = dataResult[0]; // ASSUMPTION: First entry is always the latest
 
-                this.currentBatteryLevel = latestResult['sensorBatteryLevel'];
-                this.sensorStatus = this.computeSensorHealth(latestResult['timestamp']);
+                if (latestResult) {
+                    this.currentBatteryLevel = latestResult['sensorBatteryLevel'];
+                    this.sensorStatus = this.computeSensorHealth(latestResult['timestamp']);
+                } else {
+                    // Sensor is new and has not send any data yet
+                    this.sensorStatus = {
+                        text: "Clean - No data",
+                        status: "New"
+                    }
+                }
 
                 var sensorValueData = dataResult.map((r) => {
                     return {
@@ -78,13 +86,11 @@ export class SensorComponent implements OnInit {
 
         var dataset = new vis.DataSet(data);
 
-        //var now = new Date();
-        //var start = now;
-        //var end = this.timestampToTime(new Date().getTime());
+        var now = Date.now();
 
         var options = {
-            //start: new Date(),
-            //end: new Date(),
+            start: new Date(now - 30 * 60 * 1000), // show latest 30 minutes
+            end: new Date(),
             width: '100%',
             height: '400px',
             style: 'line',
