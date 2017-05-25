@@ -20,7 +20,10 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/vis/dist/vis.min.css",
+        "../node_modules/vis/dist/vis-network.min.css",
+        "../node_modules/vis/dist/vis-timeline-graph2d.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

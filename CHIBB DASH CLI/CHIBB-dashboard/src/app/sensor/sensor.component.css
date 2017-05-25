@@ -41,3 +41,8 @@
     font-size: 20px;
     padding-right: 8px;
   }
+
+.sensor-value-graph {
+  width: 100%;
+  height: 550px;
+}
