@@ -39,17 +39,21 @@ export class SensorComponent implements OnInit {
 
     initializePolling(sensorId: string) {
         this._router.events.subscribe((event) => {
-            if (event instanceof NavigationStart) {                
-                this._pollTimer.unsubscribe();
-                this._pollTimer = null;
+            if (event instanceof NavigationStart) {
+                new Promise((resolve, reject) => {
+                    clearInterval(this._pollTimer);
+                    resolve();
+                });                
             }
         });
 
-        this._pollTimer = Observable.timer(0, 1000); // Start after 0 seconds then tick every 1 seconds
+        // Kick-off
+        this.pollSensor(sensorId);
 
-        this._pollTimer.subscribe(() => {
+        // Further polling
+        this._pollTimer = setInterval(() => {
             this.pollSensor(sensorId);
-        });
+        }, 1000);
     }
 
     pollSensor(sensorId: string) {
