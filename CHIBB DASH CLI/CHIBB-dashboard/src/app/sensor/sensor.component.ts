@@ -19,7 +19,7 @@ export class SensorComponent implements OnInit {
         // Subscribe to router query parameters event
         this._activatedRouter.queryParams.subscribe((params: Params) => {            
             this.retrieveSensorById(params['sid']);
-            //this.retrieveSensorDataBySensorId(params['sid']);
+            this.retrieveSensorDataBySensorId(params['sid']);
         });
     };
 
