@@ -39,3 +39,8 @@ body {
 .custom-text {
   color: #64b26f;
 }
+
+/* Bootstrap overrides*/
+.navbar-collapse, .collapse {
+  background-color: white;
+}
