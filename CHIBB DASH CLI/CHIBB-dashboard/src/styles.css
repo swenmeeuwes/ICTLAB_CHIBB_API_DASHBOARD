@@ -41,6 +41,7 @@ body {
 }
 
 /* Bootstrap overrides*/
-.navbar-collapse, .collapse {
+.navbar-collapse.in, .collapse.in,
+.navbar-collapse.collapsing, .collapse.collapsing {
   background-color: white;
 }
