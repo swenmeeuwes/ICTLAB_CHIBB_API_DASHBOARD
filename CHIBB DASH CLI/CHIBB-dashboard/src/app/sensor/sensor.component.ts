@@ -116,6 +116,9 @@ export class SensorComponent implements OnInit {
     initValueGraph(containerId: string, data: Object) {
         var container = document.getElementById(containerId);
 
+        if (container === undefined)
+            return;
+
         this._valueGraphDataset = new vis.DataSet(data);
 
         var now = Date.now();
