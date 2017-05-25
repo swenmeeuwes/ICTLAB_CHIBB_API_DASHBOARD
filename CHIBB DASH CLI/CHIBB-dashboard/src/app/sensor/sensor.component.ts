@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationStart } from '@angular/router';
 import { SensorService } from './sensor.service';
 import { Sensor } from './Sensor';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'sensor',
@@ -12,12 +13,17 @@ export class SensorComponent implements OnInit {
     public sensor: Sensor;
 
     public errorMessage: string;
-    public sensorStatus: Object;
-    public currentBatteryLevel: number;    
+    public valueGraphReady: boolean;
+    public sensorStatus: Object; // {text, status}
+    public currentBatteryLevel: number;
 
-    private valueGraphInitialized: boolean = false;
+    private _valueGraphInitialized: boolean = false;
+    private _valueGraph: any; // vis.Graph2d
+    private _valueGraphDataset: any; // vis.DataSet
 
-    constructor(private _sensorService: SensorService, private _activatedRouter: ActivatedRoute) { }
+    private _pollTimer: any;
+
+    constructor(private _sensorService: SensorService, private _router: Router, private _activatedRouter: ActivatedRoute) { }
 
     ngOnInit() {
         this.sensorStatus = {
@@ -26,34 +32,56 @@ export class SensorComponent implements OnInit {
         };
 
         // Subscribe to router query parameters event
-        this._activatedRouter.queryParams.subscribe((params: Params) => {            
-            var sensorDetailsPromise = this.retrieveSensorById(params['sid']);
-            var sensorDataPromise = this.retrieveSensorDataBySensorId(params['sid']);
-
-            Promise.all([sensorDetailsPromise, sensorDataPromise]).then((promises) => {
-                var dataResult = promises[1]['result'];
-                var latestResult = dataResult[0]; // ASSUMPTION: First entry is always the latest
-
-                if (latestResult) {
-                    this.currentBatteryLevel = latestResult['sensorBatteryLevel'];
-                    this.sensorStatus = this.computeSensorHealth(latestResult['timestamp']);
-                } else {
-                    // Sensor is new and has not send any data yet
-                    this.sensorStatus = {
-                        text: "Clean - No data",
-                        status: "New"
-                    }
-                }
-
-                var sensorValueData = dataResult.map((r) => {
-                    return {
-                        x: new Date(r.timestamp),
-                        y: r.value
-                    }
-                });
-                this.initValueGraph('sensor-value-graph', sensorValueData);
-            });
+        this._activatedRouter.queryParams.subscribe((params: Params) => {
+            this.initializePolling(params['sid']);
         });
+    }
+
+    initializePolling(sensorId: string) {
+        this._router.events.subscribe((event) => {
+            if (event instanceof NavigationStart) {                
+                this._pollTimer.unsubscribe();
+                this._pollTimer = null;
+            }
+        });
+
+        this._pollTimer = Observable.timer(0, 1000); // Start after 0 seconds then tick every 1 seconds
+
+        this._pollTimer.subscribe(() => {
+            this.pollSensor(sensorId);
+        });
+    }
+
+    pollSensor(sensorId: string) {
+        var sensorDetailsPromise = this.retrieveSensorById(sensorId);
+        var sensorDataPromise = this.retrieveSensorDataBySensorId(sensorId);
+
+        Promise.all([sensorDetailsPromise, sensorDataPromise]).then((promises) => {
+            var dataResult = promises[1]['result'];
+            var latestResult = dataResult[0]; // ASSUMPTION: First entry is always the latest
+
+            if (latestResult) {
+                this.currentBatteryLevel = latestResult['sensorBatteryLevel'];
+                this.sensorStatus = this.computeSensorHealth(latestResult['timestamp']);
+            } else {
+                // Sensor is new and has not send any data yet
+                this.sensorStatus = {
+                    text: "Clean - No data",
+                    status: "New"
+                }
+            }
+
+            var sensorValueData = dataResult.map((r) => {
+                return {
+                    x: new Date(r.timestamp),
+                    y: r.value
+                }
+            });
+            if (!this._valueGraphInitialized)
+                this.initValueGraph('sensor-value-graph', sensorValueData);
+            else
+                this.addRecordToValueGraph(sensorValueData[0]);
+        });        
     }
 
     retrieveSensorById(sid: string) {
@@ -67,7 +95,7 @@ export class SensorComponent implements OnInit {
                     resolve(this.sensor);
                 }
             });
-        });        
+        });
     }
 
     retrieveSensorDataBySensorId(sid: string) {
@@ -84,21 +112,35 @@ export class SensorComponent implements OnInit {
     initValueGraph(containerId: string, data: Object) {
         var container = document.getElementById(containerId);
 
-        var dataset = new vis.DataSet(data);
+        this._valueGraphDataset = new vis.DataSet(data);
 
         var now = Date.now();
 
         var options = {
-            start: new Date(now - 30 * 60 * 1000), // show latest 30 minutes
+            start: new Date(now - 1 * 60 * 1000), // show latest minute worth of data
             end: new Date(),
             width: '100%',
             height: '400px',
             style: 'line',
             drawPoints: {
                 style: 'circle'
+            },
+            shaded: {
+                orientation: 'bottom'
             }
         };
-        var Graph2d = new vis.Graph2d(container, dataset, options);
+        this._valueGraph = new vis.Graph2d(container, this._valueGraphDataset, options);
+
+        this._valueGraphInitialized = true;
+        this.valueGraphReady = true;
+    }
+
+    addRecordToValueGraph(record: Object) {
+        this._valueGraph.setWindow(
+            new Date(Date.now() - 1 * 60 * 1000), // show latest minute worth of data
+            new Date()
+        );
+        this._valueGraphDataset.add(record);
     }
 
     timestampToTime(unixTimestamp: number) {

@@ -53,6 +53,9 @@
             <h3 class="panel-title">Data <span class="glyphicon glyphicon-info-sign pull-right clickable" data-toggle="modal" data-target="#infoDataModal"> </span></h3>
           </div>
           <div class="panel-body">
+            <div *ngIf="!valueGraphReady" class="text-center">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>           
+            </div>
             <div id="sensor-value-graph"></div>
           </div>
         </div>
