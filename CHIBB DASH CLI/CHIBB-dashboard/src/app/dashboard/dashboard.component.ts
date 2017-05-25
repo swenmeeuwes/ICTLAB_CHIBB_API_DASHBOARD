@@ -187,6 +187,9 @@ export class DashboardComponent implements OnInit {
             case 'house':
                 this._router.navigate(['house/edit'], { queryParams: { hid: node.hid } });
                 break;
+            case 'sensor':
+                this._router.navigate(['sensor/view'], { queryParams: { sid: node.sid } });
+                break;
         }
     }
 }
