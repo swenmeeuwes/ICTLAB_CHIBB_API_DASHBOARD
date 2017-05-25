@@ -3,7 +3,7 @@
   <div *ngIf="sensor">
     <div>
       <h1>Sensor #{{ sensor.sid }}</h1>
-      <hr/>
+      <hr />
     </div>
     <div class="container-fluid row">
       <div class="col-lg-4">
@@ -17,17 +17,32 @@
               <div><span class="glyphicon glyphicon-home"> </span> {{ sensor.hid }}</div>
               <div><span class="glyphicon glyphicon-tag"> </span> {{ sensor.type }}</div>
               <div><span class="glyphicon glyphicon-map-marker"> </span> {{ sensor.location }}</div>
-              <div><span class="glyphicon glyphicon-list"> </span> {{ sensor.attributes }}</div>
+              <hr/>
+              <div><span class="glyphicon glyphicon-list"> </span> Attributes:</div>
+              <ul class="ul-none">
+                <li *ngFor="let attribute of sensor.attributes;">
+                  {{ attribute }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
         <div class="panel panel-custom-info">
           <div class="panel-heading panel-heading-custom">
-            <h3 class="panel-title">HEADER</h3>
+            <h3 class="panel-title">Status</h3>
           </div>
           <div class="panel-body">
-
+            <div class="detail-list">
+              <div><span class="fa fa-heartbeat" aria-hidden="true"> </span> <span [ngClass]="{'status-danger-text': sensorStatus.status === 'Danger', 'status-stable-text': sensorStatus.status === 'Stable'}">{{ sensorStatus.text }}</span></div>
+              <div><span class="fa" aria-hidden="true" [ngClass]="{
+                           'fa-battery-empty': currentBatteryLevel > 0 && currentBatteryLevel < 11,
+                           'fa-battery-quarter': currentBatteryLevel > 10 && currentBatteryLevel < 51,
+                           'fa-battery-half': currentBatteryLevel > 50 && currentBatteryLevel < 76,
+                           'fa-battery-three-quarters': currentBatteryLevel > 75 && currentBatteryLevel < 96,
+                           'fa-battery-full': currentBatteryLevel > 95
+                         }"> </span> {{ currentBatteryLevel }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -81,12 +96,12 @@
       <div class="modal-body">
         <h4>General</h4>
         <p>
-          The data view shows the latest values produced by the sensor.          
+          The data view shows the latest values produced by the sensor.
         </p>
-        <hr/>
+        <hr />
         <h4>Controls</h4>
         <p>
-          Drag - Drag the view to go back/ forward in time. <br/>
+          Drag - Drag the view to go back/ forward in time. <br />
           Zoom - Scroll while on the view to zoom in/ out.
         </p>
       </div>
