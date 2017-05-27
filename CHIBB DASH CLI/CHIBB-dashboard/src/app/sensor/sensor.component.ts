@@ -133,12 +133,11 @@ export class SensorComponent implements OnInit {
             end: new Date(),
             width: '100%',
             height: '400px',
-            style: 'line',
+            sort: false,
+            sampling: false,
+            style: 'points',
             drawPoints: {
                 style: 'circle'
-            },
-            shaded: {
-                orientation: 'bottom'
             }
         };
         this._valueGraph = new vis.Graph2d(container, this._valueGraphDataset, options);
