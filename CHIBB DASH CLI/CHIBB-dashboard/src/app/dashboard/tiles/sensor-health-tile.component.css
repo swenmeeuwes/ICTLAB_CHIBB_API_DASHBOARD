@@ -1,24 +1,7 @@
-﻿.tile {
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-  margin: 12px;
-  padding: 8px;
-  text-align: center;
+﻿.healthy {
+  background-color: #e08d53;
 }
 
-  .tile h4 {
-    font-size: 24px;
-  }
-
-  .tile h2 {
-    font-size: 48px;
-    font-weight: bold;
-  }
-
-  .healthy {
-    background-color: #14c600;
-  }
-
-  .unhealthy {
-    background-color: #d00000;
-  }
+.unhealthy {
+  background-color: #ff5858;
+}

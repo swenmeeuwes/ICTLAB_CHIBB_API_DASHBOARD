@@ -4,7 +4,7 @@ import { SensorService } from '../../sensor/sensor.service';
 @Component({
     selector: 'sensor-health-tile',
     templateUrl: './sensor-health-tile.component.html',
-    styleUrls: ['./sensor-health-tile.component.css']
+    styleUrls: ['./tile.component.css', './sensor-health-tile.component.css']
 })
 
 export class SensorHealthTile implements OnInit {
