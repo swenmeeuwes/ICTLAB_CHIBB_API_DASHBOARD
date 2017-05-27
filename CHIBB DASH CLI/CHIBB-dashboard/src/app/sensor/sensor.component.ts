@@ -9,12 +9,13 @@ import { Observable } from 'rxjs/Rx';
     templateUrl: './sensor.component.html',
     styleUrls: ['./sensor.component.css']
 })
+// To-do: Refactor this component in sub components
 export class SensorComponent implements OnInit {
     public sensor: Sensor;
 
     public errorMessage: string;
     public valueGraphReady: boolean;
-    public sensorStatus: Object; // {text, status}
+    public sensorStatus: string;
     public currentBatteryLevel: number;
 
     private _valueGraphInitialized: boolean = false;
@@ -26,11 +27,6 @@ export class SensorComponent implements OnInit {
     constructor(private _sensorService: SensorService, private _router: Router, private _activatedRouter: ActivatedRoute) { }
 
     ngOnInit() {
-        this.sensorStatus = {
-            text: "",
-            status: ""
-        };
-
         // Subscribe to router query parameters event
         this._activatedRouter.queryParams.subscribe((params: Params) => {
             this.initializePolling(params['sid']);
@@ -38,6 +34,7 @@ export class SensorComponent implements OnInit {
     }
 
     initializePolling(sensorId: string) {
+        // Clear polling interval if navigated from this component
         this._router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {
                 new Promise((resolve, reject) => {
@@ -59,21 +56,14 @@ export class SensorComponent implements OnInit {
     pollSensor(sensorId: string) {
         var sensorDetailsPromise = this.retrieveSensorById(sensorId);
         var sensorDataPromise = this.retrieveSensorDataBySensorId(sensorId);
+        var sensorStatusPromise = this.retrieveSensorStatusBySensorId(sensorId);
 
-        Promise.all([sensorDetailsPromise, sensorDataPromise]).then((promises) => {
+        Promise.all([sensorDetailsPromise, sensorDataPromise, sensorStatusPromise]).then((promises) => {
+            var statusResult = promises[2]['result'];
+            this.currentBatteryLevel = statusResult['batteryLevel'];
+            this.sensorStatus = statusResult['status'];
+
             var dataResult = promises[1]['result'];
-            var latestResult = dataResult[0]; // ASSUMPTION: First entry is always the latest
-
-            if (latestResult) {
-                this.currentBatteryLevel = latestResult['sensorBatteryLevel'];
-                this.sensorStatus = this.computeSensorHealth(latestResult['timestamp']);
-            } else {
-                // Sensor is new and has not send any data yet
-                this.sensorStatus = {
-                    text: "Clean - No data",
-                    status: "New"
-                }
-            }
 
             var sensorValueData = dataResult.map((r) => {
                 return {
@@ -86,7 +76,8 @@ export class SensorComponent implements OnInit {
             else
                 this.addRecordToValueGraph(sensorValueData[0]);
         }).catch((error) => {
-            this.errorMessage = error;
+            if (!this._valueGraphInitialized)
+              this.errorMessage = error;
             clearInterval(this._pollTimer);
         });
     }
@@ -108,6 +99,17 @@ export class SensorComponent implements OnInit {
     retrieveSensorDataBySensorId(sid: string) {
         return new Promise((resolve, reject) => {
             this._sensorService.getSensorDataById(sid).then((data) => {
+                resolve(data);
+            }).catch((error) => {
+                console.log(error);
+                reject(error);
+            })
+        });
+    }
+
+    retrieveSensorStatusBySensorId(sid: string) {
+        return new Promise((resolve, reject) => {
+            this._sensorService.getSensorStatusById(sid).then((data) => {
                 resolve(data);
             }).catch((error) => {
                 console.log(error);
@@ -161,22 +163,5 @@ export class SensorComponent implements OnInit {
         var seconds = "0" + date.getSeconds();
 
         return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    }
-
-    computeSensorHealth(lastestRecordTimestamp: number) {
-        var status = {
-            text: "Healthy",
-            status: "Stable"
-        };
-        var now = Date.now();
-
-        // If the last record was 30 seconds from now -> sensor probably died
-        if (lastestRecordTimestamp < now - 30 * 1000)
-            status = {
-                text: "No response",
-                status: "Danger"
-            }
-
-        return status;
     }
 }

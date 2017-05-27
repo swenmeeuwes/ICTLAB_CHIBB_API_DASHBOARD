@@ -14,6 +14,8 @@ export class SensorService {
     private _headers = new Headers({ 'Content-Type': 'application/json' });
     private _apiUrl: string;
 
+    private _timeoutDuration: number = 15000;
+
     constructor(private _http: Http, private _authenticationService: AuthenticationService, private _config: ConfigService) {
         this._apiUrl = _config.get('apiUrl');
     };
@@ -36,8 +38,8 @@ export class SensorService {
                 () => { clearTimeout(timeout); }
             );
 
-            // Timeout after 15 seconds
-            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
         });
         return promise;
     }
@@ -61,8 +63,8 @@ export class SensorService {
                 () => { clearTimeout(timeout); }
             );
 
-            // Timeout after 15 seconds
-            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
         });
         return promise;
     }
@@ -85,8 +87,8 @@ export class SensorService {
                 () => { clearTimeout(timeout); }
             );
 
-            // Timeout after 15 seconds
-            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
         });
         return promise;
     }
@@ -110,8 +112,33 @@ export class SensorService {
                 () => { clearTimeout(timeout); }
             );
 
-            // Timeout after 15 seconds
-            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
+        });
+        return promise;
+    }
+
+    getSensorStatusById(sid: string): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            // Can be removed since there is an auth guard?
+            if (!this._authenticationService.isAuthenticated())
+                reject({ errorMessage: "Not authenticated" });
+
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.get(`${this._apiUrl}/sensor/status/${sid}?token=${token}`, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    resolve({ result: data["result"] });
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
         });
         return promise;
     }
@@ -131,8 +158,8 @@ export class SensorService {
                 () => { clearTimeout(timeout); }
             );
 
-            // Timeout after 15 seconds
-            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
         });
     }
 }
