@@ -85,7 +85,10 @@ export class SensorComponent implements OnInit {
                 this.initValueGraph('sensor-value-graph', sensorValueData);
             else
                 this.addRecordToValueGraph(sensorValueData[0]);
-        });        
+        }).catch((error) => {
+            this.errorMessage = error;
+            clearInterval(this._pollTimer);
+        });
     }
 
     retrieveSensorById(sid: string) {
