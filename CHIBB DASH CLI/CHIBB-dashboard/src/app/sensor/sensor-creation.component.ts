@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Sensor } from './Sensor';
 import { SensorService } from './sensor.service';
@@ -15,14 +15,15 @@ export class SensorCreationComponent implements OnInit {
     public errorMessage: string;
     public hasAttempted: boolean;
 
+    public hids: string[];
+
     constructor(private _sensorService: SensorService, private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder) { }
 
     ngOnInit() {
         // TO-DO: Warn if the user doesn't have a house
         // Fill house dropdown
         this._houseService.getHouses().then((response) => {
-            var hids = response.result.map((house) => house.hid);
-            hids.forEach((hid) => $('#houseDropdown').append($('<option>').text(hid)));
+            this.hids = response.result.map((house) => house.hid);            
         });        
 
         // Bind form
@@ -31,8 +32,11 @@ export class SensorCreationComponent implements OnInit {
             houseIdentifier: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
             type: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
             location: ["", Validators.compose([Validators.required, Validators.minLength(2)])], // Optional?
-            attributes: ["", Validators.compose([Validators.required, Validators.minLength(2)])]
+            attributes: ["timestamp;unit;value;sensorState;sensorBatteryLevel", Validators.compose([Validators.required, Validators.minLength(2)])]
         });
+
+        // Disable attributes field for now
+        this.sensorCreationFrom.controls['attributes'].disable();
     };
 
     attemptSensorCreation(event: any) {

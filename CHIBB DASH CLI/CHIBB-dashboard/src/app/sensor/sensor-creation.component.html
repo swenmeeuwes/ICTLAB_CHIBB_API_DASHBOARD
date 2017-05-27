@@ -22,7 +22,7 @@
         <div class="col-sm-6">
           <!--<input class="form-control" formControlName="houseIdentifier" type="text" placeholder="House identifier">-->
           <select class="form-control" formControlName="houseIdentifier" id="houseDropdown">
-            
+            <option *ngFor="let hid of hids" [value]="hid">{{ hid }}</option>
           </select>
         </div>
       </div>
