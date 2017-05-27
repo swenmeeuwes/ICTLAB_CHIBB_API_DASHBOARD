@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Sensor } from './Sensor';
 import { SensorService } from './sensor.service';
+import { HouseService } from '../house/house.service';
 
 @Component({
     selector: 'sensor-creation',
@@ -14,9 +15,16 @@ export class SensorCreationComponent implements OnInit {
     public errorMessage: string;
     public hasAttempted: boolean;
 
-    constructor(private _sensorService: SensorService, private _router: Router, private _formBuilder: FormBuilder) { }
+    constructor(private _sensorService: SensorService, private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder) { }
 
     ngOnInit() {
+        // TO-DO: Warn if the user doesn't have a house
+        // Fill house dropdown
+        this._houseService.getHouses().then((response) => {
+            var hids = response.result.map((house) => house.hid);
+            hids.forEach((hid) => $('#houseDropdown').append($('<option>').text(hid)));
+        });        
+
         // Bind form
         this.sensorCreationFrom = this._formBuilder.group({
             sensorIdentifier: ["", Validators.compose([Validators.required, Validators.minLength(2)])],

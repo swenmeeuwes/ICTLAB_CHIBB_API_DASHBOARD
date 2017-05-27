@@ -20,7 +20,10 @@
       <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['houseIdentifier'].invalid && hasAttempted }">
         <label class="control-label col-sm-2">House identifier:</label>
         <div class="col-sm-6">
-          <input class="form-control" formControlName="houseIdentifier" type="text" placeholder="House identifier">
+          <!--<input class="form-control" formControlName="houseIdentifier" type="text" placeholder="House identifier">-->
+          <select class="form-control" formControlName="houseIdentifier" id="houseDropdown">
+            
+          </select>
         </div>
       </div>
       <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['type'].invalid && hasAttempted }">
@@ -39,6 +42,7 @@
         <label class="control-label col-sm-2">Attributes:</label>
         <div class="col-sm-6">
           <input class="form-control" formControlName="attributes" type="text" placeholder="Attribute">
+          <!--timestamp;unit;value;sensorState;sensorBatteryLevel-->
         </div>
       </div>
       <div class="form-group">
