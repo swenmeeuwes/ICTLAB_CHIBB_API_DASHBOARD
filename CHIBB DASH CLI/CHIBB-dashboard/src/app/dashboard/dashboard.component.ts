@@ -6,6 +6,8 @@ import { House } from '../house/House';
 import { SensorService } from '../sensor/sensor.service';
 import { Sensor } from '../sensor/Sensor';
 
+//import { NetworkComponent } from './network/network.component';
+
 @Component({
     selector: 'dashboard',
     templateUrl: './dashboard.component.html',

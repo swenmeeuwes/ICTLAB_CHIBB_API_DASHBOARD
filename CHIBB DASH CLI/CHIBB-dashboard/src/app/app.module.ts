@@ -21,6 +21,10 @@ import { OverviewComponent } from './overview/overview.component';
 
 // Dashboard
 import { DashboardComponent } from './dashboard/dashboard.component';
+// Dashboard -> Network
+import { NetworkComponent } from './dashboard/network/network.component';
+// Dashboard -> Tile
+import { SensorHealthTile } from './dashboard/tiles/sensor-health-tile.component';
 
 // Authentication
 import { AuthenticationComponent } from './authentication/authentication.component';
@@ -120,7 +124,9 @@ export function loadConfig(configService: ConfigService): Function {
         AppComponent,
         MenuComponent,
         OverviewComponent,
-        DashboardComponent,
+        DashboardComponent,        
+        NetworkComponent,
+        SensorHealthTile,
         AuthenticationComponent,
         AuthenticationLoginComponent,
         AuthenticationRegisterComponent,

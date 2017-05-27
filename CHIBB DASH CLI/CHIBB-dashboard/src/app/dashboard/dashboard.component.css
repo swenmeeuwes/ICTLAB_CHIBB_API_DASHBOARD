@@ -23,39 +23,6 @@
   text-align: center;
 }
 
-.tile-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 0px;
-  transform: translateY(-50%);
-  margin: 24px;
-}
-
-.tile {
-  background-color: #4c896d;
-  color: white;
-  border: 3px solid #4c896d;
-  padding: 12px;
-  margin-bottom: 24px;
-  display: block;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
-
-  .tile:hover {
-    background-color: #64b26f;
-    color: white;
-    border: 3px solid #4c896d;
-  }
-
-  .tile h2 {
-    margin-top: 0px;
-  }
-
-  .tile p {
-    margin-bottom: 0px;
-  }
-
 #graphContainer {
   height: 550px;
   background-color: #f9f9f9;
