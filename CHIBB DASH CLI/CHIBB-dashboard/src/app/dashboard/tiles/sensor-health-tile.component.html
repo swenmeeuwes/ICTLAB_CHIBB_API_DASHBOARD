@@ -1,7 +1,7 @@
 ﻿<div *ngIf="init">
   <!--Healthy-->
   <div class="col-lg-3 col-sm-4 col-xs-12">
-    <div class="tile" [ngClass]="{'healthy': amountOfHealthySensors === amountOfSensors, 'unhealthy': amountOfHealthySensors < amountOfSensors}">
+    <div class="tile" routerLink="/sensor" [ngClass]="{'healthy': amountOfHealthySensors === amountOfSensors, 'unhealthy': amountOfHealthySensors < amountOfSensors}">
       <h4>Healthy sensors</h4>
       <h2>{{ amountOfHealthySensors }}</h2>
       <div>out of {{ amountOfSensors }}</div>
