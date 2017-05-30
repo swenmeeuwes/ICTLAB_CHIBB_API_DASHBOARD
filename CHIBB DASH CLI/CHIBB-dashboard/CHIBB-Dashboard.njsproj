@@ -21,6 +21,8 @@
   <ItemGroup>
     <Content Include=".angular-cli.json" />
     <Content Include="package.json" />
+    <Content Include="src\app\analyses\correlation.component.css" />
+    <Content Include="src\app\analyses\correlation.component.html" />
     <Content Include="src\app\dashboard\tiles\house-tile.component.css" />
     <Content Include="src\app\dashboard\tiles\house-tile.component.html" />
     <Content Include="src\app\dashboard\tiles\sensor-health-tile.component.css" />
@@ -47,6 +49,7 @@
     <Content Include="src\favicon.ico" />
     <Content Include="src\tsconfig.app.json" />
     <Content Include="src\tsconfig.spec.json" />
+    <TypeScriptCompile Include="src\app\analyses\correlation.component.ts" />
     <TypeScriptCompile Include="src\app\dashboard\network\network.component.ts" />
     <TypeScriptCompile Include="src\app\dashboard\tiles\house-tile.component.ts" />
     <TypeScriptCompile Include="src\app\dashboard\tiles\sensor-health-tile.component.ts" />
@@ -123,6 +126,7 @@
     <Folder Include="src\app\dashboard\tiles\" />
     <Folder Include="src\app\house" />
     <Folder Include="src\app\menu" />
+    <Folder Include="src\app\analyses\" />
     <Folder Include="src\app\overview" />
     <Folder Include="src\app\sensor" />
     <Folder Include="src\assets" />

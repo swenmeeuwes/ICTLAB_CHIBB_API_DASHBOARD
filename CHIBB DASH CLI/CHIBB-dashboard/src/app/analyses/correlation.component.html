@@ -1,0 +1,20 @@
+﻿<div class="container-fluid">
+  <div>
+    <h1></h1>
+    <div id="graph"></div>
+    <div>
+      Add data from <select id="addSeries_graph"><option *ngFor="let sensor of sensors" [value]="sensor.sid">{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</option></select> <span class="btn btn-default" (click)="addSeries('graph')">Add</span>
+    </div>
+    <div>
+      Remove data from <select id="removeSeries_graph"><option *ngFor="let sensor of addedSensors" [value]="sensor.sid">{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</option></select> <span class="btn btn-default" (click)="removeSeries('graph')">Remove</span>
+    </div>
+    <div>      
+      Point style: 
+      <select (change)="updateStyle()" [(ngModel)]="drawPointsStyle">
+        <option value="circle" [selected]="drawPointsStyle === 'circle'">circle</option>
+        <option value="square" [selected]="drawPointsStyle === 'square'">square</option>
+        <option value="none" [selected]="drawPointsStyle === 'none'">none</option>
+      </select>
+    </div>
+  </div>
+</div>

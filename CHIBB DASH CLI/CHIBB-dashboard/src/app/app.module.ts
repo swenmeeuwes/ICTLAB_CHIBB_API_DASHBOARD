@@ -1,5 +1,6 @@
 ﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 // Config
 import { ConfigService } from './config/config.service';
@@ -49,6 +50,9 @@ import { SensorListItemComponent } from './sensor/sensor-list-item.component';
 import { SensorCreationComponent } from './sensor/sensor-creation.component';
 import { SensorService } from './sensor/sensor.service';
 
+// Analyses
+import { CorrelationComponent } from './analyses/correlation.component';
+
 // Guards
 // Authentication guard
 import { AuthenticationGuard } from './authentication/authentication-guard.service';
@@ -62,6 +66,7 @@ export function loadConfig(configService: ConfigService): Function {
         BrowserModule,
         HttpModule,
         ReactiveFormsModule,
+        FormsModule,
         RouterModule.forRoot([
             {
                 path: '',
@@ -119,6 +124,11 @@ export function loadConfig(configService: ConfigService): Function {
                 path: 'sensor/create',
                 canActivate: [AuthenticationGuard],
                 component: SensorCreationComponent
+            },
+            {
+                path: 'correlate',
+                canActivate: [AuthenticationGuard],
+                component: CorrelationComponent
             }
         ])
     ],
@@ -140,7 +150,8 @@ export function loadConfig(configService: ConfigService): Function {
         SensorComponent,
         SensorListComponent,
         SensorListItemComponent,
-        SensorCreationComponent
+        SensorCreationComponent,
+        CorrelationComponent
     ],
     bootstrap: [AppComponent],
     providers: [
