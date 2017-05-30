@@ -43,6 +43,10 @@ body {
   color: #d40000;
 }
 
+.btn-justify {
+  width: 100%;
+}
+
 /* Carrot media color palette -> http://www.color-hex.com/color-palette/37774 */
 .custom-background {
   background-color: #f5f5f5;

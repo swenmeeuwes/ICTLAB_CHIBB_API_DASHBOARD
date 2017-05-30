@@ -14,6 +14,9 @@ export class CorrelationComponent implements OnInit {
     public sensors: Sensor[]; // All the sensors that can still be added to the graph
     public addedSensors: Sensor[]; // The sensors that are already added to the graph
 
+    public startDate;
+    public endDate;
+
     public drawPointsStyle: string = 'circle';
 
     private _graph: any; // vis.Graph2D    
@@ -22,6 +25,9 @@ export class CorrelationComponent implements OnInit {
 
     ngOnInit() {
         this.addedSensors = [];
+
+        this.startDate = new vis.moment().subtract(1, 'hour').format('YYYY-MM-DDTHH:mm:ss');
+        this.endDate = new vis.moment().format('YYYY-MM-DDTHH:mm:ss');
 
         this._sensorService.getSensors().then(response => {
             this.sensors = <Sensor[]>response['result'];
@@ -36,8 +42,8 @@ export class CorrelationComponent implements OnInit {
         var container = document.getElementById(graphId);        
         var dataset = new vis.DataSet();
         var options = {
-            start: Date.now() - 30 * 1000,
-            end: Date.now(),
+            start: new vis.moment(this.startDate),
+            end: new vis.moment(this.endDate),
             showCurrentTime: false,
             legend: {
                 enabled: true
@@ -137,5 +143,9 @@ export class CorrelationComponent implements OnInit {
             });
 
         this._graph.setGroups(new vis.DataSet(this._graph.groups));
+    }
+
+    public updatePeriod() {        
+        this._graph.setWindow(this.startDate, this.endDate);
     }
 }
