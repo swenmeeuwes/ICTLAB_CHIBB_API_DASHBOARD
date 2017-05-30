@@ -45,6 +45,7 @@ import { HouseService } from './house/house.service';
 // Sensor
 import { SensorComponent } from './sensor/sensor.component';
 import { SensorListComponent } from './sensor/sensor-list.component';
+import { SensorListItemComponent } from './sensor/sensor-list-item.component';
 import { SensorCreationComponent } from './sensor/sensor-creation.component';
 import { SensorService } from './sensor/sensor.service';
 
@@ -138,6 +139,7 @@ export function loadConfig(configService: ConfigService): Function {
         HouseEditComponent,
         SensorComponent,
         SensorListComponent,
+        SensorListItemComponent,
         SensorCreationComponent
     ],
     bootstrap: [AppComponent],

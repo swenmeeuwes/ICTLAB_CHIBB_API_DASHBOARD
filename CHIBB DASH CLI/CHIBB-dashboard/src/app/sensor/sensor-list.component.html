@@ -1,1 +1,30 @@
-﻿
+﻿<div class="container component-wrapper">
+  <h1>Sensors</h1>
+  <hr/>
+
+  <div class="container-fluid" style="padding: 0px;">
+    <h2 style="float: left; margin-top: 0px">Overview</h2>
+    <div class="btn btn-default" style="float: right;" (click)="createSensor()"><span class="glyphicon glyphicon-plus"></span> Create sensor</div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Sensor ID</th>
+          <th>House ID</th>
+          <th>Type</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Battery level (%)</th>
+          <th></th> <!--Spacer for 'view' button-->
+          <th></th> <!--Spacer for 'edit' button-->
+          <th></th> <!--Spacer for 'delete' button-->
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="sensor-list-item" *ngFor="let sensor of sensors" [sensor]="sensor"></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

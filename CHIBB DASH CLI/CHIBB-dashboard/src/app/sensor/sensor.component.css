@@ -50,15 +50,3 @@
   width: 100%;
   height: 550px;
 }
-
-.status-stable-text {
-  color: #00ca23;
-}
-
-.status-warning-text {
-  color: #f76700;
-}
-
-.status-danger-text {
-  color: #d40000;
-}

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{768b5c65-deed-4de5-8964-fd55e4d25715}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>karma.conf.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -26,6 +26,8 @@
     <Content Include="src\app\dashboard\tiles\sensor-health-tile.component.css" />
     <Content Include="src\app\dashboard\tiles\sensor-health-tile.component.html" />
     <Content Include="src\app\dashboard\tiles\tile.component.css" />
+    <Content Include="src\app\sensor\sensor-list-item.component.html" />
+    <Content Include="src\app\sensor\sensor-list.component.css" />
     <Content Include="src\app\sensor\sensor.component.css">
       <SubType>Code</SubType>
     </Content>
@@ -52,6 +54,7 @@
       <SubType>Code</SubType>
       <TestFramework>ExportRunner</TestFramework>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\app\sensor\sensor-list-item.component.ts" />
     <TypeScriptCompile Include="src\jquery.d.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />

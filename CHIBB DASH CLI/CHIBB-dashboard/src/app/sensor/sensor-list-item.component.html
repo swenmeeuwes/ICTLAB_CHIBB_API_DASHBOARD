@@ -1,0 +1,10 @@
+﻿<td>{{ sensor.sid }}</td>
+<td>{{ sensor.hid }}</td>
+<td>{{ sensor.type }}</td>
+<td>{{ sensor.location }}</td>
+<td [ngClass]="{'status-danger-text': sensor.status === 'Inactive', 'status-warning-text': sensor.status === 'Intermittent failures', 'status-stable-text': sensor.status === 'Active'}">{{ sensor.status }}</td>
+<td>{{ sensor.batteryLevel }}</td>
+
+<td><div class="btn btn-default" (click)="viewSensor()"><span class="glyphicon glyphicon-eye-open"></span> View</div></td>
+<td><div class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</div></td>
+<td><div class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</div></td>

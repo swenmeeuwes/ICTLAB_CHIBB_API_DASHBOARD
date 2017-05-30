@@ -4,4 +4,8 @@
     location: string
     type: string
     attributes: string[]
+
+    //
+    status: string
+    batteryLevel: string
 }
