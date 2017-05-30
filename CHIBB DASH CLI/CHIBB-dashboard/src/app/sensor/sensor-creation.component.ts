@@ -35,8 +35,8 @@ export class SensorCreationComponent implements OnInit {
             attributes: ["timestamp;unit;value;sensorState;sensorBatteryLevel", Validators.compose([Validators.required, Validators.minLength(2)])]
         });
 
-        // Disable attributes field for now
-        this.sensorCreationFrom.controls['attributes'].disable();
+        // Disable attributes field for now -> disabling also removes the value :c
+        //this.sensorCreationFrom.controls['attributes'].disable();
     };
 
     attemptSensorCreation(event: any) {

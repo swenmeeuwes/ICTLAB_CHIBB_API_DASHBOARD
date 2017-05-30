@@ -41,7 +41,7 @@
       <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['attributes'].invalid && hasAttempted }">
         <label class="control-label col-sm-2">Attributes:</label>
         <div class="col-sm-6">
-          <input class="form-control" formControlName="attributes" type="text" placeholder="Attribute">
+          <input style="visibility: hidden;" class="form-control" formControlName="attributes" type="text" placeholder="Attribute">
           <!--timestamp;unit;value;sensorState;sensorBatteryLevel-->
         </div>
       </div>
