@@ -38,7 +38,7 @@
             </div>
             <div *ngIf="valueGraphReady" class="detail-list">
               <div><span class="fa fa-heartbeat" aria-hidden="true"> </span> <span [ngClass]="{'status-danger-text': sensorStatus === 'Inactive', 'status-warning-text': sensorStatus === 'Intermittent failures', 'status-stable-text': sensorStatus === 'Active'}">{{ sensorStatus }}</span></div>
-              <div><span class="fa" aria-hidden="true" [ngClass]="{
+              <div *ngIf="currentBatteryLevel"><span class="fa" aria-hidden="true" [ngClass]="{
                            'fa-battery-empty': currentBatteryLevel > 0 && currentBatteryLevel < 11,
                            'fa-battery-quarter': currentBatteryLevel > 10 && currentBatteryLevel < 51,
                            'fa-battery-half': currentBatteryLevel > 50 && currentBatteryLevel < 76,
