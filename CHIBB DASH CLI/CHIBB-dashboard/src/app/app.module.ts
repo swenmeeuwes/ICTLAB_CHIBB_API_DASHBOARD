@@ -27,6 +27,7 @@ import { NetworkComponent } from './dashboard/network/network.component';
 // Dashboard -> Tile
 import { SensorHealthTile } from './dashboard/tiles/sensor-health-tile.component';
 import { HouseTile } from './dashboard/tiles/house-tile.component';
+import { CorrelateTile } from './dashboard/tiles/correlate-tile.component';
 
 // Authentication
 import { AuthenticationComponent } from './authentication/authentication.component';
@@ -140,6 +141,7 @@ export function loadConfig(configService: ConfigService): Function {
         NetworkComponent,
         SensorHealthTile,
         HouseTile,
+        CorrelateTile,
         AuthenticationComponent,
         AuthenticationLoginComponent,
         AuthenticationRegisterComponent,

@@ -23,6 +23,8 @@
     <Content Include="package.json" />
     <Content Include="src\app\analyses\correlation.component.css" />
     <Content Include="src\app\analyses\correlation.component.html" />
+    <Content Include="src\app\dashboard\tiles\correlate-tile.component.html" />
+    <Content Include="src\app\dashboard\tiles\correlate-tile.component.ts" />
     <Content Include="src\app\dashboard\tiles\house-tile.component.css" />
     <Content Include="src\app\dashboard\tiles\house-tile.component.html" />
     <Content Include="src\app\dashboard\tiles\sensor-health-tile.component.css" />
