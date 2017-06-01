@@ -1,4 +1,8 @@
-﻿.controls {
+﻿.control-container {
+  padding-top: 18px;
+}
+
+.controls {
   border-collapse: separate;
   border-spacing: 12px 4px;
 }

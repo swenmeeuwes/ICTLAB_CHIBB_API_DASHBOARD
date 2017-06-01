@@ -3,61 +3,85 @@
     <h1></h1>
     <div id="graph"></div>
 
-    <h4>Period</h4>
-    <table class="controls">
-      <tr>
-        <td>Start date</td>
-        <td><input id="startDateInput" [(ngModel)]="startDate" (change)="updatePeriod()" type="datetime-local" class="form-control" /></td>
-      </tr>
-      <tr>
-        <td>End date</td>
-        <td><input [(ngModel)]="endDate" (change)="updatePeriod()" type="datetime-local" class="form-control" /></td>
-      </tr>
-    </table>
-
-    <h4>Data</h4>
-    <table class="controls">
-      <tr>
-        <td>
-          Add data from
-        </td>
-        <td>
-          <div>
-            <select id="addSeries_graph" class="form-control"><option *ngFor="let sensor of sensors" [value]="sensor.sid">{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</option></select>
+    <div class="row control-container">
+      <div class="col-lg-4 col-sm-6 col-xs-12">
+        <div class="panel panel-custom-info">
+          <div class="panel-heading panel-heading-custom">
+            <h3 class="panel-title">Period</h3>
           </div>
-        </td>
-        <td>
-          <div class="btn btn-default btn-justify" (click)="addSeries('graph')">Add</div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Remove data from
-        </td>
-        <td>
-          <select id="removeSeries_graph" class="form-control"><option *ngFor="let sensor of addedSensors" [value]="sensor.sid">{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</option></select>
-        </td>
-        <td>
-          <div class="btn btn-default btn-justify" (click)="removeSeries('graph')">Remove</div>
-        </td>
-      </tr>
-    </table>
-
-    <h4>Styling</h4>
-    <table class="controls">
-      <tr>
-        <td>
-          Point style
-        </td>
-        <td>
-          <select (change)="updateStyle()" [(ngModel)]="drawPointsStyle" class="form-control">
-            <option value="circle" [selected]="drawPointsStyle === 'circle'">Circle</option>
-            <option value="square" [selected]="drawPointsStyle === 'square'">Square</option>
-            <option value="none" [selected]="drawPointsStyle === 'none'">None</option>
-          </select>
-        </td>
-        <td></td>
-      </tr>
-    </table>
+          <div class="panel-body">
+            <table class="controls">
+              <tr>
+                <td>Start date</td>
+                <td><input id="startDateInput" [(ngModel)]="startDate" (change)="updatePeriod()" type="datetime-local" class="form-control" /></td>
+              </tr>
+              <tr>
+                <td>End date</td>
+                <td><input [(ngModel)]="endDate" (change)="updatePeriod()" type="datetime-local" class="form-control" /></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6 col-xs-12">
+        <div class="panel panel-custom-info">
+          <div class="panel-heading panel-heading-custom">
+            <h3 class="panel-title">Data</h3>
+          </div>
+          <div class="panel-body">
+            <table class="controls">
+              <tr>
+                <td>
+                  Add data from
+                </td>
+                <td>
+                  <div>
+                    <select id="addSeries_graph" class="form-control"><option *ngFor="let sensor of sensors" [value]="sensor.sid">{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</option></select>
+                  </div>
+                </td>
+                <td>
+                  <div class="btn btn-default btn-justify" (click)="addSeries('graph')">Add</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Remove data from
+                </td>
+                <td>
+                  <select id="removeSeries_graph" class="form-control"><option *ngFor="let sensor of addedSensors" [value]="sensor.sid">{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</option></select>
+                </td>
+                <td>
+                  <div class="btn btn-default btn-justify" (click)="removeSeries('graph')">Remove</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-6 col-xs-12">
+        <div class="panel panel-custom-info">
+          <div class="panel-heading panel-heading-custom">
+            <h3 class="panel-title">Styling</h3>
+          </div>
+          <div class="panel-body">
+            <table class="controls">
+              <tr>
+                <td>
+                  Point style
+                </td>
+                <td>
+                  <select (change)="updateStyle()" [(ngModel)]="drawPointsStyle" class="form-control">
+                    <option value="circle" [selected]="drawPointsStyle === 'circle'">Circle</option>
+                    <option value="square" [selected]="drawPointsStyle === 'square'">Square</option>
+                    <option value="none" [selected]="drawPointsStyle === 'none'">None</option>
+                  </select>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
