@@ -176,7 +176,7 @@ export class SensorComponent implements OnInit {
             new Date(Date.now() - 5 * 60 * 1000), // show latest 5 minutes worth of data
             new Date()
         );
-        if(record)
+        if (record && record['x'] && record['y'])
           this._valueGraphDataset.add(record);
     }
 
