@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Rx';
     templateUrl: './sensor.component.html',
     styleUrls: ['./sensor.component.css']
 })
-// To-do: Refactor this component in sub components
+
 export class SensorComponent implements OnInit {
     public sensor: Sensor;
 
@@ -44,7 +44,7 @@ export class SensorComponent implements OnInit {
             }
         });        
 
-        this.retrieveSensorDataBySensorIdPeriod(sensorId, moment().subtract(1, "minute"), moment()).then(response => {
+        this.retrieveSensorDataBySensorIdPeriod(sensorId, moment().subtract(5, "minute"), moment()).then(response => {
             this.initValueGraph('sensor-value-graph', response['result'].map((r) => {
                 return {
                     x: new Date(r.timestamp),
