@@ -153,7 +153,7 @@ export class SensorComponent implements OnInit {
         var now = Date.now();
 
         var options = {
-            start: new Date(now - 1 * 60 * 1000), // show latest minute worth of data
+            start: new Date(now - 5 * 60 * 1000), // show latest 5 minutes worth of data
             end: new Date(),
             width: '100%',
             height: '400px',
@@ -173,7 +173,7 @@ export class SensorComponent implements OnInit {
 
     addRecordToValueGraph(record: Object) {
         this._valueGraph.setWindow(
-            new Date(Date.now() - 1 * 60 * 1000), // show latest minute worth of data
+            new Date(Date.now() - 5 * 60 * 1000), // show latest 5 minutes worth of data
             new Date()
         );
         if(record)
