@@ -16,7 +16,9 @@ export class SensorCreationComponent implements OnInit {
     public isAttempting: boolean;
 
     public hids: string[];
-    public sensorTypes: string[];
+    public sensorTypeList: string[];
+    public sensorTypes: any;
+    public currentType: any;
 
     constructor(private _sensorService: SensorService, private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder) { }
 
@@ -28,7 +30,8 @@ export class SensorCreationComponent implements OnInit {
         });
 
         this._sensorService.getSensorTypes().then(response => {
-            this.sensorTypes = response.types.map((sensorType) => sensorType.type); 
+            this.sensorTypes = response;
+            this.sensorTypeList = response.types.map((sensorType) => sensorType.type);
         });
 
         // Bind form
@@ -36,13 +39,17 @@ export class SensorCreationComponent implements OnInit {
             sensorIdentifier: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
             houseIdentifier: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
             type: ["", Validators.compose([Validators.required, Validators.minLength(2)])],
-            location: ["", Validators.compose([Validators.required, Validators.minLength(2)])], // Optional?
-            attributes: ["timestamp;unit;value;sensorState;sensorBatteryLevel", Validators.compose([Validators.required, Validators.minLength(2)])]
+            location: ["", Validators.compose([Validators.required, Validators.minLength(2)])]//, // Optional?
+            //attributes: ["timestamp;unit;value;sensorState;sensorBatteryLevel", Validators.compose([Validators.required, Validators.minLength(2)])]
         });
 
         // Disable attributes field for now -> disabling also removes the value :c
         //this.sensorCreationFrom.controls['attributes'].disable();
     };
+
+    formChange() {
+        this.currentType = this.sensorTypes.types.find(item => item.type === this.sensorCreationFrom.value.type);
+    }
 
     attemptSensorCreation(event: any) {
         this.hasAttempted = true;
@@ -52,9 +59,12 @@ export class SensorCreationComponent implements OnInit {
 
         var formValues = this.sensorCreationFrom.value;
 
+        var sensorType = this.sensorTypes.types.find(item => item.type === formValues.type);
+        var attributes = sensorType.attributes;
+
         if (!this.isAttempting) {
             this.isAttempting = true;
-            this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, location: formValues.location, type: formValues.type, attributes: formValues.attributes.split(';') })
+            this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, location: formValues.location, type: formValues.type, attributes: attributes })
                 .then(() => this._router.navigate(['sensor']))
                 .catch((error) => {
                     this.errorMessage = error.errorMessage;
