@@ -44,18 +44,28 @@ export class SensorComponent implements OnInit {
             }
         });
 
-        // Kick-off
-        this.pollSensor(sensorId);
+        this.retrieveSensorDataBySensorId(sensorId).then(response => {
+            this.initValueGraph('sensor-value-graph', response['result'].map((r) => {
+                return {
+                    x: new Date(r.timestamp),
+                    y: r.value
+                }
+              })
+            );            
 
-        // Further polling
-        this._pollTimer = setInterval(() => {
+            // Kick-off
             this.pollSensor(sensorId);
-        }, 1000);
+
+            // Further polling
+            this._pollTimer = setInterval(() => {
+                this.pollSensor(sensorId);
+            }, 1000);
+        }).catch(error => console.error(error));
     }
 
     pollSensor(sensorId: string) {
         var sensorDetailsPromise = this.retrieveSensorById(sensorId);
-        var sensorDataPromise = this.retrieveSensorDataBySensorId(sensorId);
+        var sensorDataPromise = this.retrieveLatestSensorDataBySensorId(sensorId);
         var sensorStatusPromise = this.retrieveSensorStatusBySensorId(sensorId);
 
         Promise.all([sensorDetailsPromise, sensorDataPromise, sensorStatusPromise]).then((promises) => {
@@ -65,16 +75,12 @@ export class SensorComponent implements OnInit {
 
             var dataResult = promises[1]['result'];
 
-            var sensorValueData = dataResult.map((r) => {
-                return {
-                    x: new Date(r.timestamp),
-                    y: r.value
-                }
-            });
-            if (!this._valueGraphInitialized)
-                this.initValueGraph('sensor-value-graph', sensorValueData);
-            else
-                this.addRecordToValueGraph(sensorValueData[0]);
+            var sensorValueData = {
+                x: new Date(dataResult.timestamp),
+                y: dataResult.value
+            };
+
+            this.addRecordToValueGraph(sensorValueData);
         }).catch((error) => {
             if (!this._valueGraphInitialized)
                 this.errorMessage = error;
@@ -101,7 +107,16 @@ export class SensorComponent implements OnInit {
             this._sensorService.getSensorDataById(sid).then((data) => {
                 resolve(data);
             }).catch((error) => {
-                console.log(error);
+                reject(error);
+            })
+        });
+    }
+
+    retrieveLatestSensorDataBySensorId(sid: string) {
+        return new Promise((resolve, reject) => {
+            this._sensorService.getLatestSensorDataById(sid).then((data) => {
+                resolve(data);
+            }).catch((error) => {
                 reject(error);
             })
         });
@@ -112,7 +127,6 @@ export class SensorComponent implements OnInit {
             this._sensorService.getSensorStatusById(sid).then((data) => {
                 resolve(data);
             }).catch((error) => {
-                console.log(error);
                 reject(error);
             })
         });
