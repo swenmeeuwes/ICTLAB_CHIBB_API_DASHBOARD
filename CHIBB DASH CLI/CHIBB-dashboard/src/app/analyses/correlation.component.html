@@ -142,6 +142,19 @@
                     </select>
                   </td>
                 </tr>
+                <tr *ngIf="drawStyle === 'line'">
+                  <td>
+                    Shading
+                  </td>
+                  <td>
+                    <select (change)="updateStyle()" [(ngModel)]="shaded" class="form-control">
+                      <option value="top" [selected]="shaded === 'top'">Top</option>
+                      <option value="bottom" [selected]="shaded === 'bottom'">Bottom</option>
+                      <option value="zero" [selected]="shaded === 'zero'">Zero</option>
+                      <option value="none" [selected]="shaded === 'none'">None</option>
+                    </select>
+                  </td>
+                </tr>
               </table>
               <br />
               <div *ngIf="drawStyle === 'points' && drawPointsStyle === 'none'" class="alert alert-info" style="margin-bottom: 0px;" role="alert">

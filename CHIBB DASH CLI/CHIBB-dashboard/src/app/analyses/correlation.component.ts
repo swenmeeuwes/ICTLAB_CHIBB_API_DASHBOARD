@@ -22,6 +22,7 @@ export class CorrelationComponent implements OnInit {
     public drawPointsStyle: string = 'circle';
     public drawStyle: string = 'points';
     public interpolation: string = 'none';
+    public shaded: string = 'none';
 
     private _graph: any; // vis.Graph2D    
 
@@ -115,6 +116,10 @@ export class CorrelationComponent implements OnInit {
                 interpolation: {
                     enabled: this.interpolation !== 'none' ? true : false,
                     parametrization: this.interpolation
+                },
+                shaded: {
+                    enabled: this.shaded !== 'none',
+                    orientation: this.shaded
                 }
             }
         });
@@ -161,6 +166,7 @@ export class CorrelationComponent implements OnInit {
         this.drawStyle = group.options.style;
         this.drawPointsStyle = group.options.drawPoints.style;
         this.interpolation = group.options.interpolation.parametrization;
+        this.shaded = group.options.shaded.orientation;
     }
 
     public updateStyle() {
@@ -176,6 +182,10 @@ export class CorrelationComponent implements OnInit {
             enabled: this.interpolation !== 'none' ? true : false,
             parametrization: this.interpolation
         };
+        group.options.shaded = {
+            enabled: this.shaded !== 'none',
+            orientation: this.shaded
+        }
 
         //this._graph.graphGroups.forEach(group => {
         //    group.options.drawPoints.style = this.drawPointsStyle;
