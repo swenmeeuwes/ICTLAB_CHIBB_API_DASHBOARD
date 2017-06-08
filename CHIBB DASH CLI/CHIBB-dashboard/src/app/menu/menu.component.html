@@ -15,6 +15,7 @@
           <li [ngClass]="{'active': router.url === '/house' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="house">Houses</a></li>
           <li [ngClass]="{'active': router.url === '/sensor' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="sensor">Sensors</a></li>
           <!--<li [ngClass]="{'active': router.url === '/permission' }" *ngIf="authenticationService.isAuthenticated()"><a href="#">Permissions</a></li>-->
+          <li [ngClass]="{'active': router.url === '/correlate' }" *ngIf="authenticationService.isAuthenticated()"><a routerLink="correlate">Correlate</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf="!authenticationService.isAuthenticated()">
           <li [ngClass]="{'active': router.url === '/authenticate/register' }"><a routerLink="authenticate/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
