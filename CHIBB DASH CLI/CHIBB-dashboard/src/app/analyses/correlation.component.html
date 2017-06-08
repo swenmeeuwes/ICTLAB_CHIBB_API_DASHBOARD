@@ -1,7 +1,14 @@
 ﻿<div class="container-fluid">
   <div>
     <h1></h1>
-    <div id="graph"></div>
+    <div class="panel panel-custom-info">
+      <div class="panel-heading panel-heading-custom">
+        <h3 class="panel-title">Data <span class="glyphicon glyphicon-info-sign pull-right clickable" data-toggle="modal" data-target="#infoDataModal"> </span></h3>
+      </div>
+      <div class="panel-body">
+        <div id="graph"></div>
+      </div>
+    </div>
 
     <div class="row control-container">
       <div class="col-lg-4 col-sm-6 col-xs-12">
@@ -26,7 +33,7 @@
       <div class="col-lg-4 col-sm-6 col-xs-12">
         <div class="panel panel-custom-info">
           <div class="panel-heading panel-heading-custom">
-            <h3 class="panel-title">Data</h3>
+            <h3 class="panel-title">Content</h3>
           </div>
           <div class="panel-body">
             <table class="controls">
@@ -83,5 +90,36 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!--Modals-->
+<!-- Info Data Modal -->
+<div id="infoDataModal" class="modal modal-custom fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Info - Data</h3>
+      </div>
+      <div class="modal-body">
+        <h4>General</h4>
+        <p>
+          The data view shows the latest values produced by the sensor.
+        </p>
+        <hr />
+        <h4>Controls</h4>
+        <p>
+          Drag - Drag the view to go back/ forward in time. <br />
+          Zoom - Scroll while on the view to zoom in/ out.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
   </div>
 </div>
