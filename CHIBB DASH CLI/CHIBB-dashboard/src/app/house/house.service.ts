@@ -51,7 +51,6 @@ export class HouseService {
 
             resultObservable.subscribe(
                 data => {
-                    console.log(data);
                     resolve(data["responseCode"]);
                 },
                 error => { reject(error.json()["responseCode"]) },
