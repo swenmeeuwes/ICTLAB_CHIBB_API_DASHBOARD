@@ -133,7 +133,7 @@ export class CorrelationComponent implements OnInit {
         if (!sensorSerieId)
             return;
 
-        if (sensorSerieId === this.selectedSensor.sid)
+        if (this.selectedSensor && sensorSerieId === this.selectedSensor.sid)
             this.selectedSensor = null;
 
         // Add the removed series to the dropdown and remember it so that it can be added later
