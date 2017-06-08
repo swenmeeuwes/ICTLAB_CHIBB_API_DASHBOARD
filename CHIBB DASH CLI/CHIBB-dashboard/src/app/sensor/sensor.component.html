@@ -1,7 +1,7 @@
 ﻿<div class="sensor-information custom-background">
 
-  <div *ngIf="sensor">
-    <div>
+  <div>
+    <div *ngIf="sensor">
       <h1>Sensor #{{ sensor.sid }}</h1>
       <hr />
     </div>
@@ -13,7 +13,7 @@
             <h3 class="panel-title">Details</h3>
           </div>
           <div class="panel-body">
-            <div class="detail-list">
+            <div class="detail-list" *ngIf="sensor">
               <div><span class="glyphicon glyphicon-home"> </span> {{ sensor.hid }}</div>
               <div><span class="glyphicon glyphicon-tag"> </span> {{ sensor.type }}</div>
               <div><span class="glyphicon glyphicon-map-marker"> </span> {{ sensor.location }}</div>
