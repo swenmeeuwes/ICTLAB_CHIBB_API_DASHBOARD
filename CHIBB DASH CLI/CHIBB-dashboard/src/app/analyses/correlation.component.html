@@ -66,8 +66,9 @@
               </tr>-->
             </table>
             <br />
+            <h4 *ngIf="addedSensors.length > 0">Added sensors</h4>
             <div class="list-group" style="margin-bottom: 0px;">
-              <div *ngFor="let sensor of addedSensors" class="list-group-item" [ngClass]="{'active': sensor == selectedSensor }" style="cursor: pointer;" (click)="selectSensor(sensor)">
+              <div *ngFor="let sensor of addedSensors" class="list-group-item" [ngClass]="{'active': selectedSensor && sensor === selectedSensor }" (click)="selectSensor(sensor)" style="cursor: pointer;">
                 <span>{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</span>
                 <span class="glyphicon glyphicon-minus pull-right remove-button" (click)="removeSeries('graph', sensor.sid)"> </span>
               </div>
@@ -86,7 +87,7 @@
 
             </table>-->
             <div *ngIf="!selectedSensor">
-              After adding a sensor, select it from the list to edit the style.
+              <i>After adding a sensor, select it from the list to edit the style.</i>
             </div>
 
             <div *ngIf="selectedSensor">
