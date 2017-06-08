@@ -42,6 +42,30 @@ export class HouseService {
         return promise;
     }
 
+    getHouseById(hid: string): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            if (!this._authenticationService.isAuthenticated())
+                reject({ errorMessage: "Not authenticated" });
+
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.get(`${this._apiUrl}/house/${hid}?token=${token}`, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    resolve({ result: data["result"] });
+                },
+                error => { reject(error.json()["responseCode"]) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after 15 seconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), 15000);
+        });
+        return promise;
+    }
+
     createHouse(house: House): Promise<any> {
         return new Promise((resolve, reject) => {
             var token = this._authenticationService.getToken();
