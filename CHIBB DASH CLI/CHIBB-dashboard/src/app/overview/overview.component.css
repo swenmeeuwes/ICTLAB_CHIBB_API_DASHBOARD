@@ -1,7 +1,7 @@
 ﻿.header {
   height: calc(100vh - 70px);
   /*background-color: #22323f;*/
-  background-image: url('/assets/images/header.jpg');
+  background-image: url('/assets/images/header_color_splash.jpg');
   background-position: center;
   background-size: cover;
 }
