@@ -1,64 +1,77 @@
 ﻿<div class="container-fluid">
   <div class="col-lg-8 col-sm-10 col-lg-offset-2 col-sm-offset-1">
-    <h2>Create a sensor</h2>
-    <hr />
-    <!--Alerts-->
-    <div class="alert alert-danger " role="alert" *ngIf="hasAttempted && sensorCreationFrom.invalid">
-      <strong>Uh-oh!</strong> One or more fields are not valid
+    <div *ngIf="hids && hids.length === 0">
+      <h2>Create a sensor</h2>
+      <hr />
+      <div class="well well-lg">
+        <h3>No registered houses</h3>
+        <p>You haven't registered any houses yet.</p>
+        <p>Please register a house to continue.</p>
+        <br/>
+        <div class="btn btn-default" routerLink="/house/create">Register a house &raquo;</div>
+      </div>
     </div>
-    <div class="alert alert-danger" role="alert" *ngIf="hasAttempted && errorMessage">
-      <strong>Uh-oh!</strong> {{ errorMessage }}
-    </div>
-    <!--End of alerts-->
+    <div *ngIf="hids && hids.length > 0">
+      <h2>Create a sensor</h2>
+      <hr />
+      <!--Alerts-->
+      <div class="alert alert-danger " role="alert" *ngIf="hasAttempted && sensorCreationFrom.invalid">
+        <strong>Uh-oh!</strong> One or more fields are not valid
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="hasAttempted && errorMessage">
+        <strong>Uh-oh!</strong> {{ errorMessage }}
+      </div>
+      <!--End of alerts-->
 
-    <form class="form-horizontal" [formGroup]="sensorCreationFrom" (ngSubmit)="attemptSensorCreation($event)">
-      <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['houseIdentifier'].invalid && hasAttempted }">
-        <label class="control-label col-sm-2">House identifier:</label>
-        <div class="col-sm-10">
-          <!--<input class="form-control" formControlName="houseIdentifier" type="text" placeholder="House identifier">-->
-          <select class="form-control" formControlName="houseIdentifier" id="houseDropdown">
-            <option *ngFor="let hid of hids" [value]="hid">{{ hid }}</option>
-          </select>
+      <form class="form-horizontal" [formGroup]="sensorCreationFrom" (ngSubmit)="attemptSensorCreation($event)">
+        <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['houseIdentifier'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">House identifier:</label>
+          <div class="col-sm-10">
+            <!--<input class="form-control" formControlName="houseIdentifier" type="text" placeholder="House identifier">-->
+            <select class="form-control" formControlName="houseIdentifier" id="houseDropdown">
+              <option *ngFor="let hid of hids" [value]="hid">{{ hid }}</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['sensorIdentifier'].invalid && hasAttempted }">
-        <label class="control-label col-sm-2">Sensor identifier:</label>
-        <div class="col-sm-10">
-          <input class="form-control" formControlName="sensorIdentifier" type="text" placeholder="Sensor identifier">
-          <p id="sensorIdentifierHelpBlock" class="form-text text-muted">
-            You can find this identifier on the bottom of your sensor.
-          </p>
+        <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['sensorIdentifier'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">Sensor identifier:</label>
+          <div class="col-sm-10">
+            <input class="form-control" formControlName="sensorIdentifier" type="text" placeholder="Sensor identifier">
+            <p id="sensorIdentifierHelpBlock" class="form-text text-muted">
+              You can find this identifier on the bottom of your sensor.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['type'].invalid && hasAttempted }">
-        <label class="control-label col-sm-2">Type:</label>
-        <div class="col-sm-10">
-          <!--<input class="form-control" formControlName="type" type="text" placeholder="Type">-->
-          <select class="form-control" (change)="formChange()" formControlName="type" id="typeDropdown">
-            <option *ngFor="let type of sensorTypeList" [value]="type">{{ type }}</option>
-          </select>
-          <p *ngIf="currentType" class="form-text text-muted">
-            Using this sensor type will keep track of the following attributes: {{ currentType.attributes }}
-          </p>
+        <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['type'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">Type:</label>
+          <div class="col-sm-10">
+            <!--<input class="form-control" formControlName="type" type="text" placeholder="Type">-->
+            <select class="form-control" (change)="formChange()" formControlName="type" id="typeDropdown">
+              <option *ngFor="let type of sensorTypeList" [value]="type">{{ type }}</option>
+            </select>
+            <p *ngIf="currentType" class="form-text text-muted">
+              Using this sensor type will keep track of the following attributes: {{ currentType.attributes }}
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['location'].invalid && hasAttempted }">
-        <label class="control-label col-sm-2">Location:</label>
-        <div class="col-sm-6">
-          <input class="form-control" formControlName="location" type="text" placeholder="Location">
+        <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['location'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">Location:</label>
+          <div class="col-sm-6">
+            <input class="form-control" formControlName="location" type="text" placeholder="Location">
+          </div>
         </div>
-      </div>
-      <!--<div class="form-group" style="display: none;" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['attributes'].invalid && hasAttempted }">
-        <label class="control-label col-sm-2">Attributes:</label>
-        <div class="col-sm-6">
-          <input class="form-control" formControlName="attributes" type="text" placeholder="Attribute">        
+        <!--<div class="form-group" style="display: none;" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['attributes'].invalid && hasAttempted }">
+          <label class="control-label col-sm-2">Attributes:</label>
+          <div class="col-sm-6">
+            <input class="form-control" formControlName="attributes" type="text" placeholder="Attribute">
+          </div>
+        </div>-->
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default" type="submit">Create sensor</button>
+          </div>
         </div>
-      </div>-->
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button class="btn btn-default" type="submit">Create sensor</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
