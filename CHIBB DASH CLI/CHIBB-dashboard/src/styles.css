@@ -79,3 +79,17 @@ body {
   font-size: 28px;
   font-weight: bold;
 }
+
+.list-group-item:hover {
+  background-color: #ededed;
+}
+
+.list-group-item.active {
+  border-color: #4c896d;
+  background-color: #4c896d;
+}
+
+  .list-group-item.active:hover {
+    border-color: #4c896d;
+    background-color: #4c896d;
+  }
