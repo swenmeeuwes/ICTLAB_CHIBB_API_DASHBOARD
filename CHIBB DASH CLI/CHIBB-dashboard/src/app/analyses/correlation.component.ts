@@ -28,8 +28,8 @@ export class CorrelationComponent implements OnInit {
     ngOnInit() {
         this.addedSensors = [];
 
-        this.startDate = new vis.moment().subtract(1, 'hour').format('YYYY-MM-DDTHH:mm:ss');
-        this.endDate = new vis.moment().format('YYYY-MM-DDTHH:mm:ss');
+        this.startDate = moment().subtract(1, 'hour').format('YYYY-MM-DDTHH:mm:ss');
+        this.endDate = moment().format('YYYY-MM-DDTHH:mm:ss');
 
         this._sensorService.getSensors().then(response => {
             this.sensors = <Sensor[]>response['result'];
@@ -63,9 +63,9 @@ export class CorrelationComponent implements OnInit {
         this._graph = graph2d;
     }
 
-    private _retrieveSeries(sensorSid: string): Promise<any> {
+    private _retrieveSeries(sensorSid: string, startTime: number, endTime: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._sensorService.getSensorDataById(sensorSid).then(response => {
+            this._sensorService.getSensorDataWithinTimeframe(sensorSid, startTime, endTime).then(response => {
                 var items = response['result'].map(record => {
                     return {
                         x: new Date(record.timestamp),
@@ -102,7 +102,7 @@ export class CorrelationComponent implements OnInit {
 
         this._graph.setGroups(new vis.DataSet(this._graph.groups));
 
-        this._retrieveSeries(sensorSerieId).then(items => {
+        this._retrieveSeries(sensorSerieId, moment(this.startDate).valueOf(), moment(this.endDate).valueOf()).then(items => {
             this._graph.itemDictionary[sensorSerieId] = items;
             this._graph.dataset.add(items);
         });
