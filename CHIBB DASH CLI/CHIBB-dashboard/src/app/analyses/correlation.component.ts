@@ -193,6 +193,43 @@ export class CorrelationComponent implements OnInit {
         this._graph.setGroups(new vis.DataSet(this._graph.graphGroups));
     }
 
+    public exportCurrentData() {
+        return this._graph.dataset.get().map(item => {
+            return [
+                item.group,
+                moment(item.x).valueOf(),
+                item.y
+            ]
+        });
+    }
+
+    public downloadCurrentData() {
+        var exportedData = this.exportCurrentData();
+        var header = ['SID', 'Timestamp', 'value'];
+        exportedData.splice(0, 0, header);
+
+        var csv = "";
+        exportedData.forEach(row => csv += row + '\r\n');
+
+        var downloadLink = document.createElement("a");
+        var blob = new Blob(["\ufeff", csv]);
+        var url = URL.createObjectURL(blob);
+        downloadLink.href = url;
+        downloadLink.download = `${moment().format('YYYYDDMM')}_export.csv`;
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        setTimeout(() => {
+            $('#closeDownloadingSpinnerModalButton').click();
+        }, 1500);
+    }
+
+    public fitPeriod() {
+        this._graph.fit();
+    }
+
     public resetPeriod() {
         this.startDate = moment().subtract(1, 'hour').format('YYYY-MM-DDTHH:mm:ss');
         this.endDate = moment().format('YYYY-MM-DDTHH:mm:ss');
@@ -202,5 +239,5 @@ export class CorrelationComponent implements OnInit {
 
     public updatePeriod() {
         this._graph.setWindow(this.startDate, this.endDate);
-    }
+    }    
 }

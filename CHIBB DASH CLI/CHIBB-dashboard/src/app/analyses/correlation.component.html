@@ -3,7 +3,7 @@
     <h1></h1>
     <div class="panel panel-custom-info">
       <div class="panel-heading panel-heading-custom">
-        <h3 class="panel-title">Data <span class="glyphicon glyphicon-info-sign pull-right clickable" data-toggle="modal" data-target="#infoDataModal"> </span></h3>
+        <h3 class="panel-title">Data <span class="glyphicon glyphicon-info-sign pull-right clickable" data-toggle="modal" data-target="#infoDataModal"> </span> <span class="glyphicon glyphicon-download pull-right clickable" style="padding-right: 6px;" data-toggle="modal" data-target="#downloadDataModal"> </span></h3>
       </div>
       <div class="panel-body">
         <div id="graph"></div>
@@ -28,7 +28,12 @@
               </tr>
               <tr>
                 <td colspan="2">
-                  <div (click)="resetPeriod()" class="btn btn-default btn-justify">Reset to last hour</div>
+                  <div (click)="fitPeriod()" class="btn btn-default btn-justify">Adjust date range to data</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div (click)="resetPeriod()" class="btn btn-default btn-justify">To last hour</div>
                 </td>
               </tr>
             </table>
@@ -73,7 +78,7 @@
             <br />
             <h4 *ngIf="addedSensors.length > 0">Added sensors</h4>
             <div class="list-group" style="margin-bottom: 0px;">
-              <div *ngFor="let sensor of addedSensors" class="list-group-item" [ngClass]="{'active': selectedSensor && sensor === selectedSensor }" (click)="selectSensor(sensor)" style="cursor: pointer;">
+              <div *ngFor="let sensor of addedSensors" class="list-group-item clickable" [ngClass]="{'active': selectedSensor && sensor === selectedSensor }" (click)="selectSensor(sensor)">
                 <span>{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</span>
                 <span class="glyphicon glyphicon-minus pull-right remove-button" (click)="removeSeries('graph', sensor.sid)"> </span>
               </div>
@@ -180,3 +185,60 @@
 
   </div>
 </div>
+
+<!-- Download Data Modal -->
+<div id="downloadDataModal" class="modal modal-custom fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Export - Data</h3>
+      </div>
+      <div class="modal-body">
+        <h4>What is this?</h4>
+        <p>
+          The data points shown in the graph can be exported in 'CSV' format. With this file analists can analyze the data with external tools.
+        </p>
+        <h4>Data structure</h4>
+        <p>
+          Each data point will be represented as a row.<br/>
+          Columns consist of:          
+        </p>
+        <ul>
+          <li>SID (sensor identifier)</li>
+          <li>Timestamp (milliseconds)</li>
+          <li>Value</li>
+        </ul>
+
+        <p>To export and download the data points click the 'download' button below.</p>
+      </div>
+      <div class="modal-footer">
+        <div class="btn btn-default" (click)="downloadCurrentData()" data-dismiss="modal" data-toggle="modal" data-target="#downloadingSpinnerDataModal"><span class="glyphicon glyphicon-download-alt"></span> Download</div>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Downloading spinner Modal -->
+<div id="downloadingSpinnerDataModal" class="modal modal-custom fade" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="loading-text">
+          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          <span class="sr-only">Exporting data ...</span>
+          <div>Exporting data ...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Typescript work-around button-->
+<!--data-toggle="modal" data-target="#downloadingSpinnerDataModal"-->
+<div id="closeDownloadingSpinnerModalButton" onclick="$('#downloadingSpinnerDataModal').modal('hide')"></div>
