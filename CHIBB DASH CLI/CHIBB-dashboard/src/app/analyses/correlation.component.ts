@@ -88,7 +88,7 @@ export class CorrelationComponent implements OnInit {
 
         this._graph.groups.push({
             id: sensorSerieId,
-            content: sensorSerieId,
+            content: `${sensor.type} - ${sensor.location}`,
             options: {
                 drawPoints: {
                     style: this.drawPointsStyle,
