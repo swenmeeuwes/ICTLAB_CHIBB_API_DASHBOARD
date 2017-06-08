@@ -49,10 +49,10 @@ export class AuthenticationService {
                     resolve();
                 },
                 error => {
-                    if (error.ok)
-                        reject({ errorMessage: error.json()["result"]["errorMessage"] });
+                    if (error.json()["message"])
+                        reject({ errorMessage: error.json()["message"] });
                     else
-                        reject({ errorMessage: "Oops, something went wrong!" });
+                        reject({ errorMessage: "Oops, something went wrong!" });                    
                 },
                 () => { clearTimeout(timeout); }
             );
@@ -74,7 +74,12 @@ export class AuthenticationService {
                 data => {
                     resolve();
                 },
-                error => { reject({ errorMessage: error.json()["result"]["message"] }) },
+                error => {
+                    if (error.json()["message"])
+                        reject({ errorMessage: error.json()["message"] });
+                    else
+                        reject({ errorMessage: "Oops, something went wrong!" });  
+                },
                 () => { clearTimeout(timeout); }
             );
 
