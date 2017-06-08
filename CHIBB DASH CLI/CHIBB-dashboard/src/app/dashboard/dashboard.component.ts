@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
             var houseNodes = houses.map((house: House) => {
                 return {
                     id: id++,
-                    label: house.address,
+                    label: `${house.hid}\n${house.address}`,
                     hid: house.hid,
                     group: 'house'
                 }
