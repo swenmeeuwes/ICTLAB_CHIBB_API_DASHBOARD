@@ -1,0 +1,50 @@
+﻿{
+  "types": [
+    {
+      "type": "Temperature",
+      "attributes": [
+        "timestamp",
+        "unit",
+        "value"
+      ]
+    },
+    {
+      "type": "Humidity",
+      "attributes": [
+        "timestamp",
+        "unit",
+        "value"
+      ]
+    },
+    {
+      "type": "Rain",
+      "attributes": [
+        "timestamp",
+        "unit",
+        "value"
+      ]
+    },
+    {
+      "type": "Energy",
+      "attributes": [
+        "timestamp",
+        "unit",
+        "value"
+      ]
+    },
+    {
+      "type": "Occupation",
+      "attributes": [
+        "timestamp",
+        "value"
+      ]
+    },
+    {
+      "type": "Door",
+      "attributes": [
+        "timestamp",
+        "value"
+      ]
+    }
+  ]
+}

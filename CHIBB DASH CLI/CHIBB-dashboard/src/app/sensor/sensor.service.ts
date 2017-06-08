@@ -20,6 +20,20 @@ export class SensorService {
         this._apiUrl = _config.get('apiUrl');
     };
 
+    getSensorTypes(): Promise<any> {
+        var promise = new Promise((resolve, reject) => {
+            this._http.get(`/assets/config/sensor-types.json`)
+                .map(res => res.json())
+                .subscribe((data) => {
+                    resolve(data);
+                });
+
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
+        });
+        return promise;
+    }
+
     getSensors(): Promise<any> {
         var promise = new Promise((resolve, reject) => {
             if (!this._authenticationService.isAuthenticated())

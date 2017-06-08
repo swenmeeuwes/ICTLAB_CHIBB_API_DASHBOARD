@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Sensor } from './Sensor';
 import { SensorService } from './sensor.service';
 import { HouseService } from '../house/house.service';
-
 @Component({
     selector: 'sensor-creation',
     templateUrl: './sensor-creation.component.html'
@@ -16,15 +15,20 @@ export class SensorCreationComponent implements OnInit {
     public hasAttempted: boolean;
 
     public hids: string[];
+    public sensorTypes: string[];
 
     constructor(private _sensorService: SensorService, private _houseService: HouseService, private _router: Router, private _formBuilder: FormBuilder) { }
 
     ngOnInit() {
         // TO-DO: Warn if the user doesn't have a house
         // Fill house dropdown
-        this._houseService.getHouses().then((response) => {
+        this._houseService.getHouses().then(response => {
             this.hids = response.result.map((house) => house.hid);            
-        });        
+        });
+
+        this._sensorService.getSensorTypes().then(response => {
+            this.sensorTypes = response.types.map((sensorType) => sensorType.type); 
+        });
 
         // Bind form
         this.sensorCreationFrom = this._formBuilder.group({
