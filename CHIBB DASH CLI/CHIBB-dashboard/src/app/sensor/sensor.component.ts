@@ -40,11 +40,11 @@ export class SensorComponent implements OnInit {
                 new Promise((resolve, reject) => {
                     clearInterval(this._pollTimer);
                     resolve();
-                });                
+                });
             }
-        });
+        });        
 
-        this.retrieveSensorDataBySensorId(sensorId).then(response => {
+        this.retrieveSensorDataBySensorIdPeriod(sensorId, moment().subtract(1, "minute"), moment()).then(response => {
             this.initValueGraph('sensor-value-graph', response['result'].map((r) => {
                 return {
                     x: new Date(r.timestamp),
@@ -105,6 +105,16 @@ export class SensorComponent implements OnInit {
     retrieveSensorDataBySensorId(sid: string) {
         return new Promise((resolve, reject) => {
             this._sensorService.getSensorDataById(sid).then((data) => {
+                resolve(data);
+            }).catch((error) => {
+                reject(error);
+            })
+        });
+    }
+
+    retrieveSensorDataBySensorIdPeriod(sid: string, startTime: number, endTime: number) {
+        return new Promise((resolve, reject) => {
+            this._sensorService.getSensorDataWithinTimeframe(sid, startTime, endTime).then((data) => {
                 resolve(data);
             }).catch((error) => {
                 reject(error);
