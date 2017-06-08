@@ -47,6 +47,10 @@ export class CorrelationComponent implements OnInit {
             start: new vis.moment(this.startDate),
             end: new vis.moment(this.endDate),
             showCurrentTime: false,
+            sampling: true,
+            drawPoints: {
+                enabled: false
+            },
             legend: {
                 enabled: true
             },
@@ -60,12 +64,19 @@ export class CorrelationComponent implements OnInit {
         graph2d.dataset = dataset;
         graph2d.itemDictionary = {};
 
+        graph2d.on('rangechanged', this._onRangeChanged.bind(this));
+
         this._graph = graph2d;
+    }
+
+    private _onRangeChanged(event) {
+        this.startDate = moment(event.start).format('YYYY-MM-DDTHH:mm:ss');
+        this.endDate = moment(event.end).format('YYYY-MM-DDTHH:mm:ss');
     }
 
     private _retrieveSeries(sensorSid: string, startTime: number, endTime: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._sensorService.getSensorDataWithinTimeframe(sensorSid, startTime, endTime).then(response => {
+            this._sensorService.getSensorDataWithinTimeframe(sensorSid, startTime, endTime).then(response => {                
                 var items = response['result'].map(record => {
                     return {
                         x: new Date(record.timestamp),
@@ -123,6 +134,7 @@ export class CorrelationComponent implements OnInit {
             content: sensorSerieId,
             options: {
                 drawPoints: {
+                    enabled: false,
                     style: this.drawPointsStyle
                 },
                 interpolation: {
@@ -159,7 +171,7 @@ export class CorrelationComponent implements OnInit {
         this._graph.setGroups(new vis.DataSet(this._graph.groups));
     }
 
-    public updatePeriod() {
+    public updatePeriod() {        
         this._graph.setWindow(this.startDate, this.endDate);
     }
 }
