@@ -26,6 +26,11 @@
                 <td>End date</td>
                 <td><input id="endDateInput" [(ngModel)]="endDate" (change)="updatePeriod()" type="datetime-local" class="form-control" /></td>
               </tr>
+              <tr>
+                <td colspan="2">
+                  <div (click)="resetPeriod()" class="btn btn-default btn-justify">Reset to last hour</div>
+                </td>
+              </tr>
             </table>
           </div>
         </div>

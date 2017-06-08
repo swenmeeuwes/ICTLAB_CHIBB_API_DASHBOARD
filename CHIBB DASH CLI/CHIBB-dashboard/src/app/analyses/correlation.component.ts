@@ -193,6 +193,13 @@ export class CorrelationComponent implements OnInit {
         this._graph.setGroups(new vis.DataSet(this._graph.graphGroups));
     }
 
+    public resetPeriod() {
+        this.startDate = moment().subtract(1, 'hour').format('YYYY-MM-DDTHH:mm:ss');
+        this.endDate = moment().format('YYYY-MM-DDTHH:mm:ss');
+
+        this.updatePeriod();
+    }
+
     public updatePeriod() {
         this._graph.setWindow(this.startDate, this.endDate);
     }
