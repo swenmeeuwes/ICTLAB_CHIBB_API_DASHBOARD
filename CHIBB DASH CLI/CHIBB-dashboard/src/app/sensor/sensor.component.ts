@@ -77,7 +77,7 @@ export class SensorComponent implements OnInit {
                 this.addRecordToValueGraph(sensorValueData[0]);
         }).catch((error) => {
             if (!this._valueGraphInitialized)
-              this.errorMessage = error;
+                this.errorMessage = error;
             clearInterval(this._pollTimer);
         });
     }
@@ -151,7 +151,8 @@ export class SensorComponent implements OnInit {
             new Date(Date.now() - 1 * 60 * 1000), // show latest minute worth of data
             new Date()
         );
-        this._valueGraphDataset.add(record);
+        if(record)
+          this._valueGraphDataset.add(record);
     }
 
     timestampToTime(unixTimestamp: number) {
