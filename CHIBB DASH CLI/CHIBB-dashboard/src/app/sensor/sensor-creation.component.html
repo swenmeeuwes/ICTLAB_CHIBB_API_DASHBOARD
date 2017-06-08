@@ -25,6 +25,9 @@
         <label class="control-label col-sm-2">Sensor identifier:</label>
         <div class="col-sm-6">
           <input class="form-control" formControlName="sensorIdentifier" type="text" placeholder="Sensor identifier">
+          <p id="sensorIdentifierHelpBlock" class="form-text text-muted">
+            You can find this identifier on the bottom of your sensor.
+          </p>
         </div>
       </div>      
       <div class="form-group" [ngClass]="{'has-error has-feedback': sensorCreationFrom.controls['type'].invalid && hasAttempted }">

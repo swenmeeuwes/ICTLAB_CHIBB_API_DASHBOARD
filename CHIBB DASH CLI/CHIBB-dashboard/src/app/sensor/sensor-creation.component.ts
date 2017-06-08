@@ -13,6 +13,7 @@ export class SensorCreationComponent implements OnInit {
 
     public errorMessage: string;
     public hasAttempted: boolean;
+    public isAttempting: boolean;
 
     public hids: string[];
     public sensorTypes: string[];
@@ -51,8 +52,14 @@ export class SensorCreationComponent implements OnInit {
 
         var formValues = this.sensorCreationFrom.value;
 
-        this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, location: formValues.location, type: formValues.type, attributes: formValues.attributes.split(';') })
-            .then(() => this._router.navigate(['sensor']))
-            .catch((error) => this.errorMessage = error.errorMessage);
+        if (!this.isAttempting) {
+            this.isAttempting = true;
+            this._sensorService.createSensor(<Sensor>{ sid: formValues.sensorIdentifier, hid: formValues.houseIdentifier, location: formValues.location, type: formValues.type, attributes: formValues.attributes.split(';') })
+                .then(() => this._router.navigate(['sensor']))
+                .catch((error) => {
+                    this.errorMessage = error.errorMessage;
+                    this.isAttempting = false;
+                });
+        }
     }
 }

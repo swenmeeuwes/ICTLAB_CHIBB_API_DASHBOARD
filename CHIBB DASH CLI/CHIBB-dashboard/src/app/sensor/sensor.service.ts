@@ -166,9 +166,11 @@ export class SensorService {
 
             resultObservable.subscribe(
                 data => {
+                    if (data.result.error)
+                        reject({ errorMessage: data.result.error });
                     resolve(data["responseCode"]);
                 },
-                error => { reject(error.json()["responseCode"]) },
+                error => { reject({ errorMessage: error.json()["responseCode"] })},
                 () => { clearTimeout(timeout); }
             );
 
