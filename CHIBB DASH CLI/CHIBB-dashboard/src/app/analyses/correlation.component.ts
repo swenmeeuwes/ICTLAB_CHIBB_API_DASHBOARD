@@ -18,6 +18,8 @@ export class CorrelationComponent implements OnInit {
     public endDate;
 
     public drawPointsStyle: string = 'circle';
+    public drawStyle: string = 'points';
+    public interpolation: string = 'none';
 
     private _graph: any; // vis.Graph2D    
 
@@ -39,7 +41,7 @@ export class CorrelationComponent implements OnInit {
     }
 
     private _initGraph(graphId: string) {
-        var container = document.getElementById(graphId);        
+        var container = document.getElementById(graphId);
         var dataset = new vis.DataSet();
         var options = {
             start: new vis.moment(this.startDate),
@@ -47,7 +49,8 @@ export class CorrelationComponent implements OnInit {
             showCurrentTime: false,
             legend: {
                 enabled: true
-            }
+            },
+            style: this.drawStyle
         };
 
         var graph2d = new vis.Graph2d(container, dataset, options);
@@ -58,7 +61,7 @@ export class CorrelationComponent implements OnInit {
         graph2d.itemDictionary = {};
 
         this._graph = graph2d;
-    }    
+    }
 
     private _retrieveSeries(sensorSid: string): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -83,7 +86,7 @@ export class CorrelationComponent implements OnInit {
             return;
 
         // Remove the series from the dropdown and remember it so that it can be removed later
-        var sensor = this.sensors.find(sensor => sensor.sid === sensorSerieId);        
+        var sensor = this.sensors.find(sensor => sensor.sid === sensorSerieId);
         this.addedSensors.push(this.sensors.splice(this.sensors.indexOf(sensor), 1)[0]);
 
         this._graph.groups.push({
@@ -121,6 +124,10 @@ export class CorrelationComponent implements OnInit {
             options: {
                 drawPoints: {
                     style: this.drawPointsStyle
+                },
+                interpolation: {
+                    enabled: this.interpolation !== 'none' ? true : false,
+                    parametrization: this.interpolation
                 }
             }
         }), 1);
@@ -137,15 +144,22 @@ export class CorrelationComponent implements OnInit {
         if (this.drawPointsStyle === 'none')
             drawPointSize = 0;
 
-            this._graph.groups.forEach(group => {
-                group.options.drawPoints.style = this.drawPointsStyle;
-                group.options.drawPoints.size = drawPointSize;
-            });
+        this._graph.groups.forEach(group => {
+            group.options.drawPoints.style = this.drawPointsStyle;
+            group.options.drawPoints.size = drawPointSize;
+            group.options.interpolation = {
+                enabled: this.interpolation !== 'none' ? true : false,
+                parametrization: this.interpolation
+            };
+        });
+
+        this._graph.graphOptions.style = this.drawStyle;
+        this._graph.setOptions(this._graph.graphOptions);
 
         this._graph.setGroups(new vis.DataSet(this._graph.groups));
     }
 
-    public updatePeriod() {        
+    public updatePeriod() {
         this._graph.setWindow(this.startDate, this.endDate);
     }
 }

@@ -83,7 +83,31 @@
                     <option value="none" [selected]="drawPointsStyle === 'none'">None</option>
                   </select>
                 </td>
-                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  Interpolation
+                </td>
+                <td>
+                  <select (change)="updateStyle()" [(ngModel)]="interpolation" class="form-control">
+                    <option value="uniform" [selected]="interpolation === 'uniform'">Uniform</option>
+                    <option value="chordal" [selected]="interpolation === 'chordal'">Chordal</option>
+                    <option value="centripetal" [selected]="interpolation === 'centripetal'">Centripetal</option>
+                    <option value="none" [selected]="interpolation === 'none'">None</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Draw style
+                </td>
+                <td>
+                  <select (change)="updateStyle()" [(ngModel)]="drawStyle" class="form-control">
+                    <option value="points" [selected]="drawStyle === 'points'">Points</option>
+                    <option value="line" [selected]="drawStyle === 'line'">Line</option>
+                    <option value="bar" [selected]="drawStyle === 'bar'">Bar</option>
+                  </select>
+                </td>
               </tr>
             </table>
           </div>
@@ -107,7 +131,7 @@
       <div class="modal-body">
         <h4>General</h4>
         <p>
-          The data view shows the latest values produced by the sensor.
+          The data view shows the values produced by the sensor within a certain timeframe.
         </p>
         <hr />
         <h4>Controls</h4>
