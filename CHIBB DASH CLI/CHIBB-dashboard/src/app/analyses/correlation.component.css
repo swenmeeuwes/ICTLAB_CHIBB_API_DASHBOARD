@@ -5,4 +5,10 @@
 .controls {
   border-collapse: separate;
   border-spacing: 12px 4px;
+  width: 100%;
+}
+
+.remove-button {
+  cursor: pointer;
+  display: block;
 }

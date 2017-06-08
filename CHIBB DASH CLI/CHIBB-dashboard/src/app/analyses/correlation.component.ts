@@ -14,6 +14,8 @@ export class CorrelationComponent implements OnInit {
     public sensors: Sensor[]; // All the sensors that can still be added to the graph
     public addedSensors: Sensor[]; // The sensors that are already added to the graph
 
+    public selectedSensor: Sensor;
+
     public startDate;
     public endDate;
 
@@ -49,7 +51,8 @@ export class CorrelationComponent implements OnInit {
             showCurrentTime: false,
             sampling: true,
             drawPoints: {
-                enabled: false
+                enabled: false,
+                size: 3
             },
             legend: {
                 enabled: true
@@ -59,7 +62,7 @@ export class CorrelationComponent implements OnInit {
 
         var graph2d = new vis.Graph2d(container, dataset, options);
         graph2d.graphId = graphId;
-        graph2d.groups = [];
+        graph2d.graphGroups = [];
         graph2d.graphOptions = options;
         graph2d.dataset = dataset;
         graph2d.itemDictionary = {};
@@ -76,7 +79,7 @@ export class CorrelationComponent implements OnInit {
 
     private _retrieveSeries(sensorSid: string, startTime: number, endTime: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this._sensorService.getSensorDataWithinTimeframe(sensorSid, startTime, endTime).then(response => {                
+            this._sensorService.getSensorDataWithinTimeframe(sensorSid, startTime, endTime).then(response => {
                 var items = response['result'].map(record => {
                     return {
                         x: new Date(record.timestamp),
@@ -100,18 +103,23 @@ export class CorrelationComponent implements OnInit {
         var sensor = this.sensors.find(sensor => sensor.sid === sensorSerieId);
         this.addedSensors.push(this.sensors.splice(this.sensors.indexOf(sensor), 1)[0]);
 
-        this._graph.groups.push({
+        this._graph.graphGroups.push({
             id: sensorSerieId,
             content: `${sensor.type} - ${sensor.location}`,
             options: {
+                style: this.drawStyle,
                 drawPoints: {
                     style: this.drawPointsStyle,
-                    size: this.drawPointsStyle === 'none' ? 0 : 6
+                    size: this.drawPointsStyle === 'none' ? 0 : 3
+                },
+                interpolation: {
+                    enabled: this.interpolation !== 'none' ? true : false,
+                    parametrization: this.interpolation
                 }
             }
         });
 
-        this._graph.setGroups(new vis.DataSet(this._graph.groups));
+        this._graph.setGroups(new vis.DataSet(this._graph.graphGroups));
 
         this._retrieveSeries(sensorSerieId, moment(this.startDate).valueOf(), moment(this.endDate).valueOf()).then(items => {
             this._graph.itemDictionary[sensorSerieId] = items;
@@ -119,59 +127,70 @@ export class CorrelationComponent implements OnInit {
         });
     }
 
-    public removeSeries(graphId: string) {
-        var sensorSerieId = $(`#removeSeries_${graphId}`).val();
+    public removeSeries(graphId: string, sensorSerieId: string) {        
+        //var sensorSerieId = $(`#removeSeries_${graphId}`).val();
 
         if (!sensorSerieId)
             return;
 
         // Add the removed series to the dropdown and remember it so that it can be added later
-        var sensor = this.addedSensors.find(sensor => sensor.sid === sensorSerieId);
-        this.sensors.push(this.addedSensors.splice(this.addedSensors.indexOf(sensor), 1)[0]);
-
-        this._graph.groups.splice(this._graph.groups.indexOf({
-            id: sensorSerieId,
-            content: sensorSerieId,
-            options: {
-                drawPoints: {
-                    enabled: false,
-                    style: this.drawPointsStyle
-                },
-                interpolation: {
-                    enabled: this.interpolation !== 'none' ? true : false,
-                    parametrization: this.interpolation
-                }
-            }
-        }), 1);
+        this.sensors.push(
+            this.addedSensors.splice(
+                this.addedSensors.findIndex(
+                    sensor => sensor.sid === sensorSerieId
+                ), 1)[0]);
+        
+        this._graph.graphGroups.splice(
+            this._graph.graphGroups.findIndex(
+                group => group.id === sensorSerieId
+            ), 1);
 
         this._graph.dataset.remove(this._graph.itemDictionary[sensorSerieId]);
 
-        this._graph.setGroups(new vis.DataSet(this._graph.groups));
+        this._graph.setGroups(new vis.DataSet(this._graph.graphGroups));
 
         delete this._graph.itemDictionary[sensorSerieId];
     }
 
+    public selectSensor(sensor: Sensor) {
+        this.selectedSensor = sensor;
+        var group = this._graph.graphGroups.find(group => group.id === sensor.sid);
+        this.drawStyle = group.options.style;
+        this.drawPointsStyle = group.options.drawPoints.style;
+        this.interpolation = group.options.interpolation.parametrization;
+    }
+
     public updateStyle() {
-        var drawPointSize = 6; // Default
+        var drawPointSize = 3; // Default
         if (this.drawPointsStyle === 'none')
             drawPointSize = 0;
 
-        this._graph.groups.forEach(group => {
-            group.options.drawPoints.style = this.drawPointsStyle;
-            group.options.drawPoints.size = drawPointSize;
-            group.options.interpolation = {
-                enabled: this.interpolation !== 'none' ? true : false,
-                parametrization: this.interpolation
-            };
-        });
+        var group = this._graph.graphGroups.find(group => group.id === this.selectedSensor.sid);
+        group.options.style = this.drawStyle;
+        group.options.drawPoints.style = this.drawPointsStyle;
+        group.options.drawPoints.size = drawPointSize;
+        group.options.interpolation = {
+            enabled: this.interpolation !== 'none' ? true : false,
+            parametrization: this.interpolation
+        };
 
-        this._graph.graphOptions.style = this.drawStyle;
+        //this._graph.graphGroups.forEach(group => {
+        //    group.options.drawPoints.style = this.drawPointsStyle;
+        //    group.options.drawPoints.size = drawPointSize;
+        //    group.options.interpolation = {
+        //        enabled: this.interpolation !== 'none' ? true : false,
+        //        parametrization: this.interpolation
+        //    };
+        //});
+
+        //this._graph.graphOptions.style = this.drawStyle;
         this._graph.setOptions(this._graph.graphOptions);
+        this._graph.setWindow(this.startDate, this.endDate);
 
-        this._graph.setGroups(new vis.DataSet(this._graph.groups));
+        this._graph.setGroups(new vis.DataSet(this._graph.graphGroups));
     }
 
-    public updatePeriod() {        
+    public updatePeriod() {
         this._graph.setWindow(this.startDate, this.endDate);
     }
 }

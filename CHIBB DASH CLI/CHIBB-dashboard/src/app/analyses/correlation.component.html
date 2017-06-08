@@ -36,7 +36,10 @@
             <h3 class="panel-title">Content</h3>
           </div>
           <div class="panel-body">
-            <table class="controls">
+            <div *ngIf="sensors && sensors.length === 0">
+              To remove a sensor from the graph, click the minus next to the sensor in the list
+            </div>
+            <table *ngIf="sensors && sensors.length > 0" class="controls">
               <tr>
                 <td>
                   Add data from
@@ -47,10 +50,10 @@
                   </div>
                 </td>
                 <td>
-                  <div class="btn btn-default btn-justify" (click)="addSeries('graph')">Add</div>
+                  <div class="btn btn-default pull-right" (click)="addSeries('graph')">Add</div>
                 </td>
               </tr>
-              <tr>
+              <!--<tr>
                 <td>
                   Remove data from
                 </td>
@@ -60,8 +63,15 @@
                 <td>
                   <div class="btn btn-default btn-justify" (click)="removeSeries('graph')">Remove</div>
                 </td>
-              </tr>
+              </tr>-->
             </table>
+            <br />
+            <div class="list-group" style="margin-bottom: 0px;">
+              <div *ngFor="let sensor of addedSensors" class="list-group-item" [ngClass]="{'active': sensor == selectedSensor }" style="cursor: pointer;" (click)="selectSensor(sensor)">
+                <span>{{ sensor.sid }} - {{ sensor.location }} - {{ sensor.type }}</span>
+                <span class="glyphicon glyphicon-minus pull-right remove-button" (click)="removeSeries('graph', sensor.sid)"> </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -71,48 +81,61 @@
             <h3 class="panel-title">Styling</h3>
           </div>
           <div class="panel-body">
+            <!--<h4>General</h4>
             <table class="controls">
-              <tr>
-                <td>
-                  Point style
-                </td>
-                <td>
-                  <select (change)="updateStyle()" [(ngModel)]="drawPointsStyle" class="form-control">
-                    <option value="circle" [selected]="drawPointsStyle === 'circle'">Circle</option>
-                    <option value="square" [selected]="drawPointsStyle === 'square'">Square</option>
-                    <option value="none" [selected]="drawPointsStyle === 'none'">None</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Interpolation
-                </td>
-                <td>
-                  <select (change)="updateStyle()" [(ngModel)]="interpolation" class="form-control">
-                    <option value="uniform" [selected]="interpolation === 'uniform'">Uniform</option>
-                    <option value="chordal" [selected]="interpolation === 'chordal'">Chordal</option>
-                    <option value="centripetal" [selected]="interpolation === 'centripetal'">Centripetal</option>
-                    <option value="none" [selected]="interpolation === 'none'">None</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Draw style
-                </td>
-                <td>
-                  <select (change)="updateStyle()" [(ngModel)]="drawStyle" class="form-control">
-                    <option value="points" [selected]="drawStyle === 'points'">Points</option>
-                    <option value="line" [selected]="drawStyle === 'line'">Line</option>
-                    <option value="bar" [selected]="drawStyle === 'bar'">Bar</option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-            <br/>
-            <div *ngIf="drawStyle === 'points' && drawPointsStyle === 'none'" class="alert alert-info" style="margin-bottom: 0px;" role="alert">
-              <strong>Heads up!</strong> Setting draw style to points and the style of the points will result in an empty graph!
+
+            </table>-->
+            <div *ngIf="!selectedSensor">
+              After adding a sensor, select it from the list to edit the style.
+            </div>
+
+            <div *ngIf="selectedSensor">
+              <h4>Specific</h4>
+              <i>Setting style for: "{{ selectedSensor.sid }} - {{ selectedSensor.location }} - {{ selectedSensor.type }}"</i>
+              <br />
+              <table class="controls">
+                <tr>
+                  <td>
+                    Draw style
+                  </td>
+                  <td>
+                    <select (change)="updateStyle()" [(ngModel)]="drawStyle" class="form-control">
+                      <option value="points" [selected]="drawStyle === 'points'">Points</option>
+                      <option value="line" [selected]="drawStyle === 'line'">Line</option>
+                      <option value="bar" [selected]="drawStyle === 'bar'">Bar</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Point style
+                  </td>
+                  <td>
+                    <select (change)="updateStyle()" [(ngModel)]="drawPointsStyle" class="form-control">
+                      <option value="circle" [selected]="drawPointsStyle === 'circle'">Circle</option>
+                      <option value="square" [selected]="drawPointsStyle === 'square'">Square</option>
+                      <option value="none" [selected]="drawPointsStyle === 'none'">None</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Interpolation
+                  </td>
+                  <td>
+                    <select (change)="updateStyle()" [(ngModel)]="interpolation" class="form-control">
+                      <option value="uniform" [selected]="interpolation === 'uniform'">Uniform</option>
+                      <option value="chordal" [selected]="interpolation === 'chordal'">Chordal</option>
+                      <option value="centripetal" [selected]="interpolation === 'centripetal'">Centripetal</option>
+                      <option value="none" [selected]="interpolation === 'none'">None</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+              <br />
+              <div *ngIf="drawStyle === 'points' && drawPointsStyle === 'none'" class="alert alert-info" style="margin-bottom: 0px;" role="alert">
+                <strong>Heads up!</strong> Setting draw style to points and the style of the points will result in an empty graph!
+              </div>
             </div>
           </div>
         </div>
