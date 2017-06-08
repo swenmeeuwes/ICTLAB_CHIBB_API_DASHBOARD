@@ -152,7 +152,8 @@ export class SensorComponent implements OnInit {
             style: 'points',
             drawPoints: {
                 style: 'circle'
-            }
+            },
+            moveable: false
         };
         this._valueGraph = new vis.Graph2d(container, this._valueGraphDataset, options);
 
