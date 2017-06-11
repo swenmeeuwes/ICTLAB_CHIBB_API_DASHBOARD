@@ -68,7 +68,7 @@ export function loadConfig(configService: ConfigService): Function {
         HttpModule,
         ReactiveFormsModule,
         FormsModule,
-        RouterModule.forRoot([
+        RouterModule.forRoot([            
             {
                 path: '',
                 redirectTo: '/overview',
@@ -130,6 +130,11 @@ export function loadConfig(configService: ConfigService): Function {
                 path: 'correlate',
                 canActivate: [AuthenticationGuard],
                 component: CorrelationComponent
+            },
+            {
+                path: '**',
+                redirectTo: '/overview',
+                pathMatch: 'full'
             }
         ])
     ],
