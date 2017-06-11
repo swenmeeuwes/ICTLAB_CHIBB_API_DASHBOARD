@@ -9,6 +9,14 @@
       ]
     },
     {
+      "type": "Soil Humidity",
+      "attributes": [
+        "timestamp",
+        "unit",
+        "value"
+      ]
+    },
+    {
       "type": "Humidity",
       "attributes": [
         "timestamp",
@@ -26,6 +34,22 @@
     },
     {
       "type": "Energy",
+      "attributes": [
+        "timestamp",
+        "unit",
+        "value"
+      ]
+    },
+    {
+      "type": "Light",
+      "attributes": [
+        "timestamp",
+        "unit",
+        "value"
+      ]
+    },
+    {
+      "type": "Acidity",
       "attributes": [
         "timestamp",
         "unit",
