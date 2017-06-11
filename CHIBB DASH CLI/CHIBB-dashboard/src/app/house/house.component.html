@@ -1,35 +1,12 @@
-﻿
-
-<!-- Hidden modal button (work-around for $(#houseModal).modal()) -->
-<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#houseModal">Open Modal</button>
-
-<!-- House modal -->
-<div *ngIf="selectedHouse" id="houseModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-sm">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">House information</h4>
-      </div>
-      <div class="modal-body">
-        <table>
-          <tr>
-            <td>UID:</td>
-            <td>{{ selectedHouse.uid }}</td>
-          </tr>
-          <tr>
-            <td>Address:</td>
-            <td>{{ selectedHouse.address }}</td>
-          </tr>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    <!-- End of modal content -->
-
-  </div>
+﻿<div *ngIf="house">
+  <!--<table>
+    <tr>
+      <td>UID:</td>
+      <td>{{ house.uid }}</td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td>{{ house.address }}</td>
+    </tr>
+  </table>-->
 </div>

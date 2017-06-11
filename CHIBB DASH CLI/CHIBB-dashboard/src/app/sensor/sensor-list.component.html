@@ -4,7 +4,7 @@
 
   <div class="container-fluid" style="padding: 0px;">
     <h2 style="float: left; margin-top: 0px">Overview</h2>
-    <div class="btn btn-default" style="float: right;" (click)="createSensor()"><span class="glyphicon glyphicon-plus"></span> Create sensor</div>
+    <div class="btn btn-default" style="float: right;" (click)="createSensor()"><span class="glyphicon glyphicon-plus"></span> Register sensor</div>
   </div>
 
   <div class="table-responsive">
@@ -19,11 +19,11 @@
           <th>Battery level (%)</th>
           <th></th> <!--Spacer for 'view' button-->
           <!--<th></th>--> <!--Spacer for 'edit' button-->
-          <!--<th></th>--> <!--Spacer for 'delete' button-->
+          <th></th> <!--Spacer for 'delete' button-->
         </tr>
       </thead>
       <tbody>
-        <tr class="sensor-list-item" *ngFor="let sensor of sensors" [sensor]="sensor"></tr>
+        <tr class="sensor-list-item" *ngFor="let sensor of sensors" [sensor]="sensor" (notify)="onNotify($event)"></tr>
       </tbody>
     </table>
   </div>

@@ -6,5 +6,57 @@
 <td>{{ sensor.batteryLevel }}</td>
 
 <td><div class="btn btn-default" (click)="viewSensor()"><span class="glyphicon glyphicon-eye-open"></span> View</div></td>
-<!--<td><div class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</div></td>
-<td><div class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</div></td>-->
+<!--<td><div class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</div></td>-->
+<td><div class="btn btn-danger" (click)="promptDeleteSensor(sensor)"><span class="glyphicon glyphicon-trash"></span> Delete</div></td>
+
+
+<!--Modal stuff-->
+<!-- Hidden modal button (work-around for $(#deleteSensorModal).modal()) -->
+<button [id]="'openDeleteModalButton' + sensor.sid" [hidden]="true" data-toggle="modal" [attr.data-target]="'#deleteModal' + sensor.sid">Open Modal</button>
+
+<!-- Delete house modal -->
+<div [id]="'deleteModal' + sensor.sid" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Are you sure?</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Are you sure you want to delete the following sensor?
+        </p>
+        <table class="tableList">
+          <tr>
+            <td>Sensor identifier:</td>
+            <td>{{ sensor.sid }}</td>
+          </tr>
+          <tr>
+            <td>Owner (house):</td>
+            <td>{{ sensor.hid }}</td>
+          </tr>
+          <tr>
+            <td>Type:</td>
+            <td>{{ sensor.type }}</td>
+          </tr>
+          <tr>
+            <td>Location:</td>
+            <td>{{ sensor.location }}</td>
+          </tr>
+        </table>
+        <div>
+          <i style="color: #cf0000;">The following action cannot be undone.</i>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteSensor(sensor)" type="button" class="btn btn-danger" data-dismiss="modal">Yes, delete this sensor</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+    <!-- End of modal content -->
+
+  </div>
+</div>
+<!--End of delete house modal-->

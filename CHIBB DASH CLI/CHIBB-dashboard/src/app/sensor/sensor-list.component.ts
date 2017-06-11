@@ -14,6 +14,10 @@ export class SensorListComponent implements OnInit {
     constructor(private _sensorService: SensorService, private _router: Router) { }
 
     ngOnInit() {
+        this._refreshList();
+    }
+
+    private _refreshList() {
         this._sensorService.getSensors().then((response) => {
             // Sensors, sorted on sid
             this.sensors = response['result'].sort((a, b) => {
@@ -37,5 +41,13 @@ export class SensorListComponent implements OnInit {
 
     public createSensor() {
         this._router.navigate(['sensor/create']);
+    }
+
+    public onNotify(event: any) {
+        switch (event) {
+            case 'Refresh':
+                this._refreshList();
+                break;
+        }
     }
 }

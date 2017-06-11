@@ -1,4 +1,5 @@
-﻿import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params, NavigationStart } from '@angular/router';
 import { House } from './House';
 import { HouseService } from './house.service';
 
@@ -7,8 +8,20 @@ import { HouseService } from './house.service';
     templateUrl: './house.component.html',
     styleUrls: ['./house.component.css']
 })
-export class HouseComponent {
-    @Input() selectedHouse: House;
+export class HouseComponent implements OnInit {
+    public house: any;
 
-    constructor(private _houseService: HouseService) { }
+    constructor(private _houseService: HouseService, private _router: Router, private _activatedRouter: ActivatedRoute) { }
+
+    ngOnInit() {
+        this._activatedRouter.queryParams.subscribe((params: Params) => {
+            this._houseService.getHouseById(params['hid'])
+                .then(response => {
+
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        });
+    }
 }

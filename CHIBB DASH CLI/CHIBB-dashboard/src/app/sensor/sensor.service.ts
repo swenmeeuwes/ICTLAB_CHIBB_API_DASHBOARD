@@ -228,4 +228,26 @@ export class SensorService {
             var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
         });
     }
+
+    deleteSensor(sensor: Sensor): Promise<any> {
+        return new Promise((resolve, reject) => {
+            var token = this._authenticationService.getToken();
+
+            var resultObservable = this._http.delete(`${this._apiUrl}/sensor/${sensor.sid}?token=${token}`, { headers: this._headers })
+                .map((response) => response.json());
+
+            resultObservable.subscribe(
+                data => {
+                    if (data.result.error)
+                        reject({ errorMessage: data.result.error });
+                    resolve(data["responseCode"]);
+                },
+                error => { reject({ errorMessage: error.json()["responseCode"] }) },
+                () => { clearTimeout(timeout); }
+            );
+
+            // Timeout after _timeoutDuration milliseconds
+            var timeout = setTimeout(() => reject({ errorMessage: "Timed-out" }), this._timeoutDuration);
+        });
+    }
 }
