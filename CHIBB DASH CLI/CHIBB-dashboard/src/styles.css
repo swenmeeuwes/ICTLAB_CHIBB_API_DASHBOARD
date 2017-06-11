@@ -93,3 +93,7 @@ body {
     border-color: #4c896d;
     background-color: #4c896d;
   }
+
+.btn {
+  border-radius: 0px;
+}
