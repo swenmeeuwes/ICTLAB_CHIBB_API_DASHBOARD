@@ -46,13 +46,13 @@ describe('Dashboard Component', () => {
         nativeWelcomeElement = welcomeElement.nativeElement;
 
         suggestionElement = fixture.debugElement.query(By.css('.suggestion'));
-        nativeSuggestionElement = welcomeElement.nativeElement;
+        nativeSuggestionElement = suggestionElement.nativeElement;
     });
 
     it('Should be polite and greet the user', () => {
         fixture.detectChanges();
         expect(nativeWelcomeElement.textContent).toContain('Some dude', 'Expected name');
-        expect(nativeSuggestionElement.textContent).toContain('continue', 'Expected suggestion');
+        expect(nativeSuggestionElement.textContent).toContain('Continue', 'Expected suggestion');
     });
 
     it('Should welcome "Another dude"', () => {
@@ -65,7 +65,7 @@ describe('Dashboard Component', () => {
         expect(content).toContain('Another dude', 'Expected name');
     });
 
-    it('Should welcome still welcome anonymous', () => {
+    it('Should welcome anonymous', () => {
         authenticationService.isAuthenticated = function (): boolean {
             return false;
         }
