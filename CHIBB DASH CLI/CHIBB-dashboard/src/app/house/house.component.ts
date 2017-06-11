@@ -9,7 +9,7 @@ import { HouseService } from './house.service';
     styleUrls: ['./house.component.css']
 })
 export class HouseComponent implements OnInit {
-    public house: any;
+    public house: House;
 
     constructor(private _houseService: HouseService, private _router: Router, private _activatedRouter: ActivatedRoute) { }
 
@@ -17,10 +17,10 @@ export class HouseComponent implements OnInit {
         this._activatedRouter.queryParams.subscribe((params: Params) => {
             this._houseService.getHouseById(params['hid'])
                 .then(response => {
-
+                    this.house = response['result'][0];
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.error(error);
                 });
         });
     }

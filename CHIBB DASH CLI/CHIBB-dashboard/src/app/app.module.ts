@@ -102,6 +102,11 @@ export function loadConfig(configService: ConfigService): Function {
                 component: HouseListComponent
             },
             {
+                path: 'house/view',
+                canActivate: [AuthenticationGuard],
+                component: HouseComponent
+            },
+            {
                 path: 'house/create',
                 canActivate: [AuthenticationGuard],
                 component: HouseCreationComponent
